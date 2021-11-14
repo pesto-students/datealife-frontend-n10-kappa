@@ -2,9 +2,9 @@ import {
 	FETCH_USER_REQUEST,
 	FETCH_USER_SUCCESS,
 	FETCH_USER_FAILURE,
-} from './actionTypes';
+} from "./actionTypes";
 
-import { UserActions, UserState } from './types';
+import { UserActions, UserState } from "./types";
 
 const initialState: UserState = {
 	users: [],
