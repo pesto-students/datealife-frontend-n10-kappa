@@ -2,14 +2,14 @@ import {
 	FETCH_USER_REQUEST,
 	FETCH_USER_FAILURE,
 	FETCH_USER_SUCCESS,
-} from './actionTypes';
+} from "./actionTypes";
 import {
 	FetchUserRequest,
 	FetchUserSuccess,
 	FetchUserSuccessPayload,
 	FetchUserFailure,
 	FetchUserFailurePayload,
-} from './types';
+} from "./types";
 
 export const fetchUserRequest = (): FetchUserRequest => ({
 	type: FETCH_USER_REQUEST,

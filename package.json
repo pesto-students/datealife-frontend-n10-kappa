@@ -3,15 +3,11 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
-		"@emotion/react": "^11.5.0",
-		"@emotion/styled": "^11.3.0",
+		"@emotion/react": "^11.6.0",
+		"@emotion/styled": "^11.6.0",
 		"@mui/icons-material": "^5.1.0",
 		"@mui/material": "^5.1.0",
-		"@testing-library/jest-dom": "^4.2.4",
-		"@testing-library/react": "^9.3.2",
-		"@testing-library/user-event": "^7.1.2",
 		"@types/axios": "^0.14.0",
-		"@types/jest": "^24.0.0",
 		"@types/node": "^12.0.0",
 		"@types/react": "^16.9.0",
 		"@types/react-dom": "^16.9.0",
@@ -34,28 +30,9 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"prepare": "husky install"
-	},
-	"eslintConfig": {
-		"env": {
-			"jest": true
-		},
-		"extends": [
-			"react-app",
-			"react-app/jest",
-			"plugin:jsx-a11y/recommended",
-			"prettier"
-		],
-		"plugins": [
-			"jsx-a11y"
-		]
-	},
-	"prettier": {
-		"useTabs": true,
-		"tabWidth": 2,
-		"bracketSpacing": true,
-		"singleQuote": true,
-		"printWidth": 80
+		"prepare": "husky install",
+		"lint": "eslint . --ext .ts",
+		"lint-and-fix": "eslint . --ext .ts --fix"
 	},
 	"browserslist": {
 		"production": [
@@ -70,8 +47,13 @@
 		]
 	},
 	"devDependencies": {
+		"@testing-library/jest-dom": "^4.2.4",
+		"@testing-library/react": "^9.3.2",
+		"@testing-library/user-event": "^7.1.2",
+		"@types/jest": "^27.0.2",
 		"@types/redux-logger": "^3.0.9",
 		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-prettier": "^4.0.0",
 		"husky": "^7.0.0",
 		"prettier": "^2.4.1",
 		"redux-logger": "^3.0.6"

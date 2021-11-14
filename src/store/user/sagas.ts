@@ -1,12 +1,12 @@
-import axios, { AxiosResponse } from 'axios';
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import axios, { AxiosResponse } from "axios";
+import { all, call, put, takeLatest } from "redux-saga/effects";
 
-import { fetchUserFailure, fetchUserSuccess } from './actions';
-import { FETCH_USER_REQUEST } from './actionTypes';
-import { IUser } from './types';
+import { fetchUserFailure, fetchUserSuccess } from "./actions";
+import { FETCH_USER_REQUEST } from "./actionTypes";
+import { IUser } from "./types";
 
 const getUsers = () =>
-	axios.get<IUser[]>('https://jsonplaceholder.typicode.com/users');
+	axios.get<IUser[]>("https://jsonplaceholder.typicode.com/users");
 
 /*
   Worker Saga: Fired on FETCH_USER_REQUEST action
@@ -19,7 +19,7 @@ function* fetchUserSaga() {
 				users: response.data,
 			})
 		);
-	} catch (e: any) {
+	} catch (e) {
 		yield put(
 			fetchUserFailure({
 				error: e.message,
