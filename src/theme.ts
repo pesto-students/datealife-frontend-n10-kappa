@@ -2,6 +2,7 @@ import { createTheme } from "@mui/material/styles";
 
 declare module "@mui/material/styles" {
   export interface Theme {
+    type: string;
     status: {
       danger: string;
     };
@@ -27,6 +28,7 @@ declare module "@mui/material/styles" {
   }
   // allow configuration using `createTheme`
   interface ThemeOptions {
+    type?: string;
     status?: {
       danger?: string;
     };
@@ -53,6 +55,7 @@ declare module "@mui/material/styles" {
 }
 
 export default createTheme({
+  type: "light",
   status: {
     danger: "#e53e3e",
   },

@@ -7,12 +7,17 @@ import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "theme";
+import {
+    BrowserRouter as Router,
+  } from "react-router-dom";
 
 ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
             <ThemeProvider theme={theme}>
-			    <App />
+                <Router>
+                    <App />
+                </Router>
             </ThemeProvider>
 		</Provider>
 	</React.StrictMode>,
