@@ -9,17 +9,16 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 export default function Header(props: HeaderProps) {
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="fixed">
+            <AppBar position="fixed" sx={{ backgroundColor: "white", boxShadow: "none" }}>
                 <Toolbar>
                     <IconButton
                         size="large"
                         edge="start"
-                        color="inherit"
                         aria-label="menu"
-                        // sx={{ mr: 2 }}
                         onClick={props.backFunction}
+                        color="error"
                     >
-                        <ArrowBackIcon />
+                        <ArrowBackIcon  />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         {props.text}
