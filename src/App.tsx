@@ -7,7 +7,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import ChatIcon from "@mui/icons-material/Chat";
 import "./App.css";
-import Header from "components/Header";
+import Header from "components/Header/Header";
 import { getUsersSelector, getErrorSelector, getLoadingSelector } from "./store/user/selectors";
 import { fetchUserRequest } from "./store/user/actions";
 import { Card, CardMedia, CardInfo, CardActions } from "components/card";
