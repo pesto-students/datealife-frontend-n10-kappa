@@ -1,9 +1,9 @@
 import "./App.css";
-import Home from "./Pages/Home/Home";
-import {Routes, Route
-  } from "react-router-dom";
+import Home from "./pages/home/Home";
+import { Routes, Route } from "react-router-dom";
+import { ReactElement } from "react";
 
-const App = () => {
+const App = (): ReactElement => {
     return (
         <Routes>
             <Route path="/" element={<Home />} />

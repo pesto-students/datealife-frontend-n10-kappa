@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Fab from "@mui/material/Fab";
@@ -6,12 +6,13 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import ChatIcon from "@mui/icons-material/Chat";
-import Header from "components/Header/Header";
+import Header from "components/header/Header";
 import { getUsersSelector, getErrorSelector, getLoadingSelector } from "../../store/user/selectors";
 import { fetchUserRequest } from "../../store/user/actions";
 import { Card, CardMedia, CardInfo, CardActions } from "components/card";
+import { Button, ButtonGroup } from "components/button";
 
-const Home = () => {
+const Home = (): ReactElement => {
     const dispatch = useDispatch();
     const users = useSelector(getUsersSelector);
     const error = useSelector(getErrorSelector);
@@ -23,7 +24,25 @@ const Home = () => {
 
     return (
         <div style={{ padding: "25px" }}>
-            <Header
+            <Button variant="contained" color="primary">
+                Contained
+            </Button>
+            <Button variant="contained" fullWidth color="secondary" curved>
+                Contained
+            </Button>
+            <ButtonGroup variant="contained">
+                <Button variant="contained" color="success">
+                    Contained
+                </Button>
+                <Button variant="contained" color="error">
+                    Contained
+                </Button>
+                <Button variant="contained" color="info">
+                    Contained
+                </Button>
+            </ButtonGroup>
+            <Button variant="text">Contained</Button>
+            {/* <Header
                 text={"Profile"}
                 backFunction={() => {
                     alert("Moving back");
@@ -41,6 +60,7 @@ const Home = () => {
                     </div>
                 ))
             )}
+                */}
             <Card>
                 <CardMedia
                     src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"

@@ -5,13 +5,6 @@ import { CardMediaProps } from "./CardMedia";
 import { CardActionsProps } from "./CardActions";
 import { CardInfoProps } from "./CardInfo";
 
-interface CommonProps {
-    width: number;
-    height: number;
-    imgWidth: number;
-    imgHeight: number;
-}
-
 const CardContainer = styled(Box)`
      {
         min-width: 200;
