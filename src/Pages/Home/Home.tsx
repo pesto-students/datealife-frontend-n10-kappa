@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from "react";
+import { ChangeEventHandler, ReactElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Fab from "@mui/material/Fab";
@@ -11,6 +11,7 @@ import { getUsersSelector, getErrorSelector, getLoadingSelector } from "../../st
 import { fetchUserRequest } from "../../store/user/actions";
 import { Card, CardMedia, CardInfo, CardActions } from "components/card";
 import { Button, ButtonGroup } from "components/button";
+import { ToggleButtonGroup, ToggleButton } from "components/toogle-button";
 
 const Home = (): ReactElement => {
     const dispatch = useDispatch();
@@ -30,17 +31,28 @@ const Home = (): ReactElement => {
             <Button variant="contained" fullWidth color="secondary" curved>
                 Contained
             </Button>
-            <ButtonGroup variant="contained">
-                <Button variant="contained" color="success">
+            <ButtonGroup variant="outlined">
+                <Button variant="contained" color="success" curved>
                     Contained
                 </Button>
-                <Button variant="contained" color="error">
+                <Button variant="outlined" color="error" curved>
                     Contained
                 </Button>
-                <Button variant="contained" color="info">
+                <Button variant="outlined" color="info" curved>
                     Contained
                 </Button>
             </ButtonGroup>
+            <ToggleButtonGroup color="secondary" defaultValue="web" exclusive addSpacing curved>
+                <ToggleButton value="web" curved>
+                    Web
+                </ToggleButton>
+                <ToggleButton value="android" curved>
+                    Android
+                </ToggleButton>
+                <ToggleButton value="ios" curved>
+                    iOS
+                </ToggleButton>
+            </ToggleButtonGroup>
             <Button variant="text">Contained</Button>
             {/* <Header
                 text={"Profile"}
