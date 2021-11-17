@@ -12,6 +12,7 @@ import { fetchUserRequest } from "../../store/user/actions";
 import { Card, CardMedia, CardInfo, CardActions } from "components/card";
 import { Button, ButtonGroup } from "components/button";
 import { ToggleButtonGroup, ToggleButton } from "components/toogle-button";
+import ChipStack from "components/chip-stack/ChipStack";
 
 const Home = (): ReactElement => {
     const dispatch = useDispatch();
@@ -185,6 +186,20 @@ const Home = (): ReactElement => {
                     </Typography>
                 </CardInfo>
             </Card>
+            <ChipStack
+                chips={[
+                    { label: "Dancing", value: "dancing" },
+                    { label: "Singing", value: "singing" },
+                    { label: "Reading", value: "reading" },
+                    { label: "Playing", value: "playing" },
+                    { label: "Trekking", value: "trekking" },
+                    { label: "Cricket", value: "cricket" },
+                    { label: "Football", value: "football" },
+                ]}
+                onChipClick={(selectedChips) => {
+                    console.log(selectedChips);
+                }}
+            />
         </div>
     );
 };
