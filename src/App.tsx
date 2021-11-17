@@ -1,12 +1,27 @@
 import "./App.css";
 import Home from "./pages/Home";
+import Signup from "./pages/Signup";
 import { Routes, Route } from "react-router-dom";
 
-const App = () => {
+const App = ():JSX.Element => {
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/editProfile" element={<Home />} />
+            <Route path="/" element={<Signup />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Signup />} />
+            <Route path="/signup/number" element={<Home />} />
+            <Route path="/user/name" element={<Home />} />
+            <Route path="/user/orientation" element={<Home />} />
+            <Route path="/user/name" element={<Home />} />
+            <Route path="/user/age" element={<Home />} />
+            <Route path="/user/interests" element={<Home />} />
+            <Route path="/user/picture" element={<Home />} />
+            <Route path="/user/profile/:id/editProfile" element={<Home />} />
+            <Route path="/user/profile/:id" element={<Home />} />
+            <Route path="/matchmaking" element={<Home />} />
+            <Route path="/learning" element={<Home />} />
+            <Route path="/chatting" element={<Home />} />
+            <Route path="/likes" element={<Home />} />
         </Routes>
     );
 };
