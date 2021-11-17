@@ -1,14 +1,16 @@
 import "./App.css";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+
 import { Routes, Route } from "react-router-dom";
 
 const App = ():JSX.Element => {
     return (
         <Routes>
-            <Route path="/" element={<Signup />} />
+            <Route path="/" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/signup/number" element={<Home />} />
             <Route path="/user/name" element={<Home />} />
             <Route path="/user/orientation" element={<Home />} />

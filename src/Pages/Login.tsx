@@ -10,7 +10,7 @@ import {  Div,
         FooterText } from "../assets/styles/Styles";
 import { SignupButton } from "../assets/styles/Button";
 
-const SignUp = () : JSX.Element  => {
+const Login = () : JSX.Element  => {
     return (
         <Div>
             <LogoDiv>
@@ -23,24 +23,24 @@ const SignUp = () : JSX.Element  => {
             </PrivacyText>
 
             <SignupButton variant="contained" startIcon={<GoogleIcon color="warning" /> } color="inherit">
-                Signup with google
+                Login with google
             </SignupButton>
 
             <SignupButton variant="contained" startIcon={<FacebookRoundedIcon color="info" fontSize="large" /> } color="inherit">
-                Signup with facebook
+                Login with facebook
             </SignupButton>
 
             <SignupButton variant="contained" startIcon={<LocalPhoneIcon color="secondary" />} color="inherit">
-                Signup with number
+                Login with number
             </SignupButton>
 
             <FooterText>
-                Have an account? <strong><a href="/login">Login</a></strong>
+                Don’t have account? <strong><a href="/signup">Signup</a></strong>
             </FooterText>
         </Div>
     );
 };
 
-export default SignUp;
+export default Login;
 
 
