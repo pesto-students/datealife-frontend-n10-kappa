@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import { CardInfoContainer, CardInfoContentTop, CardInfoContentBottom } from "./Card.style";
 
 export interface CardInfoProps {
@@ -8,10 +9,14 @@ export interface CardInfoProps {
     imgWidth: number;
 }
 
-const CardInfo = (props: CardInfoProps): any => {
-    const { alignment, imgHeight } = props;
+const CardInfo = (props: CardInfoProps): ReactElement => {
+    const { alignment } = props;
     const isTopAligned = alignment == "top";
-    const CardInfoContent = isTopAligned ? <CardInfoContentTop {...props} /> : <CardInfoContentBottom {...props} imgHeight={0} />;
+
+    const CardInfoContent = () => {
+        if (isTopAligned) return <CardInfoContentTop {...props} />;
+        return <CardInfoContentBottom {...props} imgHeight={0} />;
+    };
 
     return <CardInfoContainer>{CardInfoContent}</CardInfoContainer>;
 };

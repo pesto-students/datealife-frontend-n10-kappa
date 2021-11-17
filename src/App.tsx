@@ -5,7 +5,7 @@ import Login from "./pages/Login";
 
 import { Routes, Route } from "react-router-dom";
 
-const App = ():JSX.Element => {
+const App = (): JSX.Element => {
     return (
         <Routes>
             <Route path="/" element={<Login />} />

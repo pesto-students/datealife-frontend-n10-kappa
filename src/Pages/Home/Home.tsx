@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { ChangeEventHandler, ReactElement, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Fab from "@mui/material/Fab";
@@ -6,12 +6,15 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import ChatIcon from "@mui/icons-material/Chat";
-import Header from "components/Header/Header";
+import Header from "components/header/Header";
 import { getUsersSelector, getErrorSelector, getLoadingSelector } from "../../store/user/selectors";
 import { fetchUserRequest } from "../../store/user/actions";
 import { Card, CardMedia, CardInfo, CardActions } from "components/card";
+import { Button, ButtonGroup } from "components/button";
+import { ToggleButtonGroup, ToggleButton } from "components/toogle-button";
+import ChipStack from "components/chip-stack/ChipStack";
 
-const Home = () => {
+const Home = (): ReactElement => {
     const dispatch = useDispatch();
     const users = useSelector(getUsersSelector);
     const error = useSelector(getErrorSelector);
@@ -23,7 +26,36 @@ const Home = () => {
 
     return (
         <div style={{ padding: "25px" }}>
-            <Header
+            <Button variant="contained" color="primary">
+                Contained
+            </Button>
+            <Button variant="contained" fullWidth color="secondary" curved>
+                Contained
+            </Button>
+            <ButtonGroup variant="outlined">
+                <Button variant="contained" color="success" curved>
+                    Contained
+                </Button>
+                <Button variant="outlined" color="error" curved>
+                    Contained
+                </Button>
+                <Button variant="outlined" color="info" curved>
+                    Contained
+                </Button>
+            </ButtonGroup>
+            <ToggleButtonGroup color="secondary" defaultValue="web" exclusive addSpacing curved>
+                <ToggleButton value="web" curved>
+                    Web
+                </ToggleButton>
+                <ToggleButton value="android" curved>
+                    Android
+                </ToggleButton>
+                <ToggleButton value="ios" curved>
+                    iOS
+                </ToggleButton>
+            </ToggleButtonGroup>
+            <Button variant="text">Contained</Button>
+            {/* <Header
                 text={"Profile"}
                 backFunction={() => {
                     alert("Moving back");
@@ -41,6 +73,7 @@ const Home = () => {
                     </div>
                 ))
             )}
+                */}
             <Card>
                 <CardMedia
                     src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
@@ -153,6 +186,20 @@ const Home = () => {
                     </Typography>
                 </CardInfo>
             </Card>
+            <ChipStack
+                chips={[
+                    { label: "Dancing", value: "dancing" },
+                    { label: "Singing", value: "singing" },
+                    { label: "Reading", value: "reading" },
+                    { label: "Playing", value: "playing" },
+                    { label: "Trekking", value: "trekking" },
+                    { label: "Cricket", value: "cricket" },
+                    { label: "Football", value: "football" },
+                ]}
+                onChipClick={(selectedChips) => {
+                    console.log(selectedChips);
+                }}
+            />
         </div>
     );
 };
