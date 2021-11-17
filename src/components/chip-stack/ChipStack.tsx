@@ -53,6 +53,7 @@ const ChipStack = (props: ChipStackProps): ReactElement => {
             {chips.map(({ label, value }: ChipItem) => (
                 <Chip
                     label={label}
+                    key={value}
                     aria-label={label}
                     isSelected={Object.prototype.hasOwnProperty.call(selectedChips, label)}
                     clickable
