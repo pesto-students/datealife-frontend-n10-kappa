@@ -1,4 +1,4 @@
-import { StyledBody } from "assets/styles/Styles";
+import { StyledBody } from "assets/styles/Common.styles";
 import Header from "components/header/Header";
 import ChipStack from "components/chip-stack/ChipStack";
 

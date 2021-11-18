@@ -7,8 +7,8 @@ import {  Div,
         LogoImg,
         LogoText,
         PrivacyText,
-        FooterText } from "../assets/styles/Styles";
-import { SignupButton } from "../assets/styles/Button";
+        FooterText } from "../assets/styles/Common.styles";
+import { SignupButton } from "../assets/styles/Button.styles";
 
 const Login = () : JSX.Element  => {
     return (

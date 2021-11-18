@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Fab from "@mui/material/Fab";
-import CancelIcon from "@mui/icons-material/Cancel";
+import { StyledFab } from "../assets/styles/Fab.styles";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -24,7 +25,7 @@ const Home = (): JSX.Element => {
     return (
         <div style={{ padding: "25px" }}>
             <Header
-                text={"Profile"}
+                text={"Matches"}
                 backFunction={() => {
                     alert("Moving back");
                 }}
@@ -72,12 +73,12 @@ const Home = (): JSX.Element => {
                     </Typography>
                 </CardInfo>
                 <CardActions width={500}>
-                    <Fab color="primary" aria-label="cancel">
-                        <CancelIcon />
-                    </Fab>
-                    <Fab color="secondary" aria-label="like">
+                    <StyledFab success={false} aria-label="disliked">
+                        <CloseRoundedIcon />
+                    </StyledFab>
+                    <StyledFab success={true} aria-label="like">
                         <FavoriteIcon />
-                    </Fab>
+                    </StyledFab>
                 </CardActions>
             </Card>
             <Card>
