@@ -29,7 +29,7 @@ const Home = (): JSX.Element => {
                     alert("Moving back");
                 }}
             />
-            <h1>Users</h1>
+            <h1>Users1</h1>
             {loading ? (
                 <div>Loading...</div>
             ) : error ? (
