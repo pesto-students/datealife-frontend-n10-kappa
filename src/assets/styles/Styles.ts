@@ -1,5 +1,6 @@
-import styled from "styled-components";
-import Paper from "@mui/material/Paper";
+import React from "react";
+import styled, { ThemeProps } from "styled-components";
+import Theme from "theme";
 
 const Div = styled.div`
     background: linear-gradient(0deg, #f56e65 0%, #f66699 33.85%, #9b8af4 100%);
@@ -58,4 +59,8 @@ const StyledBody = styled.div`
     margin: 65px auto 0;
 `;
 
-export { Div, LogoDiv, LogoImg, LogoText, PrivacyText, FooterText, StyledBody };
+const OdourlessWrapper = styled((props) => React.createElement(props.component, props))`
+    color: ${({ theme }: ThemeProps<typeof Theme>) => theme.palette.common.white};
+`;
+
+export { Div, LogoDiv, LogoImg, LogoText, PrivacyText, FooterText, StyledBody, OdourlessWrapper };

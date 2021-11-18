@@ -1,26 +1,17 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 import Fab from "@mui/material/Fab";
 import CancelIcon from "@mui/icons-material/Cancel";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
-import ChatIcon from "@mui/icons-material/Chat";
-import Header from "../components/header/Header";
-import { getUsersSelector, getErrorSelector, getLoadingSelector } from "../store/user/selectors";
-import { fetchUserRequest } from "../store/user/actions";
+import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
+import Header from "components/header/Header";
 import { Card, CardMedia, CardInfo, CardActions } from "components/card";
+import { OdourlessWrapper } from "assets/styles/Styles";
+
+import { Button, ButtonGroup } from "components/button";
+import { ToggleButtonGroup, ToggleButton } from "components/toogle-button";
 
 const Home = (): JSX.Element => {
-    const dispatch = useDispatch();
-    const users = useSelector(getUsersSelector);
-    const error = useSelector(getErrorSelector);
-    const loading = useSelector(getLoadingSelector);
-
-    useEffect(() => {
-        dispatch(fetchUserRequest());
-    }, [dispatch]);
-
     return (
         <div style={{ padding: "25px" }}>
             <Header
@@ -29,18 +20,6 @@ const Home = (): JSX.Element => {
                     alert("Moving back");
                 }}
             />
-            <h1>Users</h1>
-            {loading ? (
-                <div>Loading...</div>
-            ) : error ? (
-                <div>Error</div>
-            ) : (
-                users.map((user, index) => (
-                    <div style={{ marginBottom: "10px" }} key={user.id}>
-                        {++index}. {user.name}
-                    </div>
-                ))
-            )}
             <Card>
                 <CardMedia
                     src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
@@ -54,35 +33,25 @@ const Home = (): JSX.Element => {
                     height={500}
                 />
                 <CardInfo alignment="bottom" imgHeight={0} imgWidth={500}>
-                    <Typography
-                        variant="subtitle1"
-                        sx={{
-                            color: "pink",
-                        }}
-                    >
+                    <OdourlessWrapper variant="subtitle1" component={Typography}>
                         Full Name
-                    </Typography>
-                    <Typography
-                        variant="subtitle2"
-                        sx={{
-                            color: "pink",
-                        }}
-                    >
+                    </OdourlessWrapper>
+                    <OdourlessWrapper variant="subtitle2" component={Typography}>
                         Profession
-                    </Typography>
+                    </OdourlessWrapper>
                 </CardInfo>
                 <CardActions width={500}>
                     <Fab color="primary" aria-label="cancel">
-                        <CancelIcon />
+                        <OdourlessWrapper component={CancelIcon} fontSize="large" />
                     </Fab>
                     <Fab color="secondary" aria-label="like">
-                        <FavoriteIcon />
+                        <OdourlessWrapper component={FavoriteIcon} fontSize="large" />
                     </Fab>
                 </CardActions>
             </Card>
             <Card>
                 <CardMedia
-                    src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
+                    src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?cs=srgb&dl=pexels-italo-melo-2379004.jpg&fm=jpg"
                     alt="Paella dish"
                     onError={(event: any) => {
                         if (event.target)
@@ -93,32 +62,18 @@ const Home = (): JSX.Element => {
                     height={200}
                 />
                 <CardInfo alignment="top" imgHeight={200} imgWidth={200}>
-                    <Typography
-                        variant="subtitle1"
-                        sx={{
-                            color: "pink",
-                        }}
-                    >
+                    <OdourlessWrapper variant="subtitle1" component={Typography}>
                         Full Name
-                    </Typography>
-                    <Typography
-                        variant="subtitle2"
-                        sx={{
-                            color: "pink",
-                        }}
-                    >
+                    </OdourlessWrapper>
+                    <OdourlessWrapper variant="subtitle2" component={Typography}>
                         Profession
-                    </Typography>
+                    </OdourlessWrapper>
                 </CardInfo>
 
-                <CardInfo alignment="bottom" imgHeight={200} imgWidth={200} isIcon>
+                <CardInfo alignment="bottom" imgHeight={200} imgWidth={200} hasIcon>
                     <CardActions width={200}>
-                        <Fab color="primary" aria-label="cancel" size="small">
-                            <ConnectWithoutContactIcon />
-                        </Fab>
-                        <Fab color="secondary" aria-label="like" size="small">
-                            <ChatIcon />
-                        </Fab>
+                        <OdourlessWrapper component={ConnectWithoutContactIcon} fontSize="large" />
+                        <OdourlessWrapper component={ForumRoundedIcon} fontSize="large" />
                     </CardActions>
                 </CardInfo>
             </Card>
@@ -135,22 +90,12 @@ const Home = (): JSX.Element => {
                     height={200}
                 />
                 <CardInfo alignment="bottom" imgHeight={500} imgWidth={200}>
-                    <Typography
-                        variant="subtitle1"
-                        sx={{
-                            color: "pink",
-                        }}
-                    >
+                    <OdourlessWrapper variant="subtitle1" component={Typography}>
                         Full Name
-                    </Typography>
-                    <Typography
-                        variant="subtitle2"
-                        sx={{
-                            color: "pink",
-                        }}
-                    >
+                    </OdourlessWrapper>
+                    <OdourlessWrapper variant="subtitle2" component={Typography}>
                         Profession
-                    </Typography>
+                    </OdourlessWrapper>
                 </CardInfo>
             </Card>
         </div>
