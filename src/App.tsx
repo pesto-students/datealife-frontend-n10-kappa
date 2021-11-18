@@ -2,7 +2,6 @@ import "./App.css";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-
 import { Routes, Route } from "react-router-dom";
 import Interests from "pages/Interests";
 import EditProfile from "pages/EditProfile";
