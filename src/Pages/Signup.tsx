@@ -19,7 +19,7 @@ const SignUp = () : JSX.Element  => {
             <LogoText>Date A Life</LogoText>
 
             <PrivacyText>
-                By clicking Log In, you agree with our Terms. Learn how we process your data in our <a href="#">Privacy Policy</a> and Cookies Policy.
+                By clicking Sign Up, you agree with our Terms. Learn how we process your data in our <a href="#">Privacy Policy</a> and Cookies Policy.
             </PrivacyText>
 
             <SignupButton variant="contained" startIcon={<GoogleIcon color="warning" /> } color="inherit">
