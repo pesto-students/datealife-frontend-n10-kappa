@@ -11,7 +11,7 @@ import { getUsersSelector, getErrorSelector, getLoadingSelector } from "../store
 import { fetchUserRequest } from "../store/user/actions";
 import { Card, CardMedia, CardInfo, CardActions } from "components/card";
 
-const Home = () => {
+const Home = (): JSX.Element => {
     const dispatch = useDispatch();
     const users = useSelector(getUsersSelector);
     const error = useSelector(getErrorSelector);

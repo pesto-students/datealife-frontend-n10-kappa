@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { ReactElement } from "react";
 
-export default function Header(props: HeaderProps): ReactElement {
+export default function Header(props: HeaderProps): JSX.Element {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="fixed" sx={{ backgroundColor: "white", boxShadow: "none" }}>
