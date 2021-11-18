@@ -5,21 +5,18 @@ import App from "./App";
 import store from "./store";
 import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
-import { ThemeProvider } from "styled-components";
-import { ThemeProvider as MUIThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import theme from "theme";
 import { BrowserRouter as Router } from "react-router-dom";
 
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <MUIThemeProvider theme={theme}>
-                <ThemeProvider theme={theme}>
-                    <Router>
-                        <App />
-                    </Router>
-                </ThemeProvider>
-            </MUIThemeProvider>
+            <ThemeProvider theme={theme}>
+                <Router>
+                    <App />
+                </Router>
+            </ThemeProvider>
         </Provider>
     </React.StrictMode>,
     document.getElementById("root")
