@@ -1,6 +1,6 @@
-import { StyledBody } from "assets/styles/Common.styles";
-import Header from "components/header/Header";
-import ChipStack from "components/chip-stack/ChipStack";
+import { StyledBody } from "../assets/styles/Common.styles";
+import Header from "../components/header/Header";
+import ChipStack from "../components/chip-stack/ChipStack";
 
 const Interests = (): JSX.Element => {
     return (
@@ -22,9 +22,6 @@ const Interests = (): JSX.Element => {
                         { label: "Cricket", value: "cricket" },
                         { label: "Football", value: "football" },
                     ]}
-                    onChipClick={(selectedChips: { [label: string]: string }) => {
-                        console.log(selectedChips);
-                    }}
                 />
             </StyledBody>
         </>

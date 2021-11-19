@@ -5,10 +5,10 @@ import App from "./App";
 import store from "./store";
 import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
-import { ThemeProvider as MUIThemeProvider} from "@mui/material/styles";
+import { ThemeProvider as MUIThemeProvider } from "@mui/material/styles";
 import { ThemeProvider } from "styled-components";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import theme from "theme";
+import theme from "./theme";
 import { BrowserRouter as Router } from "react-router-dom";
 import DateAdapter from "@mui/lab/AdapterMoment";
 

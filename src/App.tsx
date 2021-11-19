@@ -1,15 +1,15 @@
 import "./App.css";
-import Home from "pages-1/Home";
-import Signup from "pages-1/Signup";
-import Login from "pages-1/Login";
+import Home from "./pages/Home";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 import { Routes, Route } from "react-router-dom";
-import Interests from "pages-1/Interests";
-import EditProfile from "pages-1/EditProfile";
-import Name from "pages-1/Name";
-import DOB from "pages-1/DOB";
-import IdentifyAs from "pages-1/Identify";
-import Number from "pages-1/Number";
-import OTP from "pages-1/OTP";
+import Interests from "./pages/Interests";
+import EditProfile from "./pages/EditProfile";
+import Name from "./pages/Name";
+import DOB from "./pages/DOB";
+import IdentifyAs from "./pages/Identify";
+import Number from "./pages/Number";
+import OTP from "./pages/OTP";
 
 const App = (): JSX.Element => {
     return (
