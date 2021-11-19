@@ -8,6 +8,7 @@ import EditProfile from "pages-1/EditProfile";
 import Name from "pages-1/Name";
 import DOB from "pages-1/DOB";
 import IdentifyAs from "pages-1/Identify";
+import Number from "pages-1/Number";
 
 const App = (): JSX.Element => {
     return (
@@ -17,7 +18,7 @@ const App = (): JSX.Element => {
             <Route path="/login" element={<Login />} />
             <Route path="/user/name" element={<Name />} />
             <Route path="/user/identify" element={<IdentifyAs />} />
-            <Route path="/signup/number" element={<Home />} />
+            <Route path="/signup/number" element={<Number />} />
             <Route path="/user/dob" element={<DOB />} />
             <Route path="/user/interests" element={<Interests />} />
             <Route path="/user/picture" element={<Home />} />
