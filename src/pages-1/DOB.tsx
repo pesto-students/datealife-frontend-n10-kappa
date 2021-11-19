@@ -6,7 +6,13 @@ import DatePicker from "@mui/lab/DatePicker";
 import {useState} from "react";
 
 const Login = () : JSX.Element  => {
-    const [value, setValue] = useState<Date | null>(null);
+    const [value, setValue] = useState<Date | null>(
+        new Date(),
+      );
+
+      const handleChange = (newValue: Date | null) => {
+        setValue(newValue);
+      };
     return (
         <ContainerDiv>
             <Header
@@ -19,10 +25,10 @@ const Login = () : JSX.Element  => {
                 <DatePicker
                     label="Enter your Date of birth"
                     value={value}
-                    onChange={(newValue) => {
-                    setValue(newValue);
-                    }}
-                    renderInput={(params) => <TextField {...params} fullWidth />}
+                    onChange={handleChange}
+                    inputFormat="DD-MM-yyyy"
+                    renderInput={(params) => <TextField {...params} fullWidth variant="standard"
+                    />}
                 />
             </TextFieldDiv>
 

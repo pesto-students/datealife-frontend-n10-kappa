@@ -10,12 +10,12 @@ import { ThemeProvider } from "styled-components";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import theme from "theme";
 import { BrowserRouter as Router } from "react-router-dom";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import DateAdapter from "@mui/lab/AdapterMoment";
 
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <LocalizationProvider dateAdapter={DateAdapter}>
                 <MUIThemeProvider theme={theme}>
                     <ThemeProvider theme={theme}>
                         <Router>
