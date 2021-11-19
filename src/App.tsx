@@ -9,6 +9,7 @@ import Name from "pages-1/Name";
 import DOB from "pages-1/DOB";
 import IdentifyAs from "pages-1/Identify";
 import Number from "pages-1/Number";
+import OTP from "pages-1/OTP";
 
 const App = (): JSX.Element => {
     return (
@@ -19,6 +20,7 @@ const App = (): JSX.Element => {
             <Route path="/user/name" element={<Name />} />
             <Route path="/user/identify" element={<IdentifyAs />} />
             <Route path="/signup/number" element={<Number />} />
+            <Route path="/signup/otp" element={<OTP />} />
             <Route path="/user/dob" element={<DOB />} />
             <Route path="/user/interests" element={<Interests />} />
             <Route path="/user/picture" element={<Home />} />

@@ -10213,6 +10213,11 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
 
+"react-otp-input-rc-17@^2.4.1-minor":
+  "integrity" "sha512-VXq84PxWHfg7gFUSaVY+Vi6BMRzGMQ/UNEnlcXehK8ez3AeN+hgOryyQjBc5DiOSvfpuIwBrNVLfrKjOEsfShA=="
+  "resolved" "https://registry.npmjs.org/react-otp-input-rc-17/-/react-otp-input-rc-17-2.4.1-minor.tgz"
+  "version" "2.4.1-minor"
+
 "react-redux@^7.2.0":
   "integrity" "sha512-10RPdsz0UUrRL1NZE0ejTkucnclYSgXp5q+tB5SWx2qeG2ZJQJyymgAhwKy73yiL/13btfB6fPr+rgbMAaZIAQ=="
   "resolved" "https://registry.npmjs.org/react-redux/-/react-redux-7.2.6.tgz"
