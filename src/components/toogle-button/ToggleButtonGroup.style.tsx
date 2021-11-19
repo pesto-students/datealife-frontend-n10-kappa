@@ -3,7 +3,7 @@ import MUIToggleButton from "@mui/material/ToggleButton";
 import MUIToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { ToggleButtonGroupProps } from "./ToggleButtonGroup";
 import { ThemeProps } from "styled-components";
-import Theme from "theme";
+import Theme from "../../theme";
 
 const StyledToggleButton = styled(({ addSpacing, curved, ...props }) => <MUIToggleButton {...props} />)`
     && {
