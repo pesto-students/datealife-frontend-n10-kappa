@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Paper from "@mui/material/Paper";
 
 const Div = styled.div`
     background: linear-gradient(0deg, #f56e65 0%, #f66699 33.85%, #9b8af4 100%);
@@ -9,6 +8,17 @@ const Div = styled.div`
     align-items: center;
     flex-direction: column;
 `;
+
+const ContainerDiv = styled.div`
+                        padding: 60px 45px;
+                        display: flex;
+                        flex-direction: column;
+                    `;
+
+const TextFieldDiv = styled.div`
+                        margin: 64px 0 93px;
+                        width: 100%;
+                    `;
 
 const LogoDiv = styled.div`
     width: 150px;
@@ -58,4 +68,4 @@ const StyledBody = styled.div`
     margin: 65px auto 0;
 `;
 
-export { Div, LogoDiv, LogoImg, LogoText, PrivacyText, FooterText, StyledBody };
+export { Div, LogoDiv, LogoImg, LogoText, PrivacyText, FooterText, StyledBody, ContainerDiv, TextFieldDiv };

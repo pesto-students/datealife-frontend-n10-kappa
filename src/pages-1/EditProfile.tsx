@@ -1,4 +1,4 @@
-import { StyledBody } from "assets/styles/Styles";
+import { StyledBody } from "assets/styles/Common.styles";
 import Header from "components/header/Header";
 import Grid from "@mui/material/Grid";
 import ImageUploader from "components/image-uplaoder/ImageUploader";
