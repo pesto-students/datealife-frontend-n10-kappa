@@ -16,6 +16,8 @@ export interface ImageUploaderProps extends MUIBoxProps<"div", unknown> {
     onUpload?: (file: File) => void;
     width?: number;
     height?: number;
+    maxHeight?: number;
+    maxWidth?: number;
 }
 
 const ImageUploader = ({ canUpload, onUpload, ...restProps }: ImageUploaderProps): JSX.Element => {
@@ -37,7 +39,22 @@ const ImageUploader = ({ canUpload, onUpload, ...restProps }: ImageUploaderProps
 
     return (
         <ImageUploaderContainer {...restProps}>
-            <ImageUploaderContent {...restProps}>{file && <ImageUplaoderImage src={file} />}</ImageUploaderContent>
+            <ImageUploaderContent {...restProps}>
+                {file ? (
+                    <ImageUplaoderImage src={file} />
+                ) : (
+                    <svg
+                        width="100%"
+                        height="100%"
+                        xmlns="http://www.w3.org/2000/svg"
+                        preserveAspectRatio="none"
+                        focusable="false"
+                        role="img"
+                    >
+                        <rect width="100%" height="100%" fill="#959595"></rect>
+                    </svg>
+                )}
+            </ImageUploaderContent>
             {canUpload && (
                 <AddButtonContainer>
                     <label htmlFor={id}>
