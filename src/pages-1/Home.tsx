@@ -7,7 +7,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import ChatIcon from "@mui/icons-material/Chat";
-import Header from "../components/header/Header";
+import Header from "components/header/Header";
 import { getUsersSelector, getErrorSelector, getLoadingSelector } from "../store/user/selectors";
 import { fetchUserRequest } from "../store/user/actions";
 import { Card, CardMedia, CardInfo, CardActions } from "components/card";
@@ -30,7 +30,7 @@ const Home = (): JSX.Element => {
                     alert("Moving back");
                 }}
             />
-            <h1>Users</h1>
+            <h1>Users1</h1>
             {loading ? (
                 <div>Loading...</div>
             ) : error ? (

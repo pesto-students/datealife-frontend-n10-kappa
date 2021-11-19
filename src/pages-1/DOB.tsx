@@ -17,12 +17,12 @@ const Login = () : JSX.Element  => {
             />
             <TextFieldDiv>
                 <DatePicker
-                    label="Basic example"
+                    label="Enter your Date of birth"
                     value={value}
                     onChange={(newValue) => {
                     setValue(newValue);
                     }}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => <TextField {...params} fullWidth />}
                 />
             </TextFieldDiv>
 
