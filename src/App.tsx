@@ -1,11 +1,12 @@
 import "./App.css";
-import Home from "./pages/Home";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
+import Home from "pages-1/Home";
+import Signup from "pages-1/Signup";
+import Login from "pages-1/Login";
 import { Routes, Route } from "react-router-dom";
-import Interests from "pages/Interests";
-import EditProfile from "pages/EditProfile";
-import Name from "pages/Name";
+import Interests from "pages-1/Interests";
+import EditProfile from "pages-1/EditProfile";
+import Name from "pages-1/Name";
+
 
 const App = (): JSX.Element => {
     return (
