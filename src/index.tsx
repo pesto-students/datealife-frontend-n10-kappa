@@ -7,13 +7,15 @@ import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import { ThemeProvider as MUIThemeProvider} from "@mui/material/styles";
 import { ThemeProvider } from "styled-components";
-
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import theme from "theme";
 import { BrowserRouter as Router } from "react-router-dom";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
 
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <MUIThemeProvider theme={theme}>
                     <ThemeProvider theme={theme}>
                         <Router>
@@ -21,6 +23,7 @@ ReactDOM.render(
                         </Router>
                     </ThemeProvider>
                 </MUIThemeProvider>
+            </LocalizationProvider>
         </Provider>
     </React.StrictMode>,
     document.getElementById("root")
