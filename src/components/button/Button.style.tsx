@@ -6,9 +6,8 @@ import { ButtonGroupProps } from "./ButtonGroup";
 
 const StyledButton = styled(({ curved, ...props }) => <MUIButton {...props} />)`
     && {
-        padding: 16px;
         border-radius: ${({ curved }: ButtonProps) => (curved ? 12 : 0)}px;
-        margin: 8px;
+        color: white;
     }
 `;
 

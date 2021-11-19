@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { ThemeProps } from "styled-components";
-import Theme from "theme";
+import Theme from "../../theme";
 
 const Div = styled.div`
     background: linear-gradient(0deg, #f56e65 0%, #f66699 33.85%, #9b8af4 100%);
@@ -9,6 +9,17 @@ const Div = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
+`;
+
+const ContainerDiv = styled.div`
+    padding: 60px 45px;
+    display: flex;
+    flex-direction: column;
+`;
+
+const TextFieldDiv = styled.div`
+    margin: 64px 0 93px;
+    width: 100%;
 `;
 
 const LogoDiv = styled.div`
@@ -63,4 +74,4 @@ const OdourlessWrapper = styled((props) => React.createElement(props.component, 
     color: ${({ theme }: ThemeProps<typeof Theme>) => theme.palette.common.white};
 `;
 
-export { Div, LogoDiv, LogoImg, LogoText, PrivacyText, FooterText, StyledBody, OdourlessWrapper };
+export { Div, LogoDiv, LogoImg, LogoText, PrivacyText, FooterText, StyledBody, ContainerDiv, TextFieldDiv, OdourlessWrapper };

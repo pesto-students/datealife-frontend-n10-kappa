@@ -3,8 +3,9 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import { Routes, Route } from "react-router-dom";
-import Interests from "pages/Interests";
-import EditProfile from "pages/EditProfile";
+import Interests from "./pages/Interests";
+import EditProfile from "./pages/EditProfile";
+import Name from "./pages/Name";
 
 const App = (): JSX.Element => {
     return (
@@ -15,7 +16,6 @@ const App = (): JSX.Element => {
             <Route path="/signup/number" element={<Home />} />
             <Route path="/user/name" element={<Home />} />
             <Route path="/user/orientation" element={<Home />} />
-            <Route path="/user/name" element={<Home />} />
             <Route path="/user/age" element={<Home />} />
             <Route path="/user/interests" element={<Interests />} />
             <Route path="/user/picture" element={<Home />} />

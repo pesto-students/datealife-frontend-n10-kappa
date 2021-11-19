@@ -2,8 +2,8 @@ import DateALifeLogo from "../assets/images/logoDateALife.png";
 import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import GoogleIcon from "@mui/icons-material/Google";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
-import { Div, LogoDiv, LogoImg, LogoText, PrivacyText, FooterText } from "../assets/styles/Styles";
-import { SignupButton } from "../assets/styles/Button";
+import { Div, LogoDiv, LogoImg, LogoText, PrivacyText, FooterText } from "../assets/styles/Common.styles";
+import { SignupButton } from "../assets/styles/Button.styles";
 
 const Login = (): JSX.Element => {
     return (
