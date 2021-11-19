@@ -22,9 +22,6 @@ const Interests = (): JSX.Element => {
                         { label: "Cricket", value: "cricket" },
                         { label: "Football", value: "football" },
                     ]}
-                    onChipClick={(selectedChips: { [label: string]: string }) => {
-                        console.log(selectedChips);
-                    }}
                 />
             </StyledBody>
         </>
