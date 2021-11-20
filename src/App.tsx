@@ -10,6 +10,7 @@ import DOB from "./pages/DOB";
 import IdentifyAs from "./pages/Identify";
 import Number from "./pages/Number";
 import OTP from "./pages/OTP";
+import Matchmaking from "./pages/Matchmaking";
 
 const App = (): JSX.Element => {
     return (
@@ -23,12 +24,13 @@ const App = (): JSX.Element => {
             <Route path="/signup/otp" element={<OTP />} />
             <Route path="/user/dob" element={<DOB />} />
             <Route path="/user/interests" element={<Interests />} />
+            <Route path="/matchmaking" element={<Matchmaking />} />
             <Route path="/user/picture" element={<Home />} />
             <Route path="/user/profile/:id/editProfile" element={<EditProfile />} />
             <Route path="/user/profile/:id" element={<Home />} />
-            <Route path="/matchmaking" element={<Home />} />
             <Route path="/learning" element={<Home />} />
             <Route path="/chatting" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/likes" element={<Home />} />
         </Routes>
     );

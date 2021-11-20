@@ -28,10 +28,12 @@ const CardMediaContent = styled(MUICardMedia)<CardMediaProps>`
      {
         min-width: 200px;
         max-width: ${({ height = 200 }: CardMediaProps) => height}px;
-        width: ${({ width = 200 }: CardMediaProps) => width}px;
         object-fit: cover;
+        border-radius: 10px;
     }
 `;
+// width: ${({ width = 200 }: CardMediaProps) => width}px;
+
 
 const CardActionsContainer = styled(Box)`
      {
