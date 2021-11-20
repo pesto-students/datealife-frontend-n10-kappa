@@ -4,12 +4,26 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { ReactElement } from "react";
 
 export default function Header(props: HeaderProps): JSX.Element {
+    const { headerWidth = "100%" } = props;
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="fixed" sx={{ backgroundColor: "white", boxShadow: "none" }}>
+            <AppBar
+                position="fixed"
+                sx={[
+                    {
+                        backgroundColor: "white",
+                        boxShadow: "none",
+                        width: headerWidth,
+                    },
+                    (theme: any) => ({
+                        [theme.breakpoints.down("sm")]: {
+                            width: "100%",
+                        },
+                    }),
+                ]}
+            >
                 <Toolbar>
                     <IconButton size="large" edge="start" aria-label="menu" onClick={props.backFunction} color="error">
                         <ArrowBackIcon />
@@ -26,4 +40,5 @@ export default function Header(props: HeaderProps): JSX.Element {
 interface HeaderProps {
     text: string;
     backFunction: () => void;
+    headerWidth?: string;
 }
