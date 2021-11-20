@@ -5,7 +5,7 @@ import { ContainerDiv, TextFieldDiv } from "../assets/styles/Common.styles";
 import DatePicker from "@mui/lab/DatePicker";
 import {useState} from "react";
 
-const Login = () : JSX.Element  => {
+const DOB = () : JSX.Element  => {
     const [value, setValue] = useState<Date | null>(
         new Date(),
       );
@@ -37,6 +37,6 @@ const Login = () : JSX.Element  => {
     );
 };
 
-export default Login;
+export default DOB;
 
 

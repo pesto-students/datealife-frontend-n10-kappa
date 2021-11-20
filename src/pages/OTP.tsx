@@ -3,9 +3,8 @@ import { Button } from "../components/button/index";
 import { ContainerDiv, TextFieldDiv } from "../assets/styles/Common.styles";
 import { useState } from "react";
 import OtpInput from "react-otp-input-rc-17";
-import styled from "styled-components";
 
-const Number = () : JSX.Element  => {
+const OTP = () : JSX.Element  => {
     const [otp, setOtp] = useState("");
     const handleChange = (value: any) => {
         setOtp(value);
@@ -53,5 +52,5 @@ const Number = () : JSX.Element  => {
     );
 };
 
-export default Number;
+export default OTP;
 

@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import { Button } from "../components/button/index";
 import { ContainerDiv, TextFieldDiv } from "../assets/styles/Common.styles";
 
-const Login = () : JSX.Element  => {
+const Name = () : JSX.Element  => {
     return (
         <ContainerDiv>
             <Header
@@ -28,6 +28,6 @@ const Login = () : JSX.Element  => {
     );
 };
 
-export default Login;
+export default Name;
 
 
