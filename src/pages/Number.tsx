@@ -1,26 +1,24 @@
 import Header from "../components/header/Header";
-import TextField from "@mui/material/TextField";
 import { Button } from "../components/button/index";
 import { ContainerDiv, TextFieldDiv } from "../assets/styles/Common.styles";
+import MuiPhoneNumber from "material-ui-phone-number";
+import { useState } from "react";
 
-const Name = () : JSX.Element  => {
+const Number = () : JSX.Element  => {
+    const [number, setNumber] = useState("");
+    const handleChange = (value: any) => {
+        setNumber(value);
+    };
     return (
         <ContainerDiv>
             <Header
-                text={"My name is"}
+                text={"My number is"}
                 backFunction={() => {
                     alert("Moving back");
                 }}
             />
             <TextFieldDiv>
-                <TextField
-                    required
-                    id="standard-required"
-                    label="Enter your full name"
-                    defaultValue="Max Plank"
-                    variant="standard"
-                    fullWidth
-                />
+                <MuiPhoneNumber defaultCountry={"in"} onChange={handleChange} fullWidth />
             </TextFieldDiv>
 
             <Button color="primary" variant="contained"> Continue</Button>
@@ -28,6 +26,6 @@ const Name = () : JSX.Element  => {
     );
 };
 
-export default Name;
+export default Number;
 
 
