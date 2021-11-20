@@ -2,6 +2,7 @@ import { StyledBody } from "../assets/styles/Common.styles";
 import Header from "../components/header/Header";
 import Grid from "@mui/material/Grid";
 import ImageUploader from "../components/image-uplaoder/ImageUploader";
+import PageWrapper from "../components/page-wrapper/PageWrapper";
 
 const EditProfile = (): JSX.Element => {
     const ImageUploaderProps = {
@@ -11,7 +12,7 @@ const EditProfile = (): JSX.Element => {
         width: 200,
     };
     return (
-        <>
+        <PageWrapper>
             <Header
                 text="Interests"
                 backFunction={() => {
@@ -40,7 +41,7 @@ const EditProfile = (): JSX.Element => {
                     </Grid>
                 </Grid>
             </StyledBody>
-        </>
+        </PageWrapper>
     );
 };
 

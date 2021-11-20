@@ -1,10 +1,11 @@
 import { StyledBody } from "../assets/styles/Common.styles";
 import Header from "../components/header/Header";
 import ChipStack from "../components/chip-stack/ChipStack";
+import PageWrapper from "../components/page-wrapper/PageWrapper";
 
 const Interests = (): JSX.Element => {
     return (
-        <>
+        <PageWrapper>
             <Header
                 text={"Interests"}
                 backFunction={() => {
@@ -24,7 +25,7 @@ const Interests = (): JSX.Element => {
                     ]}
                 />
             </StyledBody>
-        </>
+        </PageWrapper>
     );
 };
 
