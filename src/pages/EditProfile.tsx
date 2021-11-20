@@ -12,13 +12,12 @@ const EditProfile = (): JSX.Element => {
         width: 200,
     };
     return (
-        <PageWrapper>
-            <Header
-                text="Interests"
-                backFunction={() => {
-                    alert("Moving back");
-                }}
-            />
+        <PageWrapper
+            hasDrawer
+            headerProps={{
+                text: "Edit Profile",
+            }}
+        >
             <StyledBody>
                 <Grid container justifyContent="space-between" alignItems="center" wrap="wrap" spacing={2}>
                     <Grid item xs={6}>

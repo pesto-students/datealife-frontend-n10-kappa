@@ -4,15 +4,24 @@ import ChatIcon from "@mui/icons-material/Chat";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
-
 import Navigation from "../navigator/Navigator";
 import { ReactElement } from "react";
+import Header from "../header/Header";
+
+type HeaderProps = {
+    text: string;
+    backFunction?: () => void;
+};
 
 interface PageWrapperProps {
     children?: React.ReactNode;
+    hasDrawer?: boolean;
+    drawerWidth?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    headerProps: HeaderProps;
 }
 
 const PageWrapper = (props: PageWrapperProps): ReactElement => {
+    const { children, hasDrawer, drawerWidth = 3, headerProps } = props;
     const navigate = useNavigate();
     const NavigatorItems = [
         {
@@ -39,13 +48,24 @@ const PageWrapper = (props: PageWrapperProps): ReactElement => {
     const handleNavigation = (selectedNavigation = "/") => {
         navigate(selectedNavigation);
     };
+    const calcDrawerWidth = (drawerWidth / 12) * 100;
+    const headerWidth = hasDrawer ? 100 - calcDrawerWidth : 100;
     return (
         <Grid container>
-            <Grid item xs={12} sm={3}>
-                <Navigation items={NavigatorItems} drawerWidth="25%" onNavigation={handleNavigation} />
-            </Grid>
-            <Grid item xs={12} sm={9}>
-                {props.children}
+            {hasDrawer && (
+                <Grid item xs={12} sm={3}>
+                    <Navigation items={NavigatorItems} drawerWidth={`${calcDrawerWidth}%`} onNavigation={handleNavigation} />
+                </Grid>
+            )}
+            <Grid item xs={12} sm={hasDrawer ? 9 : 12}>
+                <Header
+                    {...headerProps}
+                    headerWidth={`${headerWidth}%`}
+                    backFunction={() => {
+                        alert("Moving back");
+                    }}
+                />
+                {children}
             </Grid>
         </Grid>
     );

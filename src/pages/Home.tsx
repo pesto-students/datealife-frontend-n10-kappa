@@ -2,21 +2,19 @@ import Typography from "@mui/material/Typography";
 import { StyledFab } from "../assets/styles/Fab.styles";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import Header from "../components/header/Header";
 import { Card, CardMedia, CardInfo, CardActions } from "../components/card";
 import { OdourlessWrapper } from "../assets/styles/Common.styles";
 import PageWrapper from "../components/page-wrapper/PageWrapper";
 
 const Home = (): JSX.Element => {
     return (
-        <PageWrapper>
+        <PageWrapper
+            hasDrawer
+            headerProps={{
+                text: "Matches",
+            }}
+        >
             <div style={{ padding: "25px" }}>
-                <Header
-                    text={"Matches"}
-                    backFunction={() => {
-                        alert("Moving back");
-                    }}
-                />
                 <Card>
                     <CardMedia
                         src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"

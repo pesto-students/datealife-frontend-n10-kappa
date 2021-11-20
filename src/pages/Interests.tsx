@@ -5,13 +5,12 @@ import PageWrapper from "../components/page-wrapper/PageWrapper";
 
 const Interests = (): JSX.Element => {
     return (
-        <PageWrapper>
-            <Header
-                text={"Interests"}
-                backFunction={() => {
-                    alert("Moving back");
-                }}
-            />
+        <PageWrapper
+            hasDrawer
+            headerProps={{
+                text: "Interests",
+            }}
+        >
             <StyledBody>
                 <ChipStack
                     chips={[
