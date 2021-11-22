@@ -37,6 +37,13 @@ import { SendAMessageButton,
     ContainerDiv2,
     HeaderDiv,
     WhiteBar } from "../assets/styles/Matchmaking.styles";
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
+import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
+import Paper from "@mui/material/Paper";
 
 const Transition = forwardRef(function Transition(
     props: TransitionProps & {
@@ -59,6 +66,11 @@ const Matchmaking = (): JSX.Element => {
     const [sliderValue, setSliderValue] = useState<number[]>([18, 25]);
     const minDistance = 10;
 
+    const [currentNavigation, setCurrentNavigation] = useState("home");
+
+  const handleNavigation = (event: React.SyntheticEvent, newValue: string) => {
+    setCurrentNavigation(newValue);
+  };
 
     const toggleMatchMaking = () => {
       setMatchmakingOpen(!matchMakingOpen);
@@ -276,6 +288,31 @@ const Matchmaking = (): JSX.Element => {
                     </ContainerDiv2>
                 </Dialog>
             </div>
+
+            <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }} elevation={3}>
+                <BottomNavigation sx={{ bottom: 0 }} value={currentNavigation} onChange={handleNavigation}>
+                    <BottomNavigationAction
+                        label="Home"
+                        value="home"
+                        icon={<HomeOutlinedIcon />}
+                    />
+                    <BottomNavigationAction
+                        label="Learning"
+                        value="learning"
+                        icon={<LibraryBooksOutlinedIcon />}
+                    />
+                    <BottomNavigationAction
+                        label="Likes"
+                        value="likes"
+                        icon={<FavoriteBorderOutlinedIcon />}
+                    />
+                    <BottomNavigationAction
+                        label="Chats"
+                        value="chats"
+                        icon={<ForumOutlinedIcon />}
+                    />
+                </BottomNavigation>
+            </Paper>
         </>
     );
 };
