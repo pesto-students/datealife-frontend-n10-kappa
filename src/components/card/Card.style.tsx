@@ -25,10 +25,12 @@ const CardMediaContainer = styled(Box)`
     }
 `;
 
-const CardMediaContent = styled(({ height, ...props }: CardMediaProps) => <MUICardMedia {...props} />)<CardMediaProps>`
+const CardMediaContent = styled(({ height, width, ...props }: CardMediaProps) => <MUICardMedia {...props} />)<CardMediaProps>`
      {
         min-width: 200px;
-        max-width: ${({ height = 200 }: CardMediaProps) => height}px;
+        height: ${({ height = 200 }: CardMediaProps) => height}px;
+        max-width: ${({ width = 200 }: CardMediaProps) => width}px;
+        border-radius: ${({ width = 200 }: CardMediaProps) => width / 15}px;
         object-fit: cover;
     }
 `;
@@ -38,7 +40,7 @@ const CardActionsContainer = styled(Box)`
         display: flex;
         justify-content: center;
         width: 100%;
-        padding: 8px 0;
+        padding: 20px 0;
     }
 `;
 
