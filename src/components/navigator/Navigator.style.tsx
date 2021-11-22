@@ -11,6 +11,7 @@ const BottomNavigationContainer = styled(Paper)`
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 1001;
 `;
 
 const DrawerContainer = styled(({ drawerWidth, ...restProps }) => <MuiDrawer {...restProps} />)<DrawerContainerProps>`

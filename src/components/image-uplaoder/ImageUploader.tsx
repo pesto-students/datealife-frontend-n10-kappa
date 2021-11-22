@@ -41,7 +41,7 @@ const ImageUploader = ({ canUpload, onUpload, ...restProps }: ImageUploaderProps
         <ImageUploaderContainer {...restProps}>
             <ImageUploaderContent {...restProps}>
                 {file ? (
-                    <ImageUplaoderImage src={file} />
+                    <ImageUplaoderImage src={file} alt="Uploaded image" width={restProps?.width} />
                 ) : (
                     <svg
                         width="100%"
