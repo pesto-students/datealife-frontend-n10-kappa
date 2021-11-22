@@ -15,4 +15,10 @@ const SignupButton = styled(Button)({
 });
 
 
-export { SignupButton };
+const ButtonTextColorWhite = styled(Button)({
+   color: "white",
+});
+
+
+
+export { SignupButton, ButtonTextColorWhite };

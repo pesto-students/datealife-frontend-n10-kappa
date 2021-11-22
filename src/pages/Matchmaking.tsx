@@ -1,5 +1,4 @@
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
@@ -10,8 +9,42 @@ import { StyledFab } from "../assets/styles/Fab.styles";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Card, CardMedia, CardInfo, CardActions } from "../components/card";
+import {useState, forwardRef} from "react";
+import Dialog from "@mui/material/Dialog";
+import Slide from "@mui/material/Slide";
+import { TransitionProps } from "@mui/material/transitions";
+import { Div, ContainerDiv } from "../assets/styles/Common.styles";
+import Logo from "../assets/images/logoDateALife.png";
+import {ButtonTextColorWhite} from "../assets/styles/Button.styles";
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import { SendAMessageButton,
+    StyledHeadText,
+    StyledBodyText,
+    StyledSubTitleText,
+    ProfileMatchPictureContainer,
+    MatchedProfilePictureOne,
+    MatchedProfilePictureTwo, CrossButton } from "../assets/styles/Matchmaking.styles";
+
+const Transition = forwardRef(function Transition(
+    props: TransitionProps & {
+      children: React.ReactElement<any, any>;
+    },
+    ref: React.Ref<unknown>,
+  ) {
+    return <Slide direction="down" ref={ref} {...props} />;
+  });
+
 
 const Matchmaking = (): JSX.Element => {
+    const [open, setOpen] = useState(true);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+
+    const handleClose = () => {
+      setOpen(false);
+    };
     return (
         <>
             <AppBar position="static" sx={{ backgroundColor: "white"}}>
@@ -72,11 +105,42 @@ const Matchmaking = (): JSX.Element => {
                         <StyledFab success={false} aria-label="disliked">
                             <CloseRoundedIcon />
                         </StyledFab>
-                        <StyledFab success={true} aria-label="like">
+                        <StyledFab success={true} aria-label="like" onClick={handleClickOpen}>
                             <FavoriteIcon />
                         </StyledFab>
                     </CardActions>
                 </Card>
+                <Dialog
+                    open={open}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={handleClose}
+                    aria-describedby="alert-dialog-slide-description"
+                    fullWidth
+                    maxWidth="sm"
+                    fullScreen
+                >
+                    <Div>
+                        <ContainerDiv>
+                            <StyledHeadText align="center" variant="h3" >Match it is</StyledHeadText>
+                            <StyledBodyText align="center" variant="subtitle2">Riya likes you too</StyledBodyText>
+                            <ProfileMatchPictureContainer>
+                                <MatchedProfilePictureOne src={Logo} alt="profile picture" />
+                                <MatchedProfilePictureTwo src={Logo} alt="profile picture 2 " />
+                            </ProfileMatchPictureContainer>
+                            <StyledSubTitleText align="center" variant="subtitle1">You and Riya have 85% match ratio</StyledSubTitleText>
+                            <SendAMessageButton variant="contained" >
+                                Send a message
+                            </SendAMessageButton>
+                            <ButtonTextColorWhite variant="text" >
+                                Keep Searching
+                            </ButtonTextColorWhite>
+                        </ContainerDiv>
+                        <CrossButton onClick={handleClose}>
+                            <ClearRoundedIcon style={{color: "white"}}/>
+                        </CrossButton>
+                    </Div>
+                </Dialog>
             </div>
         </>
     );
