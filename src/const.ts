@@ -4,3 +4,4 @@ export const ERROR_COLOR = "#F56E65";
 export const INFO_COLOR = "#00B1CD";
 export const SUCCESS_COLOR = "#29AE62";
 export const DEFAULT_TEXT_COLOR = "#474747";
+export const WARNING_COLOR = "#DC823A";

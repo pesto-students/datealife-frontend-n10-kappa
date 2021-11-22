@@ -57,6 +57,25 @@ const CrossButton = styled.div`
     top: 20px;
 `;
 
+const ContainerDiv2 = styled.div`
+    padding: 20px;
+`;
+
+const HeaderDiv = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`;
+
+const WhiteBar = styled.div`
+    width: 80%;
+    color: white;
+    height: 1px;
+    background: white;
+    margin: 30px auto 10px;
+    border-radius: 15px;
+`;
+
 export { SendAMessageButton,
          StyledHeadText,
          StyledBodyText,
@@ -64,5 +83,9 @@ export { SendAMessageButton,
          ProfileMatchPictureContainer,
          MatchedProfilePicture,
          MatchedProfilePictureOne,
-         MatchedProfilePictureTwo, CrossButton };
+         MatchedProfilePictureTwo,
+         CrossButton,
+         ContainerDiv2,
+         HeaderDiv,
+         WhiteBar};
 
