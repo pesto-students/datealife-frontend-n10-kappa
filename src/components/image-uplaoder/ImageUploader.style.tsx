@@ -38,5 +38,6 @@ const ImageUplaoderImage = styled.img`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: ${({ width = 200 }: ImageUploaderProps) => width / 15}px;
 `;
 export { ImageUploaderContainer, ImageUploaderContent, AddButtonContainer, AddButtonContent, ImageUplaoderImage };

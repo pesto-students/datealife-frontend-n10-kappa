@@ -4,6 +4,7 @@ import MUICardMedia from "@mui/material/CardMedia";
 import { CardMediaProps } from "./CardMedia";
 import { CardActionsProps } from "./CardActions";
 import { CardInfoProps } from "./CardInfo";
+import { BoxProps } from "@mui/system/Box";
 
 const CardContainer = styled(Box)`
      {
@@ -24,10 +25,12 @@ const CardMediaContainer = styled(Box)`
     }
 `;
 
-const CardMediaContent = styled(MUICardMedia)<CardMediaProps>`
+const CardMediaContent = styled(({ height, width, ...props }: CardMediaProps) => <MUICardMedia {...props} />)<CardMediaProps>`
      {
         min-width: 200px;
-        max-width: ${({ height = 200 }: CardMediaProps) => height}px;
+        height: ${({ height = 200 }: CardMediaProps) => height}px;
+        max-width: ${({ width = 200 }: CardMediaProps) => width}px;
+        border-radius: ${({ width = 200 }: CardMediaProps) => width / 15}px;
         object-fit: cover;
         border-radius: 10px;
     }
@@ -40,18 +43,18 @@ const CardActionsContainer = styled(Box)`
         display: flex;
         justify-content: center;
         width: 100%;
-        padding: 8px 0;
+        padding: 20px 0;
     }
 `;
 
-const CardActionsContent = styled(Box)`
+const CardActionsContent = styled(({ width, ...props }: BoxProps) => <Box {...props} />)`
      {
         "& > :not(style)": {
             margin: 8px;
         }
         display: flex;
-        justify-content: space-around;
-        width: ${({ width = 200 }: CardActionsProps) => width}px;
+        justify-content: space-between;
+        width: ${({ width = 200 }: CardActionsProps) => width * 0.8}px;
     }
 `;
 
@@ -68,7 +71,7 @@ const CardInfoContainer = styled(Box)`
     }
 `;
 
-const CardInfoContent = styled(Box)`
+const CardInfoContent = styled(({ width, ...props }: BoxProps) => <Box {...props} />)`
      {
         position: relative;
         left: 20px;
@@ -79,14 +82,14 @@ const CardInfoContent = styled(Box)`
 //! should be replace with calc made from width(width - 50)
 const CardInfoContentTop = styled(CardInfoContent)`
      {
-        bottom: ${({ imgHeight = 200 }: CardInfoProps) => imgHeight - 50}px;
+        bottom: ${({ imgHeight = 200 }: CardInfoProps) => imgHeight - 35}px;
     }
 `;
 
 const CardInfoContentBottom = styled(CardInfoContent)`
      {
-        bottom: 50px;
-        left: ${(props: any) => (props.isIcon ? 0 : "20px")};
+        bottom: 35px;
+        left: ${(props: any) => (props.hasIcon ? 0 : "20px")};
     }
 `;
 
