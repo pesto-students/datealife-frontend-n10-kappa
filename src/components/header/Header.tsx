@@ -13,7 +13,6 @@ export default function Header(props: HeaderProps): JSX.Element {
                 position="fixed"
                 sx={[
                     {
-                        backgroundColor: "white",
                         boxShadow: "none",
                         width: headerWidth,
                     },
@@ -23,12 +22,13 @@ export default function Header(props: HeaderProps): JSX.Element {
                         },
                     }),
                 ]}
+                color={props.color || "transparent"}
             >
                 <Toolbar>
-                    <IconButton size="large" edge="start" aria-label="menu" onClick={props.backFunction} color="error">
+                    <IconButton size="large" edge="start" aria-label="back button" onClick={props.backFunction} color={"default"}>
                         <ArrowBackIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} color={props.color ? "white" : "default"}>
                         {props.text}
                     </Typography>
                 </Toolbar>
@@ -40,5 +40,6 @@ export default function Header(props: HeaderProps): JSX.Element {
 interface HeaderProps {
     text: string;
     backFunction: () => void;
+    color?: "inherit" | "transparent" | "default" | "primary" | "secondary" | undefined;
     headerWidth?: string;
 }

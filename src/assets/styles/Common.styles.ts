@@ -39,7 +39,7 @@ const LogoImg = styled.img`
 `;
 
 const LogoText = styled.h3`
-    font-family: "Dancing Script", cursive;
+    font-family: "DancingScript-Regular", cursive;
     color: white;
     font-size: 30px;
     margin-top: 8px;

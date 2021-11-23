@@ -32,8 +32,11 @@ const CardMediaContent = styled(({ height, width, ...props }: CardMediaProps) =>
         max-width: ${({ width = 200 }: CardMediaProps) => width}px;
         border-radius: ${({ width = 200 }: CardMediaProps) => width / 15}px;
         object-fit: cover;
+        border-radius: 10px;
     }
 `;
+// width: ${({ width = 200 }: CardMediaProps) => width}px;
+
 
 const CardActionsContainer = styled(Box)`
      {

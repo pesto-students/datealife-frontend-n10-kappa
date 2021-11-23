@@ -12,6 +12,9 @@ const StyledButton = styled(({ curved, ...props }) => <MUIButton {...props} />)`
 `;
 
 const StyledButtonGroup = styled(({ addSpacing, ...props }) => <MUIButtonGroup {...props} />)`
+    && {
+        box-shadow: none;
+    }
     && > button {
         margin: ${({ addSpacing }: ButtonGroupProps) => (addSpacing ? 8 : 0)}px;
     }
