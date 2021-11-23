@@ -12,7 +12,6 @@ export interface DrawerProps extends NavigatorProps {
 }
 
 const Drawer = ({ items = [], selectedValue, setSelectedValue, drawerWidth }: DrawerProps): ReactElement => {
-    console.log(selectedValue);
     return (
         <DrawerContainer variant="permanent" anchor="left" drawerWidth={drawerWidth}>
             <List>
@@ -22,7 +21,6 @@ const Drawer = ({ items = [], selectedValue, setSelectedValue, drawerWidth }: Dr
                         selected={value === selectedValue}
                         onClick={() => {
                             setSelectedValue(value);
-                            console.log(value, selectedValue);
                         }}
                     >
                         <ListItemIcon>{icon}</ListItemIcon>
