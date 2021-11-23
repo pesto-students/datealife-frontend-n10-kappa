@@ -54,7 +54,6 @@ const Transition = forwardRef(function Transition(
     return <Slide direction="down" ref={ref} {...props} />;
   });
 
-
 const PaddedButton = styled(Button)({
    padding: "10px 25px"
 });

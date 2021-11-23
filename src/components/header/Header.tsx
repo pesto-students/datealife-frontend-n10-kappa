@@ -4,17 +4,16 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { ReactElement } from "react";
 
 export default function Header(props: HeaderProps): JSX.Element {
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="fixed" sx={{ backgroundColor: "white", boxShadow: "none" }}>
+            <AppBar position="fixed" sx={{ boxShadow: "none" }} color={props.color || "transparent"}>
                 <Toolbar>
-                    <IconButton size="large" edge="start" aria-label="menu" onClick={props.backFunction} color="error">
+                    <IconButton size="large" edge="start" aria-label="back button" onClick={props.backFunction} color={"default"}>
                         <ArrowBackIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} color={props.color ? "white" : "default"}>
                         {props.text}
                     </Typography>
                 </Toolbar>
@@ -26,4 +25,5 @@ export default function Header(props: HeaderProps): JSX.Element {
 interface HeaderProps {
     text: string;
     backFunction: () => void;
+    color?: "inherit" | "transparent" | "default" | "primary" | "secondary" | undefined;
 }
