@@ -14,6 +14,7 @@ import Listings from "./pages/Listing";
 import Learning from "./pages/Learning";
 import Matchmaking from "./pages/Matchmaking";
 import EditProfile from "./pages/EditProfile";
+import Chat from "./pages/Chat";
 
 const App = (): JSX.Element => {
     return (
@@ -34,7 +35,7 @@ const App = (): JSX.Element => {
             <Route path="/user/profile/editProfile/editPicture" element={<EditPictures />} />
             <Route path="/user/profile/:id" element={<Home />} />
             <Route path="/learning" element={<Learning />} />
-            <Route path="/chatting" element={<Home />} />
+            <Route path="/chatting" element={<Chat />} />
             <Route path="/home" element={<Home />} />
             <Route path="/likes" element={<Listings />} />
         </Routes>
