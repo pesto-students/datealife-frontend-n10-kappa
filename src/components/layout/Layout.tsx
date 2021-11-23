@@ -13,14 +13,14 @@ type HeaderProps = {
     backFunction?: () => void;
 };
 
-interface PageWrapperProps {
+interface LayoutProps {
     children?: React.ReactNode;
     hasDrawer?: boolean;
     drawerWidth?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
     headerProps: HeaderProps;
 }
 
-const PageWrapper = (props: PageWrapperProps): ReactElement => {
+const Layout = (props: LayoutProps): ReactElement => {
     const { children, hasDrawer, drawerWidth = 3, headerProps } = props;
     const navigate = useNavigate();
     const NavigatorItems = [
@@ -54,7 +54,12 @@ const PageWrapper = (props: PageWrapperProps): ReactElement => {
         <Grid container>
             {hasDrawer && (
                 <Grid item xs={12} sm={3}>
-                    <Navigation items={NavigatorItems} drawerWidth={`${calcDrawerWidth}%`} onNavigation={handleNavigation} />
+                    <Navigation
+                        items={NavigatorItems}
+                        drawerWidth={`${calcDrawerWidth}%`}
+                        onNavigation={handleNavigation}
+                        defaultValue="/matchmaking"
+                    />
                 </Grid>
             )}
             <Grid item xs={12} sm={hasDrawer ? 9 : 12}>
@@ -71,4 +76,4 @@ const PageWrapper = (props: PageWrapperProps): ReactElement => {
     );
 };
 
-export default PageWrapper;
+export default Layout;

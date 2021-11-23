@@ -10,6 +10,8 @@ import DOB from "./pages/DOB";
 import IdentifyAs from "./pages/Identify";
 import Number from "./pages/Number";
 import OTP from "./pages/OTP";
+import Listings from "./pages/Listing";
+import Learning from "./pages/Learning";
 
 const App = (): JSX.Element => {
     return (
@@ -27,9 +29,9 @@ const App = (): JSX.Element => {
             <Route path="/user/profile/:id/editProfile" element={<EditProfile />} />
             <Route path="/user/profile/:id" element={<Home />} />
             <Route path="/matchmaking" element={<Home />} />
-            <Route path="/learning" element={<Home />} />
+            <Route path="/learning" element={<Learning />} />
             <Route path="/chatting" element={<Home />} />
-            <Route path="/likes" element={<Home />} />
+            <Route path="/likes" element={<Listings />} />
         </Routes>
     );
 };

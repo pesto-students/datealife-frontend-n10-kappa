@@ -13,12 +13,13 @@ export interface NavigatorProps {
     items: NavigatorItem[];
     drawerWidth?: string;
     onNavigation?: (string: string) => void;
+    defaultValue?: string;
 }
 
 export default function Navigation(props: NavigatorProps): JSX.Element {
-    const { items, onNavigation } = props;
+    const { items, onNavigation, defaultValue = "" } = props;
     const [width] = useWindowSize();
-    const [selectedValue, setSelectedValue] = React.useState("");
+    const [selectedValue, setSelectedValue] = React.useState(defaultValue);
 
     useEffect(() => {
         onNavigation && onNavigation(selectedValue);

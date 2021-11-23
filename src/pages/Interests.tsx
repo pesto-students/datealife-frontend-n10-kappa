@@ -1,11 +1,11 @@
 import { StyledBody } from "../assets/styles/Common.styles";
 import Header from "../components/header/Header";
 import ChipStack from "../components/chip-stack/ChipStack";
-import PageWrapper from "../components/page-wrapper/PageWrapper";
+import Layout from "../components/layout/Layout";
 
 const Interests = (): JSX.Element => {
     return (
-        <PageWrapper
+        <Layout
             hasDrawer
             headerProps={{
                 text: "Interests",
@@ -24,7 +24,7 @@ const Interests = (): JSX.Element => {
                     ]}
                 />
             </StyledBody>
-        </PageWrapper>
+        </Layout>
     );
 };
 

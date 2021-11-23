@@ -3,7 +3,7 @@ import { Button } from "../components/button/index";
 import { ContainerDiv, TextFieldDiv } from "../assets/styles/Common.styles";
 import MuiPhoneNumber from "material-ui-phone-number";
 import { useState } from "react";
-import PageWrapper from "../components/page-wrapper/PageWrapper";
+import Layout from "../components/layout/Layout";
 
 const Number = (): JSX.Element => {
     const [number, setNumber] = useState("");
@@ -11,7 +11,7 @@ const Number = (): JSX.Element => {
         setNumber(value);
     };
     return (
-        <PageWrapper
+        <Layout
             headerProps={{
                 text: "My number is",
             }}
@@ -26,7 +26,7 @@ const Number = (): JSX.Element => {
                     Continue
                 </Button>
             </ContainerDiv>
-        </PageWrapper>
+        </Layout>
     );
 };
 
