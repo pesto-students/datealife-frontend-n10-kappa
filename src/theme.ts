@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material/styles";
+import { PRIMARY_COLOR, SECONDARY_COLOR, ERROR_COLOR, INFO_COLOR, SUCCESS_COLOR, WARNING_COLOR, WHITE_TEXT_COLOR } from "./const";
 
 declare module "@mui/material/styles" {
   export interface Theme {
@@ -22,6 +23,9 @@ declare module "@mui/material/styles" {
         success: {
           main: string;
         };
+        warning: {
+            main: string;
+        }
         contrastThreshold: number;
         tonalOffset: number;
     }
@@ -48,6 +52,9 @@ declare module "@mui/material/styles" {
         success?: {
           main?: string;
         };
+        warning?: {
+            main: string;
+        }
         contrastThreshold: number;
         tonalOffset: number;
     };
@@ -61,19 +68,22 @@ export default createTheme({
   },
   palette: {
     primary: {
-      main: "#9B8AF4",
+      main: PRIMARY_COLOR,
     },
     secondary: {
-      main: "#F66699",
+      main: SECONDARY_COLOR,
     },
     error: {
-      main: "#F56E65",
+      main: ERROR_COLOR,
     },
     info: {
-      main: "#00B1CD",
+      main: INFO_COLOR,
     },
     success: {
-      main: "#29AE62",
+      main: SUCCESS_COLOR,
+    },
+    warning: {
+        main: WARNING_COLOR,
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
