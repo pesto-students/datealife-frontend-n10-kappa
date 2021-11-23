@@ -13,7 +13,6 @@ const CardContainer = styled(Box)`
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        margin: 8px;
     }
 `;
 
@@ -22,14 +21,20 @@ const CardMediaContainer = styled(Box)`
         display: flex;
         justify-content: center;
         align-items: center;
+        max-height: ${({ width = 500 }: CardMediaProps) => width}px;
+        min-height: 50px;
+        max-width: ${({ width = 500 }: CardMediaProps) => width}px;
+        width: 100%;
+        min-width: 50px;
     }
 `;
 
 const CardMediaContent = styled(({ height, width, ...props }: CardMediaProps) => <MUICardMedia {...props} />)<CardMediaProps>`
      {
-        min-width: 200px;
-        height: ${({ height = 200 }: CardMediaProps) => height}px;
-        max-width: ${({ width = 200 }: CardMediaProps) => width}px;
+        height: ${({ height = 500 }: CardMediaProps) => height}px;
+        max-height: ${({ height = 500 }: CardMediaProps) => height}px;
+        max-width: ${({ width = 500 }: CardMediaProps) => width}px;
+        width: 100%;
         border-radius: ${({ width = 200 }: CardMediaProps) => width / 15}px;
         object-fit: cover;
         border-radius: 10px;

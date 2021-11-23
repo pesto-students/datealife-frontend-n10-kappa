@@ -2,11 +2,11 @@ import Header from "../components/header/Header";
 import TextField from "@mui/material/TextField";
 import { Button } from "../components/button/index";
 import { ContainerDiv, TextFieldDiv } from "../assets/styles/Common.styles";
-import PageWrapper from "../components/page-wrapper/PageWrapper";
+import Layout from "../components/layout/Layout";
 
 const Name = (): JSX.Element => {
     return (
-        <PageWrapper
+        <Layout
             headerProps={{
                 text: "My name is",
             }}
@@ -28,7 +28,7 @@ const Name = (): JSX.Element => {
                     Continue
                 </Button>
             </ContainerDiv>
-        </PageWrapper>
+        </Layout>
     );
 };
 

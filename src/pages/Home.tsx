@@ -4,11 +4,11 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Card, CardMedia, CardInfo, CardActions } from "../components/card";
 import { OdourlessWrapper, StyledBody } from "../assets/styles/Common.styles";
-import PageWrapper from "../components/page-wrapper/PageWrapper";
+import Layout from "../components/layout/Layout";
 
 const Home = (): JSX.Element => {
     return (
-        <PageWrapper
+        <Layout
             hasDrawer
             headerProps={{
                 text: "Matches",
@@ -45,7 +45,7 @@ const Home = (): JSX.Element => {
                     </CardActions>
                 </Card>
             </StyledBody>
-        </PageWrapper>
+        </Layout>
     );
 };
 

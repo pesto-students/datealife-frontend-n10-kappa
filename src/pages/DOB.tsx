@@ -4,7 +4,7 @@ import { Button } from "../components/button/index";
 import { ContainerDiv, TextFieldDiv } from "../assets/styles/Common.styles";
 import DatePicker from "@mui/lab/DatePicker";
 import { useState } from "react";
-import PageWrapper from "../components/page-wrapper/PageWrapper";
+import Layout from "../components/layout/Layout";
 
 const DOB = (): JSX.Element => {
     const [value, setValue] = useState<Date | null>(new Date());
@@ -13,7 +13,7 @@ const DOB = (): JSX.Element => {
         setValue(newValue);
     };
     return (
-        <PageWrapper
+        <Layout
             headerProps={{
                 text: "My DOB is",
             }}
@@ -33,7 +33,7 @@ const DOB = (): JSX.Element => {
                     Continue
                 </Button>
             </ContainerDiv>
-        </PageWrapper>
+        </Layout>
     );
 };
 

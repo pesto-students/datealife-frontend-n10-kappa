@@ -8,7 +8,7 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
-import PageWrapper from "../components/page-wrapper/PageWrapper";
+import Layout from "../components/layout/Layout";
 
 const StyledTextDiv = styled(TextFieldDiv)({
     marginBottom: "64px",
@@ -25,7 +25,7 @@ const Identify = (): JSX.Element => {
         setOrientation(event.target.value as string);
     };
     return (
-        <PageWrapper
+        <Layout
             hasDrawer
             headerProps={{
                 text: "I identify as",
@@ -72,7 +72,7 @@ const Identify = (): JSX.Element => {
                     Continue
                 </Button>
             </ContainerDiv>
-        </PageWrapper>
+        </Layout>
     );
 };
 

@@ -68,6 +68,9 @@ const StyledBody = styled.div`
     padding: 30px;
     max-width: 500px;
     margin: 65px auto 0;
+    @media (max-width: 599.99px) {
+        padding: 20px;
+    }
 `;
 
 const OdourlessWrapper = styled((props) => React.createElement(props.component, props))`

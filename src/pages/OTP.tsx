@@ -3,7 +3,7 @@ import { Button } from "../components/button/index";
 import { ContainerDiv, TextFieldDiv } from "../assets/styles/Common.styles";
 import { useState } from "react";
 import OtpInput from "react-otp-input-rc-17";
-import PageWrapper from "../components/page-wrapper/PageWrapper";
+import Layout from "../components/layout/Layout";
 
 const OTP = (): JSX.Element => {
     const [otp, setOtp] = useState("");
@@ -11,7 +11,7 @@ const OTP = (): JSX.Element => {
         setOtp(value);
     };
     return (
-        <PageWrapper
+        <Layout
             headerProps={{
                 text: "My OTP is",
             }}
@@ -54,7 +54,7 @@ const OTP = (): JSX.Element => {
                     Continue
                 </Button>
             </ContainerDiv>
-        </PageWrapper>
+        </Layout>
     );
 };
 
