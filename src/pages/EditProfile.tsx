@@ -119,9 +119,7 @@ const EditProfile = (): JSX.Element => {
                         </Button>
                     </Stack>
                 </Container>
-
             </Container>
-
         </>
     );
 };

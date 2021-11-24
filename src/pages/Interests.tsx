@@ -1,16 +1,16 @@
 import { StyledBody } from "../assets/styles/Common.styles";
 import Header from "../components/header/Header";
 import ChipStack from "../components/chip-stack/ChipStack";
+import Layout from "../components/layout/Layout";
 
 const Interests = (): JSX.Element => {
     return (
-        <>
-            <Header
-                text={"Interests"}
-                backFunction={() => {
-                    alert("Moving back");
-                }}
-            />
+        <Layout
+            hasDrawer
+            headerProps={{
+                text: "Interests",
+            }}
+        >
             <StyledBody>
                 <ChipStack
                     chips={[
@@ -24,7 +24,7 @@ const Interests = (): JSX.Element => {
                     ]}
                 />
             </StyledBody>
-        </>
+        </Layout>
     );
 };
 
