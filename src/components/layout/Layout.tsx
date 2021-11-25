@@ -8,15 +8,6 @@ import Navigation from "../navigator/Navigator";
 import { ReactElement } from "react";
 import Header, { HeaderProps } from "../header/Header";
 
-
-
-interface LayoutProps {
-    children?: React.ReactNode;
-    hasDrawer?: boolean;
-    drawerWidth?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-    headerProps: HeaderProps;
-}
-
 const Layout = (props: LayoutProps): ReactElement => {
     const { children, hasDrawer, drawerWidth = 3, headerProps } = props;
     const navigate = useNavigate();
@@ -60,17 +51,34 @@ const Layout = (props: LayoutProps): ReactElement => {
                 </Grid>
             )}
             <Grid item xs={12} sm={hasDrawer ? 9 : 12}>
-                <Header
-                    {...headerProps}
-                    headerWidth={`${headerWidth}%`}
-                    backFunction={() => {
-                        alert("Moving back");
-                    }}
-                />
+                { props.displayHeader &&
+                    (<Header
+                        {...headerProps}
+                        headerWidth={`${headerWidth}%`}
+                        backFunction={() => {
+                            alert("Moving back");
+                        }}
+                    />)}
                 {children}
             </Grid>
         </Grid>
     );
 };
+
+
+interface LayoutProps {
+    children?: React.ReactNode;
+    hasDrawer?: boolean;
+    drawerWidth?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    headerProps: HeaderProps;
+    displayHeader?: boolean;
+}
+
+const defaultProps: LayoutProps = {
+    displayHeader: true,
+    headerProps: {} as HeaderProps
+};
+
+Layout.defaultProps = defaultProps;
 
 export default Layout;

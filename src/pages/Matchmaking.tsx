@@ -13,7 +13,7 @@ import {useState, forwardRef} from "react";
 import Dialog from "@mui/material/Dialog";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
-import { Div, ContainerDiv, LogoDiv } from "../assets/styles/Common.styles";
+import { Div, ContainerDiv, LogoDiv, OdourlessWrapper } from "../assets/styles/Common.styles";
 import Logo from "../assets/images/logoDateALife.png";
 import {ButtonTextColorWhite} from "../assets/styles/Button.styles";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
@@ -37,13 +37,7 @@ import { SendAMessageButton,
     ContainerDiv2,
     HeaderDiv,
     WhiteBar } from "../assets/styles/Matchmaking.styles";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
-import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
-import Paper from "@mui/material/Paper";
+import { Layout } from "../components";
 
 const Transition = forwardRef(function Transition(
     props: TransitionProps & {
@@ -104,7 +98,14 @@ const Matchmaking = (): JSX.Element => {
       }
 
     return (
-        <>
+        <Layout
+            hasDrawer
+            headerProps={{
+                text: "Matches",
+                backFunction: () => {}
+            }}
+            displayHeader={false}
+        >
             <AppBar position="static" sx={{ backgroundColor: "white"}}>
                 <Toolbar>
                     <IconButton
@@ -140,26 +141,14 @@ const Matchmaking = (): JSX.Element => {
                         width={500}
                         height={500}
                     />
-                    <CardInfo alignment="top" imgHeight={0} imgWidth={500}>
-                        <Typography
-                            variant="h6"
-                            sx={{
-                                color: "black",
-                                textAlign: "left"
-                            }}
-                        >
+                    <CardInfo alignment="bottom" imgHeight={0} imgWidth={500}>
+                        <OdourlessWrapper variant="subtitle1" component={Typography}>
                             Full Name
-                        </Typography>
-                        <Typography
-                            variant="body2"
-                            sx={{
-                                color: "black",
-                                textAlign: "left"
-                            }}
-                        >
+                        </OdourlessWrapper>
+                        <OdourlessWrapper variant="subtitle2" component={Typography}>
                             Profession
-                        </Typography>
-                    </CardInfo >
+                        </OdourlessWrapper>
+                    </CardInfo>
                     <CardActions width={500} style={{marginTop: "20px"}}>
                         <StyledFab success={false} aria-label="disliked">
                             <CloseRoundedIcon />
@@ -288,31 +277,7 @@ const Matchmaking = (): JSX.Element => {
                 </Dialog>
             </div>
 
-            <Paper sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }} elevation={3}>
-                <BottomNavigation sx={{ bottom: 0 }} value={currentNavigation} onChange={handleNavigation}>
-                    <BottomNavigationAction
-                        label="Home"
-                        value="home"
-                        icon={<HomeOutlinedIcon />}
-                    />
-                    <BottomNavigationAction
-                        label="Learning"
-                        value="learning"
-                        icon={<LibraryBooksOutlinedIcon />}
-                    />
-                    <BottomNavigationAction
-                        label="Likes"
-                        value="likes"
-                        icon={<FavoriteBorderOutlinedIcon />}
-                    />
-                    <BottomNavigationAction
-                        label="Chats"
-                        value="chats"
-                        icon={<ForumOutlinedIcon />}
-                    />
-                </BottomNavigation>
-            </Paper>
-        </>
+        </Layout>
     );
 };
 
