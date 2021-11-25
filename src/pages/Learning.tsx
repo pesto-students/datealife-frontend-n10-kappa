@@ -1,10 +1,36 @@
 import Typography from "@mui/material/Typography";
 import { CardInfo, Card, CardMedia, Layout } from "../components";
 import { OdourlessWrapper, StyledBody } from "../assets/styles/Common.styles";
-import { Fab, IconButton } from "@mui/material";
+import { Dialog, Fab, IconButton } from "@mui/material";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
+import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
+import {ButtonGroup, Button} from "../components/button/index";
+import { ContainerDiv2, HeaderDiv} from "../assets/styles/Matchmaking.styles";
+import { useState, forwardRef } from "react";
+import { TransitionProps } from "@mui/material/transitions";
+import Slide from "@mui/material/Slide";
+import styled from "styled-components";
+
+const Transition = forwardRef(function Transition(
+    props: TransitionProps & {
+      children: React.ReactElement<any, any>;
+    },
+    ref: React.Ref<unknown>,
+  ) {
+    return <Slide direction="down" ref={ref} {...props} />;
+  });
+
+const PaddedButton = styled(Button)({
+    padding: "10px 25px"
+});
 
 const Learning = (): JSX.Element => {
+    const [filterOpen, setFilterOpen] = useState(false);
+    const toggleFilter = () => {
+        setFilterOpen(!filterOpen);
+    };
+
     return (
         <Layout
             hasDrawer
@@ -18,8 +44,8 @@ const Learning = (): JSX.Element => {
                             position: "fixed",
                             right: "20px",
                             top: "8px",
-                            zIndex: "9999",
-                    }} >
+                            zIndex: "1100",
+                    }} onClick={toggleFilter}>
                     <FilterAltOutlinedIcon />
                 </IconButton>
 
@@ -49,7 +75,58 @@ const Learning = (): JSX.Element => {
                     );
                 })}
             </StyledBody>
+
+            {/* Filter modal */}
+            <Dialog
+                open={filterOpen}
+                TransitionComponent={Transition}
+                keepMounted
+                onClose={toggleFilter}
+                aria-describedby="matchmaking modal"
+                fullWidth={true}
+                maxWidth={"xs"}
+                fullScreen
+                style={{
+                    height: "max-content",
+                }}
+            >
+                <ContainerDiv2>
+                    <HeaderDiv>
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="back icon"
+                            onClick={toggleFilter}>
+                            <ArrowBackRoundedIcon />
+                        </IconButton>
+
+                            Filter
+
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="apply icon"
+                            onClick={toggleFilter}>
+                            <CheckRoundedIcon color="error" />
+                        </IconButton>
+                    </HeaderDiv>
+
+                    <ContainerDiv2>
+                        <Typography variant="subtitle1">Gender</Typography>
+                        <ButtonGroup variant="contained" aria-label="outlined primary button group" color="warning">
+                            <PaddedButton color="inherit" curved>Male</PaddedButton>
+                            <PaddedButton color="warning" curved>Female</PaddedButton>
+                            <PaddedButton color="inherit" curved>Others</PaddedButton>
+                        </ButtonGroup>
+                    </ContainerDiv2>
+                </ContainerDiv2>
+            </Dialog>
         </Layout>
+
+
+
     );
 };
 
