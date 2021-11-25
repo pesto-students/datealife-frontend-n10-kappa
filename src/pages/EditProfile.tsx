@@ -3,12 +3,13 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Img from "../assets/images/ben-parker.jpg";
 import styled from "styled-components";
-import { Typography } from "@mui/material";
+import { Fab, Typography } from "@mui/material";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import Stack from "@mui/material/Stack";
-
+import EditIcon from "@mui/icons-material/Edit";
 import { Button } from "../components/button/index";
+import Grid from "@mui/material/Grid";
 
 const PhotoDiv = styled.div`
     width: 150px;
@@ -45,7 +46,7 @@ const itemData = [
       img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
       title: "Honey",
     }
-  ];
+];
 
 const EditProfile = (): JSX.Element => {
     const BoxStyles = {
@@ -53,7 +54,6 @@ const EditProfile = (): JSX.Element => {
                       padding: "30px",
                       borderBottomLeftRadius: "20px",
                       borderBottomRightRadius: "20px",
-                    //   width: "100%"
                     };
     return (
         <>
@@ -67,7 +67,12 @@ const EditProfile = (): JSX.Element => {
 
             <Container sx={{margin: "55px auto"}} maxWidth={false} disableGutters>
                 <Box sx={BoxStyles}>
-                    <PhotoDiv />
+                    <PhotoDiv>
+                        <Fab color="default" aria-label="add" sx={{position: "relative", top: "100px", left: "100px"}}>
+                            <EditIcon />
+                        </Fab>
+                    </PhotoDiv>
+
                     <Typography variant="subtitle1" align="center" color="white">
                         John Doe
                     </Typography>
@@ -76,42 +81,77 @@ const EditProfile = (): JSX.Element => {
                     </Typography>
                 </Box>
 
-                <ImageList sx={{ width: window.innerWidth - 2, height: "auto", marginTop: "8" }} cols={3} rowHeight={200}>
-                    {itemData.map((item) => (
-                        <ImageListItem key={item.img}>
-                        <img
-                            src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                            srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                            alt={item.title}
-                            loading="lazy"
-                        />
-                        </ImageListItem>
-                    ))}
-                </ImageList>
+                <Container maxWidth={"lg"}>
+                    <ImageList cols={3} >
+                        {itemData.map((item) => (
+                            <ImageListItem key={item.img}>
+                            <img
+                                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                                srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                alt={item.title}
+                                loading="lazy"
+                            />
+                            </ImageListItem>
+                        ))}
+                    </ImageList>
+                    <Stack spacing={3} mt={5} mb={2}>
+                        <Box mb={2}>
+                            <Grid container alignItems="center" justifyContent="space-between">
+                                <Grid item xs={10}>
+                                    <Typography variant="h5" color="secondary">ABOUT ME</Typography>
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <Fab color="secondary" aria-label="edit" sx={{float: "right"}}>
+                                        <EditIcon color="info" />
+                                    </Fab>
+                                </Grid>
+                            </Grid>
 
-                <Container maxWidth={"md"}>
-                    <Stack spacing={3} mt={2} mb={2}>
-                        <Box>
-                            <Typography variant="h6">About me</Typography>
+                            <Stack spacing={3} mt={2}>
+                                <Box>
+                                    <Typography variant="h6">Bio</Typography>
+                                    <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
+                                </Box>
+                                <Box >
+                                    <Typography variant="h6">Job Title</Typography>
+                                    <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
+                                </Box>
+                                <Box>
+                                    <Typography variant="h6">Company Name</Typography>
+                                    <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
+                                </Box>
+                            </Stack>
+                        </Box>
+
+                        <Box mb={6}>
+                            <Grid container alignItems="center" justifyContent="space-between" mb={2}>
+                                <Grid item xs={10}>
+                                    <Typography variant="h5" color="secondary">INTERESTS</Typography>
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <Fab color="secondary" aria-label="edit" sx={{float: "right"}}>
+                                        <EditIcon color="info" />
+                                    </Fab>
+                                </Grid>
+                            </Grid>
                             <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
                         </Box>
-                        <Box >
-                            <Typography variant="h6">Job Title</Typography>
+
+                        <Box mb={4}>
+                            <Grid container alignItems="center" justifyContent="space-between" mb={2}>
+                                <Grid item xs={10}>
+                                    <Typography variant="h5" color="secondary">INDENTIFY AS</Typography>
+                                </Grid>
+                                <Grid item xs={2}>
+                                    <Fab color="secondary" aria-label="edit" sx={{float: "right"}}>
+                                        <EditIcon color="info" />
+                                    </Fab>
+                                </Grid>
+                            </Grid>
                             <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
                         </Box>
-                        <Box>
-                            <Typography variant="h6">Company Name</Typography>
-                            <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
-                        </Box>
-                        <Box>
-                            <Typography variant="h6">Interests</Typography>
-                            <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
-                        </Box>
-                        <Box>
-                            <Typography variant="h6">Indentify as</Typography>
-                            <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
-                        </Box>
-                        <Button variant="contained" color="primary">
+
+                        <Button variant="contained" color="primary" size="large">
                             Logout
                         </Button>
                         <Button variant="contained" color="error">
