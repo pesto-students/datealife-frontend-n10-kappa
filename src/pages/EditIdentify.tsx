@@ -10,11 +10,11 @@ import { useState } from "react";
 import Layout from "../components/layout/Layout";
 
 const Identify = (): JSX.Element => {
-    const [age, setAge] = useState("");
+    const [gender, setGender] = useState("");
     const [orientation, setOrientation] = useState("");
 
-    const handleAgeChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value as string);
+    const handlerGenderChange = (event: SelectChangeEvent) => {
+        setGender(event.target.value as string);
     };
     const handleOrientationChange = (event: SelectChangeEvent) => {
         setOrientation(event.target.value as string);
@@ -34,9 +34,10 @@ const Identify = (): JSX.Element => {
                             <Select
                                 labelId="gender-label"
                                 id="gender-select"
-                                value={age}
+                                value={gender}
                                 label="Gender"
-                                onChange={handleAgeChange}
+                                onChange={handlerGenderChange}
+                                disabled
                             >
                                 <MenuItem value={"Male"}>Male</MenuItem>
                                 <MenuItem value={"Female"}>Female</MenuItem>
@@ -61,11 +62,10 @@ const Identify = (): JSX.Element => {
                             </Select>
                         </FormControl>
                         <Button color="primary" variant="contained">
-                            Continue
+                            Save
                         </Button>
                     </Stack>
                 </StyledTextDiv>
-
             </ContainerDiv>
         </Layout>
     );

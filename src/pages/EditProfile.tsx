@@ -10,6 +10,7 @@ import Stack from "@mui/material/Stack";
 import EditIcon from "@mui/icons-material/Edit";
 import { Button } from "../components/button/index";
 import Grid from "@mui/material/Grid";
+import { Layout } from "../components";
 
 const PhotoDiv = styled.div`
     width: 150px;
@@ -57,7 +58,13 @@ const EditProfile = (): JSX.Element => {
                     };
     return (
         <>
-            <Header
+            <Layout
+                hasDrawer
+                headerProps={{
+                    text: "Edit about",
+                }}
+            >
+                 <Header
                 text="Edit profile"
                 backFunction={() => {
                     alert("Moving back");
@@ -65,101 +72,103 @@ const EditProfile = (): JSX.Element => {
                 color="secondary"
             />
 
-            <Container sx={{margin: "55px auto"}} maxWidth={false} disableGutters>
-                <Box sx={BoxStyles}>
-                    <PhotoDiv>
-                        <Fab color="default" aria-label="add" sx={{position: "relative", top: "100px", left: "100px"}}>
-                            <EditIcon />
-                        </Fab>
-                    </PhotoDiv>
+                <Container sx={{margin: "55px auto"}} maxWidth={false} disableGutters>
+                    <Box sx={BoxStyles}>
+                        <PhotoDiv>
+                            <Fab color="default" aria-label="add" sx={{position: "relative", top: "100px", left: "100px"}}>
+                                <EditIcon />
+                            </Fab>
+                        </PhotoDiv>
 
-                    <Typography variant="subtitle1" align="center" color="white">
-                        John Doe
-                    </Typography>
-                    <Typography variant="body2" align="center" color="white">
-                        Engineer, 21
-                    </Typography>
-                </Box>
+                        <Typography variant="subtitle1" align="center" color="white">
+                            John Doe
+                        </Typography>
+                        <Typography variant="body2" align="center" color="white">
+                            Engineer, 21
+                        </Typography>
+                    </Box>
 
-                <Container maxWidth={"lg"}>
-                    <ImageList cols={3} >
-                        {itemData.map((item) => (
-                            <ImageListItem key={item.img}>
-                            <img
-                                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                                srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                alt={item.title}
-                                loading="lazy"
-                            />
-                            </ImageListItem>
-                        ))}
-                    </ImageList>
-                    <Stack spacing={3} mt={5} mb={2}>
-                        <Box mb={2}>
-                            <Grid container alignItems="center" justifyContent="space-between">
-                                <Grid item xs={10}>
-                                    <Typography variant="h5" color="secondary">ABOUT ME</Typography>
+                    <Container maxWidth={"md"}>
+                        <ImageList cols={3} >
+                            {itemData.map((item) => (
+                                <ImageListItem key={item.img}>
+                                <img
+                                    src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                                    srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                    alt={item.title}
+                                    loading="lazy"
+                                />
+                                </ImageListItem>
+                            ))}
+                        </ImageList>
+                        <Stack spacing={3} mt={5} mb={2}>
+                            <Box mb={2}>
+                                <Grid container alignItems="center" justifyContent="space-between">
+                                    <Grid item xs={10}>
+                                        <Typography variant="h6" color="secondary">ABOUT ME</Typography>
+                                    </Grid>
+                                    <Grid item xs={2}>
+                                        <Fab color="secondary" aria-label="edit" sx={{float: "right"}}>
+                                            <EditIcon color="info" />
+                                        </Fab>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={2}>
-                                    <Fab color="secondary" aria-label="edit" sx={{float: "right"}}>
-                                        <EditIcon color="info" />
-                                    </Fab>
-                                </Grid>
-                            </Grid>
 
-                            <Stack spacing={3} mt={2}>
-                                <Box>
-                                    <Typography variant="h6">Bio</Typography>
-                                    <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
-                                </Box>
-                                <Box >
-                                    <Typography variant="h6">Job Title</Typography>
-                                    <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
-                                </Box>
-                                <Box>
-                                    <Typography variant="h6">Company Name</Typography>
-                                    <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
-                                </Box>
-                            </Stack>
-                        </Box>
+                                <Stack spacing={3} mt={2}>
+                                    <Box>
+                                        <Typography variant="h6">Bio</Typography>
+                                        <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
+                                    </Box>
+                                    <Box >
+                                        <Typography variant="h6">Job Title</Typography>
+                                        <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
+                                    </Box>
+                                    <Box>
+                                        <Typography variant="h6">Company Name</Typography>
+                                        <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
+                                    </Box>
+                                </Stack>
+                            </Box>
 
-                        <Box mb={6}>
-                            <Grid container alignItems="center" justifyContent="space-between" mb={2}>
-                                <Grid item xs={10}>
-                                    <Typography variant="h5" color="secondary">INTERESTS</Typography>
+                            <Box mb={6}>
+                                <Grid container alignItems="center" justifyContent="space-between" mb={2}>
+                                    <Grid item xs={10}>
+                                        <Typography variant="h6" color="secondary">INTERESTS</Typography>
+                                    </Grid>
+                                    <Grid item xs={2}>
+                                        <Fab color="secondary" aria-label="edit" sx={{float: "right"}}>
+                                            <EditIcon color="info" />
+                                        </Fab>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={2}>
-                                    <Fab color="secondary" aria-label="edit" sx={{float: "right"}}>
-                                        <EditIcon color="info" />
-                                    </Fab>
-                                </Grid>
-                            </Grid>
-                            <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
-                        </Box>
+                                <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
+                            </Box>
 
-                        <Box mb={4}>
-                            <Grid container alignItems="center" justifyContent="space-between" mb={2}>
-                                <Grid item xs={10}>
-                                    <Typography variant="h5" color="secondary">INDENTIFY AS</Typography>
+                            <Box mb={4}>
+                                <Grid container alignItems="center" justifyContent="space-between" mb={2}>
+                                    <Grid item xs={10}>
+                                        <Typography variant="h6" color="secondary">INDENTIFY AS</Typography>
+                                    </Grid>
+                                    <Grid item xs={2}>
+                                        <Fab color="secondary" aria-label="edit" sx={{float: "right"}}>
+                                            <EditIcon color="info" />
+                                        </Fab>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={2}>
-                                    <Fab color="secondary" aria-label="edit" sx={{float: "right"}}>
-                                        <EditIcon color="info" />
-                                    </Fab>
-                                </Grid>
-                            </Grid>
-                            <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
-                        </Box>
+                                <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
+                            </Box>
 
-                        <Button variant="contained" color="primary" size="large">
-                            Logout
-                        </Button>
-                        <Button variant="contained" color="error">
-                            Delete account
-                        </Button>
-                    </Stack>
+                            <Button variant="contained" color="primary" size="large">
+                                Logout
+                            </Button>
+                            <Button variant="contained" color="error">
+                                Delete account
+                            </Button>
+                        </Stack>
+                    </Container>
                 </Container>
-            </Container>
+
+            </Layout>
         </>
     );
 };

@@ -22,6 +22,10 @@ const TextFieldDiv = styled.div`
     width: 100%;
 `;
 
+const StyledTextDiv = styled(TextFieldDiv)({
+    marginBottom: "64px",
+});
+
 const LogoDiv = styled.div`
     width: 150px;
     height: 150px;
@@ -77,4 +81,4 @@ const OdourlessWrapper = styled((props) => React.createElement(props.component, 
     color: ${({ theme }: ThemeProps<typeof Theme>) => theme.palette.common.white};
 `;
 
-export { Div, LogoDiv, LogoImg, LogoText, PrivacyText, FooterText, StyledBody, ContainerDiv, TextFieldDiv, OdourlessWrapper };
+export { Div, LogoDiv, LogoImg, LogoText, PrivacyText, FooterText, StyledBody, ContainerDiv, TextFieldDiv, StyledTextDiv, OdourlessWrapper };
