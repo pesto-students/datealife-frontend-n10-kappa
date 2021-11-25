@@ -1,25 +1,15 @@
 import Typography from "@mui/material/Typography";
 import { CardInfo, Card, CardMedia, Layout } from "../components";
 import { OdourlessWrapper, StyledBody } from "../assets/styles/Common.styles";
-import { Dialog, Fab, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import {ButtonGroup, Button} from "../components/button/index";
+import Modal from "../components/modal/Modal";
 import { ContainerDiv2, HeaderDiv} from "../assets/styles/Matchmaking.styles";
-import { useState, forwardRef } from "react";
-import { TransitionProps } from "@mui/material/transitions";
-import Slide from "@mui/material/Slide";
+import { useState } from "react";
 import styled from "styled-components";
-
-const Transition = forwardRef(function Transition(
-    props: TransitionProps & {
-      children: React.ReactElement<any, any>;
-    },
-    ref: React.Ref<unknown>,
-  ) {
-    return <Slide direction="down" ref={ref} {...props} />;
-  });
 
 const PaddedButton = styled(Button)({
     padding: "10px 25px"
@@ -77,19 +67,7 @@ const Learning = (): JSX.Element => {
             </StyledBody>
 
             {/* Filter modal */}
-            <Dialog
-                open={filterOpen}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={toggleFilter}
-                aria-describedby="matchmaking modal"
-                fullWidth={true}
-                maxWidth={"xs"}
-                fullScreen
-                style={{
-                    height: "max-content",
-                }}
-            >
+            <Modal modalOpen={filterOpen} toggleModal={toggleFilter} ariaLabel={"learning filter modal"}>
                 <ContainerDiv2>
                     <HeaderDiv>
                         <IconButton
@@ -122,7 +100,7 @@ const Learning = (): JSX.Element => {
                         </ButtonGroup>
                     </ContainerDiv2>
                 </ContainerDiv2>
-            </Dialog>
+            </Modal>
         </Layout>
 
 

@@ -9,11 +9,8 @@ import { StyledFab } from "../assets/styles/Fab.styles";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Card, CardMedia, CardInfo, CardActions } from "../components/card";
-import {useState, forwardRef} from "react";
-import Dialog from "@mui/material/Dialog";
-import Slide from "@mui/material/Slide";
-import { TransitionProps } from "@mui/material/transitions";
-import { Div, ContainerDiv, LogoDiv, OdourlessWrapper } from "../assets/styles/Common.styles";
+import {useState} from "react";
+import { Div, ContainerDiv, OdourlessWrapper } from "../assets/styles/Common.styles";
 import Logo from "../assets/images/logoDateALife.png";
 import {ButtonTextColorWhite} from "../assets/styles/Button.styles";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
@@ -38,15 +35,7 @@ import { SendAMessageButton,
     HeaderDiv,
     WhiteBar } from "../assets/styles/Matchmaking.styles";
 import { Layout } from "../components";
-
-const Transition = forwardRef(function Transition(
-    props: TransitionProps & {
-      children: React.ReactElement<any, any>;
-    },
-    ref: React.Ref<unknown>,
-  ) {
-    return <Slide direction="down" ref={ref} {...props} />;
-  });
+import Modal from "../components/modal/Modal";
 
 const PaddedButton = styled(Button)({
    padding: "10px 25px"
@@ -160,16 +149,7 @@ const Matchmaking = (): JSX.Element => {
                 </Card>
 
                 {/* Matchmaking modal */}
-                <Dialog
-                    open={matchMakingOpen}
-                    TransitionComponent={Transition}
-                    keepMounted
-                    onClose={toggleMatchMaking}
-                    aria-describedby="matchmaking modal"
-                    fullWidth
-                    maxWidth="sm"
-                    fullScreen
-                >
+                <Modal modalOpen={matchMakingOpen} toggleModal={toggleMatchMaking} ariaLabel={"new match modal"}>
                     <Div>
                         <ContainerDiv>
                             <StyledHeadText align="center" variant="h3" >Match it is</StyledHeadText>
@@ -191,22 +171,10 @@ const Matchmaking = (): JSX.Element => {
                             <ClearRoundedIcon style={{color: "white"}}/>
                         </CrossButton>
                     </Div>
-                </Dialog>
+                </Modal>
 
                 {/* Filter modal */}
-                <Dialog
-                    open={filterOpen}
-                    TransitionComponent={Transition}
-                    keepMounted
-                    onClose={toggleFilter}
-                    aria-describedby="matchmaking modal"
-                    fullWidth={true}
-                    maxWidth={"xs"}
-                    fullScreen
-                    style={{
-                        height: "400px",
-                    }}
-                >
+                <Modal modalOpen={filterOpen} toggleModal={toggleFilter} ariaLabel={"matchmaking filter modal"}>
                     <ContainerDiv2>
                         <HeaderDiv>
                             <IconButton
@@ -274,7 +242,7 @@ const Matchmaking = (): JSX.Element => {
                             </FormControl>
                         </ContainerDiv2>
                     </ContainerDiv2>
-                </Dialog>
+                </Modal>
             </div>
 
         </Layout>
