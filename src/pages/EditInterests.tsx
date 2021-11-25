@@ -1,8 +1,8 @@
 import { StyledBody } from "../assets/styles/Common.styles";
 import ChipStack from "../components/chip-stack/ChipStack";
 import Layout from "../components/layout/Layout";
-import { Stack } from "@mui/material";
 import { Button } from "../components";
+import { Stack } from "@mui/material";
 
 const Interests = (): JSX.Element => {
     return (
@@ -26,7 +26,7 @@ const Interests = (): JSX.Element => {
                         ]}
                     />
                     <Button color="primary" variant="contained" fullWidth>
-                        Continue
+                        Save
                     </Button>
                 </Stack>
             </StyledBody>

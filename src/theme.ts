@@ -77,7 +77,7 @@ export default createTheme({
       main: ERROR_COLOR,
     },
     info: {
-      main: INFO_COLOR,
+      main: WHITE_TEXT_COLOR,
     },
     success: {
       main: SUCCESS_COLOR,
