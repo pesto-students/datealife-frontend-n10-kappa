@@ -9,6 +9,7 @@ const Interests = (): JSX.Element => {
             hasDrawer
             headerProps={{
                 text: "Edit about",
+                backFunction: () => {}
             }}
         >
              <ContainerDiv>

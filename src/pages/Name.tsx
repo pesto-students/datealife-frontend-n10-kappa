@@ -9,6 +9,7 @@ const Name = (): JSX.Element => {
         <Layout
             headerProps={{
                 text: "My name is",
+                backFunction: () => {}
             }}>
             <ContainerDiv>
                 <TextFieldDiv>

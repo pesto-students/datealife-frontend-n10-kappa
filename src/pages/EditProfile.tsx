@@ -62,6 +62,8 @@ const EditProfile = (): JSX.Element => {
                 hasDrawer
                 headerProps={{
                     text: "Edit about",
+                    color: "secondary",
+                    backFunction: () => {}
                 }}
             >
                  <Header

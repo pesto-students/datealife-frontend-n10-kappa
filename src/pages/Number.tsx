@@ -14,6 +14,7 @@ const Number = (): JSX.Element => {
         <Layout
             headerProps={{
                 text: "My number is",
+                backFunction: () => {}
             }}
         >
             <ContainerDiv>

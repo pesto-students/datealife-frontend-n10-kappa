@@ -1,6 +1,8 @@
 import Typography from "@mui/material/Typography";
 import { CardInfo, Card, CardMedia, Layout } from "../components";
 import { OdourlessWrapper, StyledBody } from "../assets/styles/Common.styles";
+import { Fab, IconButton } from "@mui/material";
+import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 
 const Learning = (): JSX.Element => {
     return (
@@ -8,9 +10,19 @@ const Learning = (): JSX.Element => {
             hasDrawer
             headerProps={{
                 text: "Learning",
+                backFunction: () => {}
             }}
         >
             <StyledBody>
+                <IconButton sx={{
+                            position: "fixed",
+                            right: "20px",
+                            top: "8px",
+                            zIndex: "9999",
+                    }} >
+                    <FilterAltOutlinedIcon />
+                </IconButton>
+
                 {[1, 2, 3, 4].map((item): any => {
                     return (
                         <Card sx={{ p: "10px 0" }} key={item}>

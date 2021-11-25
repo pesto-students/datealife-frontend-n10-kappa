@@ -6,12 +6,9 @@ import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
 import Navigation from "../navigator/Navigator";
 import { ReactElement } from "react";
-import Header from "../header/Header";
+import Header, { HeaderProps } from "../header/Header";
 
-type HeaderProps = {
-    text: string;
-    backFunction?: () => void;
-};
+
 
 interface LayoutProps {
     children?: React.ReactNode;

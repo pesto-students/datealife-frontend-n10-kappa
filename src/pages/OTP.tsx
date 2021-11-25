@@ -14,6 +14,7 @@ const OTP = (): JSX.Element => {
         <Layout
             headerProps={{
                 text: "My OTP is",
+                backFunction: () => {}
             }}
         >
             <ContainerDiv>

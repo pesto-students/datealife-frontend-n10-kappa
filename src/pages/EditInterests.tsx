@@ -10,6 +10,7 @@ const Interests = (): JSX.Element => {
             hasDrawer
             headerProps={{
                 text: "Interests",
+                backFunction: () => {}
             }}
         >
             <StyledBody>

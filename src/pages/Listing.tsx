@@ -122,6 +122,7 @@ const Listing = (): JSX.Element => {
             hasDrawer
             headerProps={{
                 text: "Likes / Matches",
+                backFunction: () => {}
             }}
         >
             <StyledBody>
