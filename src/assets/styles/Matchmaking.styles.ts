@@ -57,16 +57,6 @@ const CrossButton = styled.div`
     top: 20px;
 `;
 
-const ContainerDiv2 = styled.div`
-    padding: 20px;
-`;
-
-const HeaderDiv = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-`;
-
 const WhiteBar = styled.div`
     width: 80%;
     color: white;
@@ -85,7 +75,5 @@ export { SendAMessageButton,
          MatchedProfilePictureOne,
          MatchedProfilePictureTwo,
          CrossButton,
-         ContainerDiv2,
-         HeaderDiv,
          WhiteBar};
 

@@ -1,12 +1,11 @@
 import Typography from "@mui/material/Typography";
 import { CardInfo, Card, CardMedia, Layout } from "../components";
 import { OdourlessWrapper, StyledBody } from "../assets/styles/Common.styles";
-import { IconButton } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import Modal from "../components/modal/Modal";
-import { HeaderDiv} from "../assets/styles/Matchmaking.styles";
 import { useState } from "react";
 import {ToggleButton, ToggleButtonGroup} from "../components/toogle-button/index";
 import Boxed from "../components/boxed/Boxed";
@@ -76,25 +75,31 @@ const Learning = (): JSX.Element => {
             <Modal modalOpen={filterOpen} toggleModal={toggleFilter} ariaLabel={"learning filter modal"}>
                 <Boxed>
                    <>
-                        <HeaderDiv>
-                            <IconButton
-                                size="large"
-                                edge="start"
-                                color="inherit"
-                                aria-label="back icon"
-                                onClick={toggleFilter}>
-                                <ArrowBackRoundedIcon />
-                            </IconButton>
+                        <Grid container spacing={2}>
+                            <Grid item xs={4}>
+                                <IconButton
+                                    size="large"
+                                    edge="start"
+                                    color="inherit"
+                                    aria-label="back icon"
+                                    onClick={toggleFilter}>
+                                    <ArrowBackRoundedIcon />
+                                </IconButton>
+                            </Grid>
+                            <Grid item xs={4} textAlign="center">
                                 Filter
-                            <IconButton
-                                size="large"
-                                edge="start"
-                                color="inherit"
-                                aria-label="apply icon"
-                                onClick={toggleFilter}>
-                                <CheckRoundedIcon color="error" />
-                            </IconButton>
-                        </HeaderDiv>
+                            </Grid>
+                            <Grid item xs={4} textAlign="right">
+                                <IconButton
+                                    size="large"
+                                    edge="start"
+                                    color="inherit"
+                                    aria-label="apply icon"
+                                    onClick={toggleFilter}>
+                                    <CheckRoundedIcon color="error" />
+                                </IconButton>
+                            </Grid>
+                        </Grid>
 
                         <Boxed>
                             <>

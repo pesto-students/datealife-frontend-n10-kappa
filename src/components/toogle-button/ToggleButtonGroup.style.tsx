@@ -11,12 +11,12 @@ const StyledToggleButton = styled(({ addSpacing, curved, ...props }) => <MUITogg
         border-radius: ${({ curved }: ToggleButtonGroupProps) => (curved ? 12 : 0)}px;
     }
     &&.Mui-selected {
-        background-color: ${({ theme }: ThemeProps<typeof Theme>) => theme.palette.error.main};
+        background-color: ${({ theme }: ThemeProps<typeof Theme>) => theme.palette.warning.main};
         color: white;
     }
 
     &&.Mui-selected:hover {
-        background-color: ${({ theme }: ThemeProps<typeof Theme>) => theme.palette.error.dark};
+        background-color: ${({ theme }: ThemeProps<typeof Theme>) => theme.palette.warning.dark};
         color: white;
     }
 `;
