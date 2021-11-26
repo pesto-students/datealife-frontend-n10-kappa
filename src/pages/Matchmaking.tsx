@@ -16,7 +16,7 @@ import {ButtonTextColorWhite} from "../assets/styles/Button.styles";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
-import {WarningSlider} from "../assets/styles/Slider.styles";
+import Slider from "../components/slider/Slider";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -226,7 +226,7 @@ const Matchmaking = (): JSX.Element => {
                                         </Grid>
                                     </Grid>
 
-                                    <WarningSlider
+                                    <Slider
                                         getAriaLabel={() => "Minimum distance"}
                                         value={sliderValue}
                                         onChange={handleAgeSliderChange}
