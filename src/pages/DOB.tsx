@@ -16,6 +16,7 @@ const DOB = (): JSX.Element => {
         <Layout
             headerProps={{
                 text: "My DOB is",
+                backFunction: () => {}
             }}
         >
             <ContainerDiv>

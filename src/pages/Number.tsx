@@ -14,13 +14,13 @@ const Number = (): JSX.Element => {
         <Layout
             headerProps={{
                 text: "My number is",
+                backFunction: () => {}
             }}
         >
             <ContainerDiv>
                 <TextFieldDiv>
                     <MuiPhoneNumber defaultCountry={"in"} onChange={handleChange} fullWidth />
                 </TextFieldDiv>
-
                 <Button color="primary" variant="contained">
                     {" "}
                     Continue

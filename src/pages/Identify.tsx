@@ -24,6 +24,7 @@ const Identify = (): JSX.Element => {
             hasDrawer
             headerProps={{
                 text: "I identify as",
+                backFunction: () => {}
             }}
         >
             <ContainerDiv>

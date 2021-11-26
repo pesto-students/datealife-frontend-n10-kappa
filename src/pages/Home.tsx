@@ -12,6 +12,7 @@ const Home = (): JSX.Element => {
             hasDrawer
             headerProps={{
                 text: "Matches",
+                backFunction: () => {}
             }}
         >
             <StyledBody>

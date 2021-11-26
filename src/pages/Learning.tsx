@@ -1,16 +1,50 @@
 import Typography from "@mui/material/Typography";
 import { CardInfo, Card, CardMedia, Layout } from "../components";
 import { OdourlessWrapper, StyledBody } from "../assets/styles/Common.styles";
+import { IconButton } from "@mui/material";
+import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
+import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
+import Modal from "../components/modal/Modal";
+import { HeaderDiv} from "../assets/styles/Matchmaking.styles";
+import { useState } from "react";
+import {ToggleButton, ToggleButtonGroup} from "../components/toogle-button/index";
+import Boxed from "../components/boxed/Boxed";
+import { GENDER_VALUES } from "../const";
 
 const Learning = (): JSX.Element => {
+    const [filterOpen, setFilterOpen] = useState(false);
+    const [gender, setGender] = useState(GENDER_VALUES[0].toLocaleLowerCase());
+
+    const toggleFilter = () => {
+        setFilterOpen(!filterOpen);
+    };
+
+    const handleGenderChange = (
+      event: React.MouseEvent<HTMLElement>,
+      newGender: string,
+    ) => {
+        setGender(newGender);
+    };
+
     return (
         <Layout
             hasDrawer
             headerProps={{
                 text: "Learning",
+                backFunction: () => {}
             }}
         >
             <StyledBody>
+                <IconButton sx={{
+                            position: "fixed",
+                            right: "20px",
+                            top: "8px",
+                            zIndex: "1100",
+                    }} onClick={toggleFilter}>
+                    <FilterAltOutlinedIcon />
+                </IconButton>
+
                 {[1, 2, 3, 4].map((item): any => {
                     return (
                         <Card sx={{ p: "10px 0" }} key={item}>
@@ -37,7 +71,53 @@ const Learning = (): JSX.Element => {
                     );
                 })}
             </StyledBody>
+
+            {/* Filter modal */}
+            <Modal modalOpen={filterOpen} toggleModal={toggleFilter} ariaLabel={"learning filter modal"}>
+                <Boxed>
+                   <>
+                        <HeaderDiv>
+                            <IconButton
+                                size="large"
+                                edge="start"
+                                color="inherit"
+                                aria-label="back icon"
+                                onClick={toggleFilter}>
+                                <ArrowBackRoundedIcon />
+                            </IconButton>
+                                Filter
+                            <IconButton
+                                size="large"
+                                edge="start"
+                                color="inherit"
+                                aria-label="apply icon"
+                                onClick={toggleFilter}>
+                                <CheckRoundedIcon color="error" />
+                            </IconButton>
+                        </HeaderDiv>
+
+                        <Boxed>
+                            <>
+                                <Typography variant="subtitle1" mb={2}>Gender</Typography>
+                                <ToggleButtonGroup
+                                    value={gender}
+                                    exclusive
+                                    onChange={handleGenderChange}>
+                                    {GENDER_VALUES.map((gender, index) => {
+                                        return (<ToggleButton value={gender.toLocaleLowerCase()} curved={index === 0 || index === GENDER_VALUES.length -1}>
+                                                    {gender}
+                                                </ToggleButton>);
+                                    })}
+                                </ToggleButtonGroup>
+                            </>
+                        </Boxed>
+                   </>
+                </Boxed>
+            </Modal>
         </Layout>
+
+
+
     );
 };
 

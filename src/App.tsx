@@ -40,7 +40,7 @@ const App = (): JSX.Element => {
             <Route path="/user/profile/:id" element={<Home />} />
             <Route path="/learning" element={<Learning />} />
             <Route path="/chatting" element={<Chat />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/home" element={<Matchmaking />} />
             <Route path="/likes" element={<Listings />} />
             <Route path="/user/profile/editProfile/editAbout" element={<EditAboutUs />} />
             <Route path="/user/profile/editProfile/editInterests" element={<EditInterests />} />

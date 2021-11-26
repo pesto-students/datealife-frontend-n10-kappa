@@ -22,7 +22,7 @@ export default function Header(props: HeaderProps): JSX.Element {
                         },
                     }),
                 ]}
-                color={props.color || "transparent"}
+                color={props.color || "inherit"}
             >
                 <Toolbar>
                     <IconButton size="large" edge="start" aria-label="back button" onClick={props.backFunction} color={"default"}>
@@ -37,7 +37,7 @@ export default function Header(props: HeaderProps): JSX.Element {
     );
 }
 
-interface HeaderProps {
+export interface HeaderProps {
     text: string;
     backFunction: () => void;
     color?: "inherit" | "transparent" | "default" | "primary" | "secondary" | undefined;
