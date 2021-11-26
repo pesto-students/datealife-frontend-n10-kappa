@@ -9,10 +9,10 @@ const Chat = (): JSX.Element => {
     useEffect(() => {
         const { TEST_USER_UUID, AUTH_KEY } = COMETCHAT_CONSTANTS;
         CometChat.login(TEST_USER_UUID, AUTH_KEY)
-            .then((user) => {
+            .then((user: any) => {
                 // console.log(user);
             })
-            .catch((error) => {
+            .catch((error: Error) => {
                 // console.log("CometChatLogin Failed", error);
                 // dispatch(authFail(error));
             });
@@ -22,6 +22,7 @@ const Chat = (): JSX.Element => {
             hasDrawer
             headerProps={{
                 text: "Interests",
+                backFunction: () => {}
             }}
         >
             <StyledBody style={{ height: "502px", width: "100%", maxWidth: "90%" }}>
