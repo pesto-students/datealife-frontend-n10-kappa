@@ -16,7 +16,7 @@ import {ButtonTextColorWhite} from "../assets/styles/Button.styles";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
-import {WarningSlider} from "../assets/styles/Slider.styles";
+import Slider from "../components/slider/Slider";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -29,13 +29,12 @@ import { SendAMessageButton,
     MatchedProfilePictureOne,
     MatchedProfilePictureTwo,
     CrossButton,
-    HeaderDiv,
     WhiteBar } from "../assets/styles/Matchmaking.styles";
 import { Layout, ToggleButton, ToggleButtonGroup } from "../components";
 import Modal from "../components/modal/Modal";
 import Boxed from "../components/boxed/Boxed";
 import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
-import { Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 
 const Matchmaking = (): JSX.Element => {
     const [matchMakingOpen, setMatchmakingOpen] = useState(false);
@@ -50,12 +49,6 @@ const Matchmaking = (): JSX.Element => {
       ) => {
           setGender(newGender);
       };
-
-    const [currentNavigation, setCurrentNavigation] = useState("home");
-
-  const handleNavigation = (event: React.SyntheticEvent, newValue: string) => {
-    setCurrentNavigation(newValue);
-  };
 
     const toggleMatchMaking = () => {
       setMatchmakingOpen(!matchMakingOpen);
@@ -180,31 +173,35 @@ const Matchmaking = (): JSX.Element => {
                 <Modal modalOpen={filterOpen} toggleModal={toggleFilter} ariaLabel={"matchmaking filter modal"}>
                     <Boxed>
                         <>
-                            <HeaderDiv>
-                                <IconButton
-                                    size="large"
-                                    edge="start"
-                                    color="inherit"
-                                    aria-label="back icon"
-                                    onClick={toggleFilter}>
-                                    <ArrowBackRoundedIcon />
-                                </IconButton>
-
+                            <Grid container spacing={2}>
+                                <Grid item xs={4}>
+                                    <IconButton
+                                        size="large"
+                                        edge="start"
+                                        color="inherit"
+                                        aria-label="back icon"
+                                        onClick={toggleFilter}>
+                                        <ArrowBackRoundedIcon />
+                                    </IconButton>
+                                </Grid>
+                                <Grid item xs={4} textAlign="center">
                                     Filter
-
-                                <IconButton
-                                    size="large"
-                                    edge="start"
-                                    color="inherit"
-                                    aria-label="apply icon"
-                                    onClick={toggleFilter}>
-                                    <CheckRoundedIcon color="error" />
-                                </IconButton>
-                            </HeaderDiv>
+                                </Grid>
+                                <Grid item xs={4} textAlign="right">
+                                    <IconButton
+                                        size="large"
+                                        edge="start"
+                                        color="inherit"
+                                        aria-label="apply icon"
+                                        onClick={toggleFilter}>
+                                        <CheckRoundedIcon color="error" />
+                                    </IconButton>
+                                </Grid>
+                            </Grid>
 
                             <Boxed>
-                                <Stack spacing={2}>
-                                    <Typography variant="subtitle1">Gender</Typography>
+                                <Stack>
+                                    <Typography variant="subtitle1" mb={1}>Gender</Typography>
                                     <ToggleButtonGroup
                                     value={gender}
                                     exclusive
@@ -220,11 +217,16 @@ const Matchmaking = (): JSX.Element => {
 
                             <Boxed>
                                 <>
-                                    <HeaderDiv>
-                                        <Typography variant="subtitle1">Age</Typography>
-                                        <Typography variant="body2" color="info">{sliderValue[0]} - {sliderValue[1]} </Typography>
-                                    </HeaderDiv>
-                                    <WarningSlider
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={6}>
+                                            <Typography variant="subtitle1">Age</Typography>
+                                        </Grid>
+                                        <Grid item xs={6} textAlign="right">
+                                            <Typography variant="body2" color="warning">{sliderValue[0]} - {sliderValue[1]} </Typography>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Slider
                                         getAriaLabel={() => "Minimum distance"}
                                         value={sliderValue}
                                         onChange={handleAgeSliderChange}

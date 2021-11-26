@@ -5,8 +5,21 @@ import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact
 import ChatIcon from "@mui/icons-material/Chat";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { CardInfo, Card, CardMedia, CardActions, Layout } from "../components";
-import { OdourlessWrapper, StyledBody } from "../assets/styles/Common.styles";
+import { ContainerDiv, Div, OdourlessWrapper, StyledBody } from "../assets/styles/Common.styles";
+import { SendAMessageButton,
+    StyledHeadText,
+    StyledBodyText,
+    StyledSubTitleText,
+    ProfileMatchPictureContainer,
+    MatchedProfilePictureOne,
+    MatchedProfilePictureTwo,
+    CrossButton,
+
+    WhiteBar } from "../assets/styles/Matchmaking.styles";
+import { ButtonTextColorWhite } from "../assets/styles/Button.styles";
+import Modal from "../components/modal/Modal";
 
 type Item = {
     label: string;
@@ -14,6 +27,12 @@ type Item = {
 };
 
 const Listing = (): JSX.Element => {
+    const [matchMakingOpen, setMatchmakingOpen] = useState(false);
+    const toggleMatchMaking = () => {
+      setMatchmakingOpen(!matchMakingOpen);
+    };
+
+
     // should ne replaced with actual data
     const tabPanelData: any = {
         likes: (
@@ -91,7 +110,7 @@ const Listing = (): JSX.Element => {
                 </CardInfo>
                 <CardInfo alignment="bottom" imgHeight={200} imgWidth={200} hasIcon>
                     <CardActions width={200}>
-                        <OdourlessWrapper component={CloseIcon} />
+                        <OdourlessWrapper component={CloseIcon} onClick={toggleMatchMaking} />
                         <OdourlessWrapper component={DoneIcon} />
                     </CardActions>
                 </CardInfo>
@@ -149,6 +168,30 @@ const Listing = (): JSX.Element => {
                     ))}
                 </TabContext>
             </StyledBody>
+            {/* Matchmaking modal */}
+            <Modal modalOpen={matchMakingOpen} toggleModal={toggleMatchMaking} ariaLabel={"new match modal"}>
+                <Div>
+                    <ContainerDiv>
+                        <StyledHeadText align="center" variant="h3" >Match it is</StyledHeadText>
+                        <StyledBodyText align="center" variant="subtitle2">Riya likes you too</StyledBodyText>
+                        <ProfileMatchPictureContainer>
+                            {/* <MatchedProfilePictureOne src={Logo} alt="profile picture" />
+                            <MatchedProfilePictureTwo src={Logo} alt="profile picture 2 " /> */}
+                        </ProfileMatchPictureContainer>
+                        <StyledSubTitleText align="center" variant="subtitle1">You and Riya have 85% match ratio</StyledSubTitleText>
+                        <WhiteBar />
+                        <SendAMessageButton variant="contained" >
+                            Send a message
+                        </SendAMessageButton>
+                        <ButtonTextColorWhite variant="text" >
+                            Keep Searching
+                        </ButtonTextColorWhite>
+                    </ContainerDiv>
+                    <CrossButton onClick={toggleMatchMaking}>
+                        <ClearRoundedIcon style={{color: "white"}}/>
+                    </CrossButton>
+                </Div>
+            </Modal>
         </Layout>
     );
 };

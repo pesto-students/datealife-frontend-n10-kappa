@@ -11,4 +11,4 @@ export const WarningSlider = styled(Slider)<SliderProps>(({ theme }) => ({
         boxShadow: `0px 0px 0px 14px ${alpha(theme.palette.warning.main, 0.16)}`,
       },
     },
-  }));
+}));
