@@ -6,3 +6,5 @@ export const SUCCESS_COLOR = "#29AE62";
 export const DEFAULT_TEXT_COLOR = "#474747";
 export const WHITE_TEXT_COLOR = "#FFFFFF";
 export const WARNING_COLOR = "#DC823A";
+export const GENDER_VALUES = ["Male", "Female", "Others"];
+export const ORIENTATION_VALUES = ["Straight", "Gay/Lesbian", "Bisexual", "Pansexual", "Transexual"];

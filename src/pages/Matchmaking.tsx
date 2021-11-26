@@ -16,8 +16,6 @@ import {ButtonTextColorWhite} from "../assets/styles/Button.styles";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
-import styled from "styled-components";
-import {ButtonGroup, Button} from "../components/button/index";
 import {WarningSlider} from "../assets/styles/Slider.styles";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -31,15 +29,13 @@ import { SendAMessageButton,
     MatchedProfilePictureOne,
     MatchedProfilePictureTwo,
     CrossButton,
-    ContainerDiv2,
     HeaderDiv,
     WhiteBar } from "../assets/styles/Matchmaking.styles";
-import { Layout } from "../components";
+import { Layout, ToggleButton, ToggleButtonGroup } from "../components";
 import Modal from "../components/modal/Modal";
-
-const PaddedButton = styled(Button)({
-   padding: "10px 25px"
-});
+import Boxed from "../components/boxed/Boxed";
+import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
+import { Stack } from "@mui/material";
 
 const Matchmaking = (): JSX.Element => {
     const [matchMakingOpen, setMatchmakingOpen] = useState(false);
@@ -47,6 +43,13 @@ const Matchmaking = (): JSX.Element => {
     const [orientation, setOrientation] = useState("");
     const [sliderValue, setSliderValue] = useState<number[]>([18, 25]);
     const minDistance = 10;
+    const [gender, setGender] = useState(GENDER_VALUES[0].toLocaleLowerCase());
+    const handleGenderChange = (
+        event: React.MouseEvent<HTMLElement>,
+        newGender: string,
+      ) => {
+          setGender(newGender);
+      };
 
     const [currentNavigation, setCurrentNavigation] = useState("home");
 
@@ -175,73 +178,85 @@ const Matchmaking = (): JSX.Element => {
 
                 {/* Filter modal */}
                 <Modal modalOpen={filterOpen} toggleModal={toggleFilter} ariaLabel={"matchmaking filter modal"}>
-                    <ContainerDiv2>
-                        <HeaderDiv>
-                            <IconButton
-                                size="large"
-                                edge="start"
-                                color="inherit"
-                                aria-label="back icon"
-                                onClick={toggleFilter}>
-                                <ArrowBackRoundedIcon />
-                            </IconButton>
-
-                                Filter
-
-                            <IconButton
-                                size="large"
-                                edge="start"
-                                color="inherit"
-                                aria-label="apply icon"
-                                onClick={toggleFilter}>
-                                <CheckRoundedIcon color="error" />
-                            </IconButton>
-                        </HeaderDiv>
-
-                        <ContainerDiv2>
-                            <Typography variant="subtitle1">Gender</Typography>
-                            <ButtonGroup variant="contained" aria-label="outlined primary button group" color="warning">
-                                <PaddedButton color="warning" curved>Male</PaddedButton>
-                                <PaddedButton color="warning" curved>Female</PaddedButton>
-                                <PaddedButton color="inherit" curved>Others</PaddedButton>
-                            </ButtonGroup>
-                        </ContainerDiv2>
-                        <ContainerDiv2>
+                    <Boxed>
+                        <>
                             <HeaderDiv>
-                                <Typography variant="subtitle1">Age</Typography>
-                                <Typography variant="body2" color="info">{sliderValue[0]} - {sliderValue[1]} </Typography>
-                            </HeaderDiv>
-                            <WarningSlider
-                                getAriaLabel={() => "Minimum distance"}
-                                value={sliderValue}
-                                onChange={handleAgeSliderChange}
-                                valueLabelDisplay="auto"
-                                getAriaValueText={valuetext}
-                                min={18}
-                                max={80}
-                            />
-                        </ContainerDiv2>
+                                <IconButton
+                                    size="large"
+                                    edge="start"
+                                    color="inherit"
+                                    aria-label="back icon"
+                                    onClick={toggleFilter}>
+                                    <ArrowBackRoundedIcon />
+                                </IconButton>
 
-                        <ContainerDiv2>
-                            <FormControl fullWidth>
-                                <InputLabel id="orientation-label" color="warning">Orientation</InputLabel>
-                                <Select
-                                    labelId="orientation-label"
-                                    id="orientation-select"
-                                    value={orientation}
-                                    label="orientation"
-                                    onChange={handleOrientationChange}
-                                    color="warning"
-                                >
-                                    <MenuItem value={"Straight"}>Straight</MenuItem>
-                                    <MenuItem value={"Gay/Lesbian"}>Gay/Lesbian</MenuItem>
-                                    <MenuItem value={"Bisexual"}>Bisexual</MenuItem>
-                                    <MenuItem value={"Pansexual"}>Pansexual</MenuItem>
-                                    <MenuItem value={"Transexual"}>Transexual</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </ContainerDiv2>
-                    </ContainerDiv2>
+                                    Filter
+
+                                <IconButton
+                                    size="large"
+                                    edge="start"
+                                    color="inherit"
+                                    aria-label="apply icon"
+                                    onClick={toggleFilter}>
+                                    <CheckRoundedIcon color="error" />
+                                </IconButton>
+                            </HeaderDiv>
+
+                            <Boxed>
+                                <Stack spacing={2}>
+                                    <Typography variant="subtitle1">Gender</Typography>
+                                    <ToggleButtonGroup
+                                    value={gender}
+                                    exclusive
+                                    onChange={handleGenderChange}
+                                    aria-label="outlined primary button group">
+                                    {GENDER_VALUES.map((gender, index) => {
+                                        return (<ToggleButton value={gender.toLocaleLowerCase()} curved={index === 0 || index === GENDER_VALUES.length -1}>
+                                                    {gender}
+                                                </ToggleButton>);
+                                    })}</ToggleButtonGroup>
+                                </Stack>
+                            </Boxed>
+
+                            <Boxed>
+                                <>
+                                    <HeaderDiv>
+                                        <Typography variant="subtitle1">Age</Typography>
+                                        <Typography variant="body2" color="info">{sliderValue[0]} - {sliderValue[1]} </Typography>
+                                    </HeaderDiv>
+                                    <WarningSlider
+                                        getAriaLabel={() => "Minimum distance"}
+                                        value={sliderValue}
+                                        onChange={handleAgeSliderChange}
+                                        valueLabelDisplay="auto"
+                                        getAriaValueText={valuetext}
+                                        min={18}
+                                        max={80}
+                                    />
+                                </>
+                            </Boxed>
+
+                            <Boxed>
+                                <FormControl fullWidth>
+                                    <InputLabel id="orientation-label" color="warning">Orientation</InputLabel>
+                                    <Select
+                                        labelId="orientation-label"
+                                        id="orientation-select"
+                                        value={orientation}
+                                        label="orientation"
+                                        onChange={handleOrientationChange}
+                                        color="warning"
+                                    >
+                                        {ORIENTATION_VALUES.map((orientation) => {
+                                            return (<MenuItem value={orientation}>
+                                                        {orientation}
+                                                    </MenuItem>);
+                                        })}
+                                    </Select>
+                                </FormControl>
+                            </Boxed>
+                        </>
+                    </Boxed>
                 </Modal>
             </div>
 

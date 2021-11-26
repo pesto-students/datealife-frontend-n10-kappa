@@ -5,20 +5,26 @@ import { IconButton } from "@mui/material";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
-import {ButtonGroup, Button} from "../components/button/index";
 import Modal from "../components/modal/Modal";
-import { ContainerDiv2, HeaderDiv} from "../assets/styles/Matchmaking.styles";
+import { HeaderDiv} from "../assets/styles/Matchmaking.styles";
 import { useState } from "react";
-import styled from "styled-components";
-
-const PaddedButton = styled(Button)({
-    padding: "10px 25px"
-});
+import {ToggleButton, ToggleButtonGroup} from "../components/toogle-button/index";
+import Boxed from "../components/boxed/Boxed";
+import { GENDER_VALUES } from "../const";
 
 const Learning = (): JSX.Element => {
     const [filterOpen, setFilterOpen] = useState(false);
+    const [gender, setGender] = useState(GENDER_VALUES[0].toLocaleLowerCase());
+
     const toggleFilter = () => {
         setFilterOpen(!filterOpen);
+    };
+
+    const handleGenderChange = (
+      event: React.MouseEvent<HTMLElement>,
+      newGender: string,
+    ) => {
+        setGender(newGender);
     };
 
     return (
@@ -68,38 +74,45 @@ const Learning = (): JSX.Element => {
 
             {/* Filter modal */}
             <Modal modalOpen={filterOpen} toggleModal={toggleFilter} ariaLabel={"learning filter modal"}>
-                <ContainerDiv2>
-                    <HeaderDiv>
-                        <IconButton
-                            size="large"
-                            edge="start"
-                            color="inherit"
-                            aria-label="back icon"
-                            onClick={toggleFilter}>
-                            <ArrowBackRoundedIcon />
-                        </IconButton>
+                <Boxed>
+                   <>
+                        <HeaderDiv>
+                            <IconButton
+                                size="large"
+                                edge="start"
+                                color="inherit"
+                                aria-label="back icon"
+                                onClick={toggleFilter}>
+                                <ArrowBackRoundedIcon />
+                            </IconButton>
+                                Filter
+                            <IconButton
+                                size="large"
+                                edge="start"
+                                color="inherit"
+                                aria-label="apply icon"
+                                onClick={toggleFilter}>
+                                <CheckRoundedIcon color="error" />
+                            </IconButton>
+                        </HeaderDiv>
 
-                            Filter
-
-                        <IconButton
-                            size="large"
-                            edge="start"
-                            color="inherit"
-                            aria-label="apply icon"
-                            onClick={toggleFilter}>
-                            <CheckRoundedIcon color="error" />
-                        </IconButton>
-                    </HeaderDiv>
-
-                    <ContainerDiv2>
-                        <Typography variant="subtitle1">Gender</Typography>
-                        <ButtonGroup variant="contained" aria-label="outlined primary button group" color="warning">
-                            <PaddedButton color="inherit" curved>Male</PaddedButton>
-                            <PaddedButton color="warning" curved>Female</PaddedButton>
-                            <PaddedButton color="inherit" curved>Others</PaddedButton>
-                        </ButtonGroup>
-                    </ContainerDiv2>
-                </ContainerDiv2>
+                        <Boxed>
+                            <>
+                                <Typography variant="subtitle1" mb={2}>Gender</Typography>
+                                <ToggleButtonGroup
+                                    value={gender}
+                                    exclusive
+                                    onChange={handleGenderChange}>
+                                    {GENDER_VALUES.map((gender, index) => {
+                                        return (<ToggleButton value={gender.toLocaleLowerCase()} curved={index === 0 || index === GENDER_VALUES.length -1}>
+                                                    {gender}
+                                                </ToggleButton>);
+                                    })}
+                                </ToggleButtonGroup>
+                            </>
+                        </Boxed>
+                   </>
+                </Boxed>
             </Modal>
         </Layout>
 
