@@ -14,15 +14,8 @@ import StaticDatePicker from "@mui/lab/StaticDatePicker";
 import TextField from "@mui/material/TextField";
 import Boxed from "../components/boxed/Boxed";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import { SendAMessageButton,
-    StyledHeadText,
-    StyledBodyText,
-    StyledSubTitleText,
-    ProfileMatchPictureContainer,
-    MatchedProfilePictureOne,
-    MatchedProfilePictureTwo,
-    CrossButton,
-    WhiteBar } from "../assets/styles/Matchmaking.styles";
+import { CrossButton } from "../assets/styles/Common.styles";
+
 
 type Item = {
     label: string;
@@ -284,7 +277,10 @@ const Listing = (): JSX.Element => {
                         <Boxed type="invites">
                             <Boxed type="backgroundShine2">
                                 <Stack>
-                                    <StyledHeadText align="center" variant="h3">Invite Sent</StyledHeadText>
+                                    <Typography align="center" variant="h3" color="white" style={{
+                                        fontFamily: "DancingScript-Regular",
+                                        paddingTop: "80px"
+                                    }}>Invite Sent</Typography>
                                     <CrossButton onClick={toggleInviteModal}>
                                         <ClearRoundedIcon style={{color: "white"}}/>
                                     </CrossButton>

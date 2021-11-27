@@ -20,21 +20,14 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { SendAMessageButton,
-    StyledHeadText,
-    StyledBodyText,
-    StyledSubTitleText,
-    ProfileMatchPictureContainer,
-    MatchedProfilePictureOne,
-    MatchedProfilePictureTwo,
-    CrossButton,
-    WhiteBar } from "../assets/styles/Matchmaking.styles";
 import { Layout, ToggleButton, ToggleButtonGroup } from "../components";
 import Modal from "../components/modal/Modal";
 import Boxed from "../components/boxed/Boxed";
 import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
 import { Grid, Stack, Container } from "@mui/material";
 import { Button } from "../components/button/index";
+import { CrossButton, WhiteBar } from "../assets/styles/Common.styles";
+import MatchedPitctures from "../components/matchedPictures/MatchedPictures";
 
 const Matchmaking = (): JSX.Element => {
     const [matchMakingOpen, setMatchmakingOpen] = useState(false);
@@ -152,29 +145,30 @@ const Matchmaking = (): JSX.Element => {
                 <Modal modalOpen={matchMakingOpen} toggleModal={toggleMatchMaking} ariaLabel={"new match modal"}>
                     <Boxed type="backgroundShine">
                         <>
+                            <CrossButton onClick={toggleMatchMaking}>
+                                <ClearRoundedIcon style={{color: "white"}}/>
+                            </CrossButton>
                             <Boxed type="full">
                                 <Container>
-                                    <StyledHeadText align="center" variant="h3" >Match it is</StyledHeadText>
-                                    <StyledBodyText align="center" variant="subtitle2">Riya likes you too</StyledBodyText>
-                                    <ProfileMatchPictureContainer>
-                                        <MatchedProfilePictureOne src={Logo} alt="profile picture" />
-                                        <MatchedProfilePictureTwo src={Logo} alt="profile picture 2 " />
-                                    </ProfileMatchPictureContainer>
-                                    <StyledSubTitleText align="center" variant="subtitle1">You and Riya have 85% match ratio</StyledSubTitleText>
+                                    <Typography align="center" variant="h3" color="white" style={{
+                                        fontFamily: "DancingScript-Regular",
+                                        paddingTop: "80px"}}>
+                                        Match it is
+                                    </Typography>
+                                    <Typography align="center" variant="subtitle2" mt={4} color="white">Riya likes you too</Typography>
+                                    <MatchedPitctures imgUrl1={Logo} imgUrl2={Logo} styles={{margin: "40px auto 30px"}} />
+                                    <Typography align="center" variant="subtitle1" fontStyle="italic" color="white">You and Riya have 85% match ratio</Typography>
                                     <WhiteBar />
                                     <Stack>
-                                        <SendAMessageButton variant="contained" whiteText>
+                                        <Button variant="contained" whiteText size="large" curved sx={{margin: "25px auto 15px"}}>
                                             Send a message
-                                        </SendAMessageButton>
+                                        </Button>
                                         <Button variant="text" whiteText>
                                             Keep Searching
                                         </Button>
                                     </Stack>
                                 </Container>
                             </Boxed>
-                            <CrossButton onClick={toggleMatchMaking}>
-                                <ClearRoundedIcon style={{color: "white"}}/>
-                            </CrossButton>
                         </>
                     </Boxed>
                 </Modal>
