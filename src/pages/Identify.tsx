@@ -7,13 +7,14 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useState } from "react";
 import Layout from "../components/layout/Layout";
 import Boxed from "../components/boxed/Boxed";
+import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
 
 const Identify = (): JSX.Element => {
-    const [age, setAge] = useState("");
+    const [gender, setGender] = useState("");
     const [orientation, setOrientation] = useState("");
 
-    const handleAgeChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value as string);
+    const handleGenderChange = (event: SelectChangeEvent) => {
+        setGender(event.target.value as string);
     };
     const handleOrientationChange = (event: SelectChangeEvent) => {
         setOrientation(event.target.value as string);
@@ -34,13 +35,14 @@ const Identify = (): JSX.Element => {
                             <Select
                                 labelId="gender-label"
                                 id="gender-select"
-                                value={age}
+                                value={gender}
                                 label="Gender"
-                                onChange={handleAgeChange}
-                            >
-                                <MenuItem value={"Male"}>Male</MenuItem>
-                                <MenuItem value={"Female"}>Female</MenuItem>
-                                <MenuItem value={"Rather not say"}>Rather not say</MenuItem>
+                                onChange={handleGenderChange}>
+                                {GENDER_VALUES.map((gender) => {
+                                    return (<MenuItem value={gender}>
+                                                {gender}
+                                            </MenuItem>);
+                                })}
                             </Select>
                         </FormControl>
 
@@ -51,13 +53,12 @@ const Identify = (): JSX.Element => {
                                 id="orientation-select"
                                 value={orientation}
                                 label="orientation"
-                                onChange={handleOrientationChange}
-                            >
-                                <MenuItem value={"Straight"}>Straight</MenuItem>
-                                <MenuItem value={"Gay/Lesbian"}>Gay/Lesbian</MenuItem>
-                                <MenuItem value={"Bisexual"}>Bisexual</MenuItem>
-                                <MenuItem value={"Pansexual"}>Pansexual</MenuItem>
-                                <MenuItem value={"Transexual"}>Transexual</MenuItem>
+                                onChange={handleOrientationChange}>
+                                {ORIENTATION_VALUES.map((orientation) => {
+                                    return (<MenuItem value={orientation}>
+                                                {orientation}
+                                            </MenuItem>);
+                                })}
                             </Select>
                         </FormControl>
                         <Button color="primary" variant="contained" whiteText>

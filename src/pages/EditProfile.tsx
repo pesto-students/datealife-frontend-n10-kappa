@@ -2,7 +2,6 @@ import Header from "../components/header/Header";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Img from "../assets/images/ben-parker.jpg";
-import styled from "styled-components";
 import { Fab, Typography } from "@mui/material";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
@@ -11,16 +10,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Button } from "../components/button/index";
 import Grid from "@mui/material/Grid";
 import { Layout } from "../components";
-
-const PhotoDiv = styled.div`
-    width: 150px;
-    height: 150px;
-    border: 2px solid white;
-    background-image: url(${Img});
-    margin: auto;
-    border-radius: 75px;
-    margin-bottom: 20px;
-`;
+import { PhotoDiv } from "../assets/styles/Common.styles";
 
 const itemData = [
     {
@@ -76,7 +66,7 @@ const EditProfile = (): JSX.Element => {
 
                 <Container sx={{margin: "55px auto"}} maxWidth={false} disableGutters>
                     <Box sx={BoxStyles}>
-                        <PhotoDiv>
+                        <PhotoDiv style={{backgroundImage: `url(${Img})`}}>
                             <Fab color="default" aria-label="add" sx={{position: "relative", top: "100px", left: "100px"}}>
                                 <EditIcon />
                             </Fab>
@@ -113,7 +103,7 @@ const EditProfile = (): JSX.Element => {
                                 </ImageListItem>
                             ))}
                         </ImageList>
-                        <Stack spacing={3} mt={5} mb={2}>
+                        <Stack spacing={3} mt={5} mb={5}>
                             <Box mb={2}>
                                 <Grid container alignItems="center" justifyContent="space-between">
                                     <Grid item xs={10}>
