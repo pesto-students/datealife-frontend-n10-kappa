@@ -51,7 +51,7 @@ const OTP = (): JSX.Element => {
                         </div>
                     </Boxed>
 
-                    <Button color="primary" variant="contained" fullWidth>
+                    <Button color="primary" variant="contained" fullWidth whiteText>
                         {" "}
                         Continue
                     </Button>

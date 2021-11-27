@@ -4,6 +4,8 @@ import { StyledButton } from "./Button.style";
 
 export interface ButtonProps extends MUIButtonProps {
     curved?: boolean;
+    whiteText?: boolean;
+    whiteBackground?: boolean;
 }
 
 const Button = (props: ButtonProps): ReactElement => <StyledButton {...props} />;

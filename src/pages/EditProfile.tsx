@@ -62,7 +62,7 @@ const EditProfile = (): JSX.Element => {
                 hasDrawer
                 headerProps={{
                     text: "Edit about",
-                    // color: "secondary",
+                    color: "secondary",
                     backFunction: () => {}
                 }}
             >
@@ -170,10 +170,10 @@ const EditProfile = (): JSX.Element => {
                                 <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
                             </Box>
 
-                            <Button variant="contained" color="primary" size="large">
+                            <Button variant="contained" color="primary" size="large" whiteText>
                                 Logout
                             </Button>
-                            <Button variant="contained" color="error">
+                            <Button variant="contained" color="error" whiteText>
                                 Delete account
                             </Button>
                         </Stack>

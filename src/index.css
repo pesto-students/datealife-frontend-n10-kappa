@@ -13,18 +13,6 @@ code {
 }
 
 @font-face {
-    font-family: "DancingScript-Bold";
-    src: local("DancingScript-Bold"),
-        url("./assets/fonts/DancingScript-Bold.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: "DancingScript-Medium";
-    src: local("DancingScript-Medium"),
-        url("./assets/fonts/DancingScript-Medium.ttf") format("truetype");
-}
-
-@font-face {
     font-family: "DancingScript-Regular";
     src: local("DancingScript-Regular"),
         url("./assets/fonts/DancingScript-Regular.ttf") format("truetype");

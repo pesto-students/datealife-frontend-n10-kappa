@@ -26,7 +26,7 @@ const Interests = (): JSX.Element => {
                             { label: "Football", value: "football" },
                         ]}
                     />
-                    <Button color="primary" variant="contained" fullWidth>
+                    <Button color="primary" variant="contained" fullWidth whiteText>
                         Continue
                     </Button>
                 </Stack>
