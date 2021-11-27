@@ -62,7 +62,7 @@ const EditProfile = (): JSX.Element => {
                 hasDrawer
                 headerProps={{
                     text: "Edit about",
-                    color: "secondary",
+                    // color: "secondary",
                     backFunction: () => {}
                 }}
             >
@@ -91,6 +91,16 @@ const EditProfile = (): JSX.Element => {
                     </Box>
 
                     <Container maxWidth={"md"}>
+                        <Grid container alignItems="center" justifyContent="space-between" mt={5} mb={5}>
+                            <Grid item xs={10}>
+                                <Typography variant="h6" color="secondary">GALLERY</Typography>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Fab color="secondary" aria-label="edit" sx={{float: "right"}}>
+                                    <EditIcon color="info" />
+                                </Fab>
+                            </Grid>
+                        </Grid>
                         <ImageList cols={3} >
                             {itemData.map((item) => (
                                 <ImageListItem key={item.img}>
