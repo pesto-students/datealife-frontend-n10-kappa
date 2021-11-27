@@ -1,6 +1,4 @@
-import Header from "../components/header/Header";
 import { Button } from "../components/button/index";
-import { ContainerDiv, StyledTextDiv } from "../assets/styles/Common.styles";
 import Stack from "@mui/material/Stack";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -8,6 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useState } from "react";
 import Layout from "../components/layout/Layout";
+import Boxed from "../components/boxed/Boxed";
 
 const Identify = (): JSX.Element => {
     const [gender, setGender] = useState("");
@@ -27,8 +26,8 @@ const Identify = (): JSX.Element => {
                 backFunction: () => {}
             }}
         >
-            <ContainerDiv>
-                <StyledTextDiv>
+            <Boxed type="full">
+                <Boxed type="textField2">
                     <Stack spacing={5}>
                         <FormControl fullWidth>
                             <InputLabel id="gender-label">Gender</InputLabel>
@@ -66,8 +65,8 @@ const Identify = (): JSX.Element => {
                             Save
                         </Button>
                     </Stack>
-                </StyledTextDiv>
-            </ContainerDiv>
+                </Boxed>
+            </Boxed>
         </Layout>
     );
 };

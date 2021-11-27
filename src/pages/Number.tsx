@@ -1,9 +1,10 @@
 import Header from "../components/header/Header";
 import { Button } from "../components/button/index";
-import { ContainerDiv, TextFieldDiv } from "../assets/styles/Common.styles";
 import MuiPhoneNumber from "material-ui-phone-number";
 import { useState } from "react";
 import Layout from "../components/layout/Layout";
+import Boxed from "../components/boxed/Boxed";
+import { Container } from "@mui/material";
 
 const Number = (): JSX.Element => {
     const [number, setNumber] = useState("");
@@ -17,15 +18,20 @@ const Number = (): JSX.Element => {
                 backFunction: () => {}
             }}
         >
-            <ContainerDiv>
-                <TextFieldDiv>
-                    <MuiPhoneNumber defaultCountry={"in"} onChange={handleChange} fullWidth />
-                </TextFieldDiv>
-                <Button color="primary" variant="contained">
-                    {" "}
-                    Continue
-                </Button>
-            </ContainerDiv>
+            <Boxed type="full">
+                <Container maxWidth="md">
+                    <>
+                         <Boxed type="textField">
+                            <MuiPhoneNumber defaultCountry={"in"} onChange={handleChange} fullWidth />
+                        </Boxed>
+                        <Button color="primary" variant="contained" fullWidth>
+                            {" "}
+                            Continue
+                        </Button>
+                    </>
+                </Container>
+            </Boxed>
+
         </Layout>
     );
 };

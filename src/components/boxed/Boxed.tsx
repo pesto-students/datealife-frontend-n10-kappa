@@ -3,8 +3,36 @@ import { ReactChild, ReactChildren } from "react";
 import Box from "@mui/material/Box";
 
 const  Boxed = (props: BoxedProps): JSX.Element => {
+    let styleProps;
+    switch(props.type){
+        case "main":
+            styleProps = {padding: "20px 40px"};
+            break;
+        case "full":
+            styleProps = { padding: "60px 45px"};
+            break;
+        case "textField":
+            styleProps = { margin: "64px 0 93px", width: "100%" };
+            break;
+        case "textField2":
+            styleProps = { margin: "64px 0", width: "100%" };
+            break;
+        case "backgroundShine":
+            styleProps = {
+                background: "linear-gradient(0deg, #f56e65 0%, #f66699 33.85%, #9b8af4 100%)",
+                width: "100",
+                height: "100vh",
+            };
+            break;
+        case "invites":
+            styleProps = { height: "300px", width: "100%"};
+            break;
+        default:
+            styleProps = {padding: "20px 40px"};
+            break;
+    }
     return (
-      <Box sx={{padding: "20px 40px"}}>
+      <Box sx={styleProps}>
         {props.children}
       </Box>
     );
@@ -12,7 +40,7 @@ const  Boxed = (props: BoxedProps): JSX.Element => {
 
 interface BoxedProps {
     children: ReactChild | ReactChildren;
+    type?: string;
 }
-
 
 export default Boxed;
