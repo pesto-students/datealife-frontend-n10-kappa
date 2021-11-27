@@ -1,7 +1,7 @@
 import { Container, Stack, TextField, Typography } from "@mui/material";
-import { ContainerDiv } from "../assets/styles/Common.styles";
 import { Button } from "../components/button";
 import Layout from "../components/layout/Layout";
+import Boxed from "../components/boxed/Boxed";
 
 const Interests = (): JSX.Element => {
     return (
@@ -12,7 +12,7 @@ const Interests = (): JSX.Element => {
                 backFunction: () => {}
             }}
         >
-             <ContainerDiv>
+             <Boxed type="full">
                 <Container maxWidth="sm" style={{marginTop: "10", marginBottom: "10"}}>
                     <Stack spacing={5}>
                         <TextField
@@ -48,10 +48,7 @@ const Interests = (): JSX.Element => {
                         </Button>
                     </Stack>
                 </Container>
-
-
-
-            </ContainerDiv>
+            </Boxed>
         </Layout>
     );
 };

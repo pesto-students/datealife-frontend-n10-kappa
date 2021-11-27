@@ -1,16 +1,11 @@
 import Fab, { FabProps } from "@mui/material/Fab";
 import { styled, alpha } from "@mui/material/styles";
 
-//   const FabDisLiked = styled(Fab)<FabProps>(({ theme }) => ({
-//     backgroundColor: theme.palette.error.main,
-//     color: theme.palette.grey[100]
-//   }));
-
-interface StyledFabProps extends FabProps {
+export interface StyledFabProps extends FabProps {
     success?: boolean;
 }
 
-const StyledFab = styled(Fab, {
+export const StyledFab = styled(Fab, {
     shouldForwardProp: (prop) => prop !== "success",
 })<StyledFabProps>(({ success, theme }) => ({
     ...(success && {
@@ -38,5 +33,3 @@ const StyledFab = styled(Fab, {
         },
     }),
 }));
-
-export { StyledFab };

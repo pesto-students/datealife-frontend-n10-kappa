@@ -12,7 +12,7 @@ const StyledHeadText = styled(Typography)({
     color: "white",
     fontFamily: "DancingScript-Regular",
     fontSize: "45px",
-    marginTop: "80px"
+    paddingTop: "80px"
 });
 
 

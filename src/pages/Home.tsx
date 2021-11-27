@@ -1,5 +1,5 @@
 import Typography from "@mui/material/Typography";
-import { StyledFab } from "../assets/styles/Fab.styles";
+import { StyledFab } from "../components/fab/Fab.styles";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Card, CardMedia, CardInfo, CardActions } from "../components/card";

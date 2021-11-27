@@ -1,8 +1,8 @@
-import Header from "../components/header/Header";
 import TextField from "@mui/material/TextField";
 import { Button } from "../components/button/index";
-import { ContainerDiv, TextFieldDiv } from "../assets/styles/Common.styles";
 import Layout from "../components/layout/Layout";
+import Boxed from "../components/boxed/Boxed";
+import { Container } from "@mui/material";
 
 const Name = (): JSX.Element => {
     return (
@@ -11,23 +11,25 @@ const Name = (): JSX.Element => {
                 text: "My name is",
                 backFunction: () => {}
             }}>
-            <ContainerDiv>
-                <TextFieldDiv>
-                    <TextField
-                        required
-                        id="standard-required"
-                        label="Enter your full name"
-                        defaultValue="Max Plank"
-                        variant="standard"
-                        fullWidth
-                    />
-                </TextFieldDiv>
+            <Boxed type="full">
+                <Container maxWidth="md">
+                    <Boxed type="textField">
+                        <TextField
+                            required
+                            id="standard-required"
+                            label="Enter your full name"
+                            defaultValue="Max Plank"
+                            variant="standard"
+                            fullWidth
+                        />
+                    </Boxed>
 
-                <Button color="primary" variant="contained">
-                    {" "}
-                    Continue
-                </Button>
-            </ContainerDiv>
+                    <Button color="primary" variant="contained" fullWidth>
+                        {" "}
+                        Continue
+                    </Button>
+                </Container>
+            </Boxed>
         </Layout>
     );
 };

@@ -120,9 +120,6 @@ const Learning = (): JSX.Element => {
                 </Boxed>
             </Modal>
         </Layout>
-
-
-
     );
 };
 
