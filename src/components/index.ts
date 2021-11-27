@@ -7,6 +7,12 @@ import ImageUploader from "./image-uplaoder/ImageUploader";
 import Layout from "./layout/Layout";
 import { BottomNavigation, Drawer, Navigator } from "./navigator";
 import { ToggleButton, ToggleButtonGroup } from "./toogle-button";
+import Boxed from "./boxed/Boxed";
+import Fab from "./fab/Fab";
+import Logo from "./logo/Logo";
+import MatchedPictures from "./matchedPictures/MatchedPictures";
+import Modal from "./modal/Modal";
+import Slider from "./slider/Slider";
 
 export {
     Button,
@@ -25,4 +31,10 @@ export {
     Navigator,
     ToggleButton,
     ToggleButtonGroup,
+    Boxed,
+    Fab,
+    Logo,
+    MatchedPictures,
+    Modal,
+    Slider
 };

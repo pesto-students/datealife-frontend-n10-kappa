@@ -40,7 +40,6 @@ const Interests = (): JSX.Element => {
                             defaultValue="lorem ipsum dollar"
                             variant="standard"
                             color="primary"
-
                         />
 
                         <Button color="primary" variant="contained" whiteText>

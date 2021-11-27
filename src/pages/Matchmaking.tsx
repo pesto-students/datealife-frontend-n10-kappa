@@ -160,7 +160,7 @@ const Matchmaking = (): JSX.Element => {
                                     <Typography align="center" variant="subtitle1" fontStyle="italic" color="white">You and Riya have 85% match ratio</Typography>
                                     <WhiteBar />
                                     <Stack>
-                                        <Button variant="contained" whiteText size="large" curved sx={{margin: "25px auto 15px"}}>
+                                        <Button variant="contained" whiteText size="large" curved sx={{margin: "25px auto 15px", width: "250px"}}>
                                             Send a message
                                         </Button>
                                         <Button variant="text" whiteText>
