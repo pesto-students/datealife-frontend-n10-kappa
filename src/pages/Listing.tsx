@@ -261,21 +261,20 @@ const Listing = (): JSX.Element => {
                                         }}
                                         renderInput={(params) => <TextField {...params} />}
                                     />
-                                    <Grid container spacing={2} justifyContent="center" mb={4}>
-                                        <Grid xs={5} mr={2}>
-                                                <TimePicker
-                                                    value={date}
-                                                    onChange={setDate}
-                                                    renderInput={(params) => <TextField {...params} />}
-                                                />
-                                        </Grid>
-                                        <Grid xs={5} ml={2}>
-                                                <TimePicker
-                                                    value={newDate}
-                                                    onChange={setNewDate}
-                                                    renderInput={(params) => <TextField {...params} />}
-                                                />
-                                        </Grid>
+                                    <Grid container justifyContent="center" mb={4}>
+                                       <Stack spacing={2} direction="row">
+                                            <TimePicker
+                                                value={date}
+                                                onChange={setDate}
+                                                renderInput={(params) => <TextField {...params} />}
+                                            />
+
+                                            <TimePicker
+                                                value={newDate}
+                                                onChange={setNewDate}
+                                                renderInput={(params) => <TextField {...params} />}
+                                            />
+                                       </Stack>
                                     </Grid>
                                 </>
                             </Container>
@@ -283,17 +282,20 @@ const Listing = (): JSX.Element => {
 
                     {   counter === 2 && (
                         <Boxed type="invites">
-                            <Boxed type="backgroundShine">
+                            <Boxed type="backgroundShine2">
                                 <Stack>
                                     <StyledHeadText align="center" variant="h3">Invite Sent</StyledHeadText>
                                     <CrossButton onClick={toggleInviteModal}>
                                         <ClearRoundedIcon style={{color: "white"}}/>
                                     </CrossButton>
                                     <Boxed>
-                                        <Button variant="contained" color="warning" fullWidth curved
-                                            style={{marginTop: "30px", color: "white", padding: "10px"}}>
-                                            Return to matches
-                                        </Button>
+                                        <Container maxWidth="md">
+                                            <Button variant="contained" color="warning" fullWidth curved
+                                                style={{marginTop: "30px", color: "white", padding: "10px"}}
+                                                onClick={toggleInviteModal}>
+                                                Return to matches
+                                            </Button>
+                                        </Container>
                                     </Boxed>
                                 </Stack>
                             </Boxed>

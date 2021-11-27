@@ -24,6 +24,13 @@ const  Boxed = (props: BoxedProps): JSX.Element => {
                 height: "100vh",
             };
             break;
+        case "backgroundShine2":
+            styleProps = {
+                background: "linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(180deg, #BE413E 0%, rgba(231, 122, 71, 0.97) 103.2%)",
+                height: "100vh",
+                width: "100",
+            };
+            break;
         case "invites":
             styleProps = { height: "300px", width: "100%"};
             break;
