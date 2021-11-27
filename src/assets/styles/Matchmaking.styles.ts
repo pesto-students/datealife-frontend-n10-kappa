@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { SECONDARY_COLOR } from "../../const";
-import {ButtonTextColorWhite} from "./Button.styles";
+import { Button } from "../../components/button/index";
 import Typography from "@mui/material/Typography";
 
-const SendAMessageButton = styled(ButtonTextColorWhite)({
+const SendAMessageButton = styled(Button)({
     margin: "25px auto 15px",
     width: "250px",
 });

@@ -24,7 +24,7 @@ const Number = (): JSX.Element => {
                          <Boxed type="textField">
                             <MuiPhoneNumber defaultCountry={"in"} onChange={handleChange} fullWidth />
                         </Boxed>
-                        <Button color="primary" variant="contained" fullWidth>
+                        <Button color="primary" variant="contained" fullWidth whiteText>
                             {" "}
                             Continue
                         </Button>

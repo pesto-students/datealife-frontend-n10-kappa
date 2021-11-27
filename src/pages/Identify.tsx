@@ -60,7 +60,7 @@ const Identify = (): JSX.Element => {
                                 <MenuItem value={"Transexual"}>Transexual</MenuItem>
                             </Select>
                         </FormControl>
-                        <Button color="primary" variant="contained">
+                        <Button color="primary" variant="contained" whiteText>
                             Continue
                         </Button>
                     </Stack>

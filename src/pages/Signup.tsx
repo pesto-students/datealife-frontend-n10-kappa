@@ -1,45 +1,51 @@
 import DateALifeLogo from "../assets/images/logoDateALife.png";
-import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
+import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import GoogleIcon from "@mui/icons-material/Google";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
-import { LogoDiv, LogoImg, LogoText, PrivacyText, FooterText } from "../assets/styles/Common.styles";
-import { SignupButton } from "../assets/styles/Button.styles";
+import { Button } from "../components/button/index";
 import Boxed from "../components/boxed/Boxed";
+import { Container, Stack, Typography } from "@mui/material";
+import Logo from "../components/logo/Logo";
+import {Link} from "react-router-dom";
 
 const SignUp = (): JSX.Element => {
     return (
         <Boxed type="backgroundShine">
-           <>
-            <LogoDiv>
-                    <LogoImg src={DateALifeLogo} alt="logo" />
-                </LogoDiv>
-                <LogoText>Date A Life</LogoText>
+            <Container maxWidth="md">
+                <Stack >
+                    <Logo imgUrl={DateALifeLogo} styles={{marginTop: "50px"}} />
 
-                <PrivacyText>
-                    By clicking Sign Up, you agree with our Terms. Learn how we process your data in our{" "}
-                    <a href="/">Privacy Policy</a>
-                    and Cookies Policy.
-                </PrivacyText>
+                    <Typography variant="h4" color="white" textAlign="center" style={{fontFamily: "DancingScript-Regular, cursive"}} mt={2} mb={5}>Date A Life</Typography>
 
-                <SignupButton variant="contained" startIcon={<GoogleIcon color="warning" />} color="inherit">
-                    Signup with google
-                </SignupButton>
+                    <Typography variant="subtitle1" color="white" textAlign="center" mt={2} mb={2}>
+                        By clicking Sign up, you agree with our Terms. Learn how we process your data in our <a href="/">Privacy Policy</a>{" "}
+                        and Cookies Policy.
+                    </Typography>
 
-                <SignupButton variant="contained" startIcon={<FacebookRoundedIcon color="info" fontSize="large" />} color="inherit">
-                    Signup with facebook
-                </SignupButton>
+                    <Boxed type="main">
+                        <Stack spacing={3}>
+                            <Button variant="contained" startIcon={<GoogleIcon color="warning" />}  whiteBackground>
+                                Signup with google
+                            </Button>
 
-                <SignupButton variant="contained" startIcon={<LocalPhoneIcon color="secondary" />} color="inherit">
-                    Signup with number
-                </SignupButton>
+                            <Button variant="contained" startIcon={<FacebookOutlinedIcon sx={{color: "#00B1CD"}} fontSize="large" />} whiteBackground>
+                                Signup with facebook
+                            </Button>
 
-                <FooterText>
-                    Have an account?{" "}
-                    <strong>
-                        <a href="/login">Login</a>
-                    </strong>
-                </FooterText>
-           </>
+                            <Button variant="contained" startIcon={<LocalPhoneIcon color="secondary" />} whiteBackground>
+                                Signup with number
+                            </Button>
+
+                            <Typography variant="subtitle2" color="white" textAlign="center">
+                                Already have an account?{" "}
+                                <strong>
+                                    <Link to="/signup" style={{color: "white"}}>Login</Link>
+                                </strong>
+                            </Typography>
+                        </Stack>
+                    </Boxed>
+                </Stack>
+            </Container>
         </Boxed>
     );
 };

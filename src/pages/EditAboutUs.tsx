@@ -43,7 +43,7 @@ const Interests = (): JSX.Element => {
 
                         />
 
-                        <Button color="primary" variant="contained">
+                        <Button color="primary" variant="contained" whiteText>
                             Save
                         </Button>
                     </Stack>

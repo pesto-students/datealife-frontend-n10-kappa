@@ -30,7 +30,7 @@ const DOB = (): JSX.Element => {
                             renderInput={(params: TextFieldProps) => <TextField {...params} fullWidth variant="standard" />}
                         />
                     </Boxed>
-                    <Button color="primary" variant="contained" fullWidth>
+                    <Button color="primary" variant="contained" fullWidth whiteText>
                         Continue
                     </Button>
                 </Container>

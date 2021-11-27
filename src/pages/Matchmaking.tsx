@@ -12,7 +12,6 @@ import { Card, CardMedia, CardInfo, CardActions } from "../components/card";
 import {useState} from "react";
 import { OdourlessWrapper } from "../assets/styles/Common.styles";
 import Logo from "../assets/images/logoDateALife.png";
-import {ButtonTextColorWhite} from "../assets/styles/Button.styles";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
@@ -35,6 +34,7 @@ import Modal from "../components/modal/Modal";
 import Boxed from "../components/boxed/Boxed";
 import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
 import { Grid, Stack, Container } from "@mui/material";
+import { Button } from "../components/button/index";
 
 const Matchmaking = (): JSX.Element => {
     const [matchMakingOpen, setMatchmakingOpen] = useState(false);
@@ -163,12 +163,12 @@ const Matchmaking = (): JSX.Element => {
                                     <StyledSubTitleText align="center" variant="subtitle1">You and Riya have 85% match ratio</StyledSubTitleText>
                                     <WhiteBar />
                                     <Stack>
-                                        <SendAMessageButton variant="contained" >
+                                        <SendAMessageButton variant="contained" whiteText>
                                             Send a message
                                         </SendAMessageButton>
-                                        <ButtonTextColorWhite variant="text">
+                                        <Button variant="text" whiteText>
                                             Keep Searching
-                                        </ButtonTextColorWhite>
+                                        </Button>
                                     </Stack>
                                 </Container>
                             </Boxed>
