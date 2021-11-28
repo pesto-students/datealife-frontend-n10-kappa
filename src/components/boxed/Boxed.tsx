@@ -34,6 +34,9 @@ const  Boxed = (props: BoxedProps): JSX.Element => {
         case "invites":
             styleProps = { height: "300px", width: "100%"};
             break;
+        case "error":
+            styleProps = { padding: "60px 0" };
+            break;
         default:
             styleProps = {padding: "20px 40px"};
             break;
