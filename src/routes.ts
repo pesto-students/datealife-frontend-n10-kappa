@@ -8,6 +8,7 @@ import Name from "./pages/Name";
 import DOB from "./pages/DOB";
 import IdentifyAs from "./pages/Identify";
 import EditIdentifyAs from "./pages/EditIdentify";
+import ErrorPage from "./pages/ErrorPage";
 import Number from "./pages/Number";
 import OTP from "./pages/OTP";
 import Listings from "./pages/Listing";
@@ -101,6 +102,10 @@ const routes: RoutesType[] = [
     {
         pathname: "/user/profile/editProfile/editIdentify",
         component: EditIdentifyAs,
+    },
+    {
+        pathname: "*",
+        component: ErrorPage,
     }
 ];
 

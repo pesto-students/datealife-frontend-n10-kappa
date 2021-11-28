@@ -1,21 +1,24 @@
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import ErrorIcon from "@mui/icons-material/Error";
 import NotAccessibleIcon from "@mui/icons-material/NotAccessible";
-const iconStyles = {fontSize: "70px", marginBottom: "20px"};
+import { Boxed } from "..";
+import { Stack } from "@mui/material";
+
+const iconStyles = {fontSize: "100px", marginBottom: "30px"};
 
 export default function Error(props: ErrorProps): JSX.Element {
     return (
-        //Replace with Boxed - textfield
-        <Box sx={{ flexGrow: 1, textAlign: "center", padding: "60px 0" }}>
-            {props.matchError ? <ErrorIcon sx={iconStyles}/> : <NotAccessibleIcon  sx={iconStyles} />}
-            <Typography variant="h6" component="div" color="secondary" sx={{ marginBottom: "7px" }} fontStyle="bold">
-                {props.errorHeading}
-            </Typography>
-            <Typography variant="body2" component="div" color="gray" fontStyle="italic" >
-                {props.errorsubText}
-            </Typography>
-        </Box>
+        <Boxed>
+            <Stack alignItems="center">
+                {!props.matchError ? <ErrorIcon sx={iconStyles}/> : <NotAccessibleIcon  sx={iconStyles} />}
+                <Typography variant="h4" component="div" color="secondary" mb={2} fontStyle="bold">
+                    {props.errorHeading}
+                </Typography>
+                <Typography variant="body1" component="div" color="gray" fontStyle="italic" >
+                    {props.errorsubText}
+                </Typography>
+            </Stack>
+        </Boxed>
     );
 }
 
