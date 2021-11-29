@@ -17,59 +17,60 @@ import Matchmaking from "./pages/Matchmaking";
 import EditProfile from "./pages/EditProfile";
 import Chat from "./pages/Chat";
 import EditAboutUs from "./pages/EditAboutUs";
+import EditPicture from "./pages/EditPicture";
 
 const routes: RoutesType[] = [
     {
         pathname: "/signup",
-        component: Signup
+        component: Signup,
     },
     {
         pathname: "/login",
-        component: Login
+        component: Login,
     },
     {
         pathname: "/user/name",
-        component: Name
+        component: Name,
     },
     {
         pathname: "/user/identify",
-        component: IdentifyAs
+        component: IdentifyAs,
     },
     {
         pathname: "/signup/number",
-        component: Number
+        component: Number,
     },
     {
         pathname: "/signup/otp",
-        component: OTP
+        component: OTP,
     },
     {
         pathname: "/user/dob",
-        component: DOB
+        component: DOB,
     },
     {
         pathname: "/user/interests",
-        component: Interests
+        component: Interests,
     },
     {
         pathname: "/matchmaking",
-        component: Matchmaking
+        component: Matchmaking,
     },
     {
         pathname: "/user/dob",
-        component: DOB
+        component: DOB,
     },
     {
         pathname: "/user/picture",
-        component: Home
+        component: EditPicture,
     },
     {
         pathname: "/user/profile/editProfile",
-        component: EditProfile
+        component: EditProfile,
     },
     {
         pathname: "/user/profile/:id/editProfile/editPicture",
-        component: EditPictures
+        component: EditPictures,
     },
     {
         pathname: "/user/profile/editProfile/editPicture",
@@ -77,11 +78,11 @@ const routes: RoutesType[] = [
     },
     {
         pathname: "/learning",
-        component: Learning
+        component: Learning,
     },
     {
         pathname: "/chatting",
-        component: Chat
+        component: Chat,
     },
     {
         pathname: "/home",
@@ -89,11 +90,11 @@ const routes: RoutesType[] = [
     },
     {
         pathname: "/likes",
-        component: Listings
+        component: Listings,
     },
     {
         pathname: "/user/profile/editProfile/editAbout",
-        component: EditAboutUs
+        component: EditAboutUs,
     },
     {
         pathname: "/user/profile/editProfile/editInterests",
@@ -106,13 +107,12 @@ const routes: RoutesType[] = [
     {
         pathname: "*",
         component: ErrorPage,
-    }
+    },
 ];
 
-
 type RoutesType = {
-    pathname: string,
-    component: any
+    pathname: string;
+    component: any;
 };
 
 export default routes;

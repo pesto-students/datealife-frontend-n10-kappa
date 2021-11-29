@@ -1,20 +1,40 @@
 import { Button } from "../components/button/index";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import OtpInput from "react-otp-input-rc-17";
 import Layout from "../components/layout/Layout";
 import Boxed from "../components/boxed/Boxed";
 import { Container } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { ThirdPartyUser, confirmOtp } from "../auth";
+import { fetchUserRequest } from "../store/sagas/user/actions";
+import { useNavigate } from "react-router-dom";
+import { getIsLoggedIn } from "../store/reducers/login";
 
 const OTP = (): JSX.Element => {
+    const numInputs = 6;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const isLogged = useSelector(getIsLoggedIn);
     const [otp, setOtp] = useState("");
     const handleChange = (value: any) => {
         setOtp(value);
+    };
+
+    useEffect(() => {
+        if (isLogged) navigate("/home");
+    }, [navigate, isLogged]);
+
+    const handleClick = async () => {
+        if (otp.length === numInputs) {
+            const user: ThirdPartyUser = await confirmOtp(otp);
+            dispatch(fetchUserRequest({ user }));
+        }
     };
     return (
         <Layout
             headerProps={{
                 text: "My OTP is",
-                backFunction: () => {}
+                backFunction: () => {},
             }}
         >
             <Boxed type="full">
@@ -24,7 +44,7 @@ const OTP = (): JSX.Element => {
                             <OtpInput
                                 value={otp}
                                 onChange={handleChange}
-                                numInputs={4}
+                                numInputs={numInputs}
                                 inputStyle={{
                                     width: "1.8em",
                                     textAlign: "center",
@@ -41,7 +61,7 @@ const OTP = (): JSX.Element => {
                                     outline: "none",
                                 }}
                                 isInputNum={true}
-                                placeholder="0000"
+                                placeholder="000000"
                                 separator={<span> &nbsp; &nbsp;</span>}
                                 containerStyle={{
                                     width: "maxContent",
@@ -51,7 +71,14 @@ const OTP = (): JSX.Element => {
                         </div>
                     </Boxed>
 
-                    <Button color="primary" variant="contained" fullWidth whiteText>
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        disabled={otp.length !== numInputs}
+                        fullWidth
+                        whiteText
+                        onClick={handleClick}
+                    >
                         {" "}
                         Continue
                     </Button>

@@ -8,8 +8,13 @@ import { useState } from "react";
 import Layout from "../components/layout/Layout";
 import Boxed from "../components/boxed/Boxed";
 import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { updateUser } from "../store/reducers/login";
 
 const Identify = (): JSX.Element => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [gender, setGender] = useState("");
     const [orientation, setOrientation] = useState("");
 
@@ -19,12 +24,16 @@ const Identify = (): JSX.Element => {
     const handleOrientationChange = (event: SelectChangeEvent) => {
         setOrientation(event.target.value as string);
     };
+    const handleClick = () => {
+        dispatch(updateUser({ gender, orientation }));
+        navigate("/user/interests");
+    };
     return (
         <Layout
             hasDrawer
             headerProps={{
                 text: "I identify as",
-                backFunction: () => {}
+                backFunction: () => {},
             }}
         >
             <Boxed type="full">
@@ -37,11 +46,10 @@ const Identify = (): JSX.Element => {
                                 id="gender-select"
                                 value={gender}
                                 label="Gender"
-                                onChange={handleGenderChange}>
+                                onChange={handleGenderChange}
+                            >
                                 {GENDER_VALUES.map((gender) => {
-                                    return (<MenuItem value={gender}>
-                                                {gender}
-                                            </MenuItem>);
+                                    return <MenuItem value={gender}>{gender}</MenuItem>;
                                 })}
                             </Select>
                         </FormControl>
@@ -53,15 +61,14 @@ const Identify = (): JSX.Element => {
                                 id="orientation-select"
                                 value={orientation}
                                 label="orientation"
-                                onChange={handleOrientationChange}>
+                                onChange={handleOrientationChange}
+                            >
                                 {ORIENTATION_VALUES.map((orientation) => {
-                                    return (<MenuItem value={orientation}>
-                                                {orientation}
-                                            </MenuItem>);
+                                    return <MenuItem value={orientation}>{orientation}</MenuItem>;
                                 })}
                             </Select>
                         </FormControl>
-                        <Button color="primary" variant="contained" whiteText>
+                        <Button color="primary" variant="contained" whiteText onClick={handleClick}>
                             Continue
                         </Button>
                     </Stack>

@@ -1,9 +1,9 @@
-import { combineReducers } from "redux";
+import { combineReducers } from "@reduxjs/toolkit";
 
-import userReducer from "./user/reducer";
+import login from "./reducers/login";
 
 const rootReducer = combineReducers({
-	user: userReducer,
+    login,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
