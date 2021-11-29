@@ -7,14 +7,14 @@ import { Container } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { ThirdPartyUser, confirmOtp } from "../auth";
 import { fetchUserRequest } from "../store/sagas/user/actions";
-import { useNavigate } from "react-router";
-import { isLoggedIn } from "../store/reducers/login";
+import { useNavigate } from "react-router-dom";
+import { getIsLoggedIn } from "../store/reducers/login";
 
 const OTP = (): JSX.Element => {
     const numInputs = 6;
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const isLogged = useSelector(isLoggedIn);
+    const isLogged = useSelector(getIsLoggedIn);
     const [otp, setOtp] = useState("");
     const handleChange = (value: any) => {
         setOtp(value);

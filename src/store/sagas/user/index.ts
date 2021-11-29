@@ -1,21 +1,44 @@
 import axios, { AxiosResponse } from "axios";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { API_BASE_URL } from "../../../const";
-import { loginSuccessful } from "../../reducers/login";
+import { loginSuccessful, UserInfo, updateError } from "../../reducers/login";
 
-import { fetchUserFailure } from "./actions";
-import { FETCH_USER_REQUEST } from "./actionTypes";
-import { FetchUserRequest, IUser } from "./types";
+import { CREATE_USER_REQUEST, FETCH_USER_REQUEST } from "./actionTypes";
+import { CreateUserRequest, FetchUserRequest } from "./types";
 
-const getUsers = (userId: string | null | undefined) => axios.get<IUser[]>(`${API_BASE_URL}/user/${userId}`);
+const getUser = (userId: string | null | undefined) => axios.get<UserInfo>(`${API_BASE_URL}/user/${userId}`);
+const createUser = (user: UserInfo) => axios.post<UserInfo>(`${API_BASE_URL}/user`, user);
 
 /*
   Worker Saga: Fired on FETCH_USER_REQUEST action
 */
 function* fetchUserSaga({ payload: { user } }: FetchUserRequest) {
     try {
-        const response: AxiosResponse<IUser[]> = yield call(getUsers, user.uid);
+        const response: AxiosResponse<UserInfo> = yield call(getUser, user.uid);
         const userData = response.data || user;
+        yield put(
+            loginSuccessful({
+                isLoggedIn: true,
+                user: userData,
+                isExitingUser: !!response.data,
+            })
+        );
+    } catch (e: any) {
+        yield put(
+            updateError({
+                message: e.message,
+            })
+        );
+    }
+}
+
+/*
+  Worker Saga: Fired on CREATE_USER_REQUEST action
+*/
+function* createUserSaga({ payload }: CreateUserRequest) {
+    try {
+        const response: AxiosResponse<UserInfo> = yield call(createUser, payload);
+        const userData = response.data;
         yield put(
             loginSuccessful({
                 isLoggedIn: !!response.data,
@@ -25,8 +48,8 @@ function* fetchUserSaga({ payload: { user } }: FetchUserRequest) {
         );
     } catch (e: any) {
         yield put(
-            fetchUserFailure({
-                error: e.message,
+            updateError({
+                message: e.message,
             })
         );
     }
@@ -37,7 +60,7 @@ function* fetchUserSaga({ payload: { user } }: FetchUserRequest) {
   Allows concurrent increments.
 */
 function* userSaga(): any {
-    yield all([takeLatest(FETCH_USER_REQUEST, fetchUserSaga)]);
+    yield all([takeLatest(FETCH_USER_REQUEST, fetchUserSaga), takeLatest(CREATE_USER_REQUEST, createUserSaga)]);
 }
 
 export default userSaga;

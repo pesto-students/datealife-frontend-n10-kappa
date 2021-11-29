@@ -1,25 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { FetchUserFailurePayload } from "../sagas/user/types";
 
+export type UserInfo = {
+    uid?: string;
+    fullName?: string;
+    profilePicture?: string;
+    dob?: number;
+    gender?: string;
+    orientation?: string;
+    profession?: string;
+    interests?: string[];
+};
 type loginState = {
     isLoggedIn: boolean;
-    user: {
-        uid?: string;
-        fullName?: string;
-        profilePicture?: string;
-        age?: string;
-        gender?: string;
-        orientation?: string;
-        profession?: string;
-        interests?: string[];
-    };
+    user: UserInfo;
     isExistingUser: boolean;
+    error?: {
+        message?: string;
+    };
 };
 
 const initialState: loginState = {
     isLoggedIn: false,
     user: {
         fullName: "",
-        age: "",
         gender: "",
         orientation: "",
         profession: "",
@@ -48,12 +52,21 @@ export const loginSlice = createSlice({
             state.user = {};
             state.isExistingUser = false;
         },
+        updateUser: (state, { payload }: { payload: UserInfo }) => {
+            state.user = { ...state.user, ...payload };
+        },
+        updateError: (state, { payload }: { payload: FetchUserFailurePayload }) => {
+            state.error = payload;
+        },
     },
 });
 
-export const isLoggedIn = (state: { login: loginState }): boolean => state.login.isLoggedIn;
+export const getIsLoggedIn = (state: { login: loginState }): boolean => state.login.isLoggedIn;
+export const getIsExistingUser = (state: { login: loginState }): boolean => state.login.isExistingUser;
+export const getLoggedInUser = (state: { login: loginState }): UserInfo => state.login.user;
+export const getError = (state: { login: loginState }): { message?: string } | undefined => state.login.error;
 
 // Action creators are generated for each case reducer function
-export const { loginSuccessful, logout } = loginSlice.actions;
+export const { loginSuccessful, logout, updateUser, updateError } = loginSlice.actions;
 
 export default loginSlice.reducer;

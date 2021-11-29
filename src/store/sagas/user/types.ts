@@ -1,30 +1,13 @@
 import { ThirdPartyUser } from "../../../auth";
-import { FETCH_USER_REQUEST, FETCH_USER_SUCCESS, FETCH_USER_FAILURE } from "./actionTypes";
-
-export interface IUser {
-    id: number;
-    name: string;
-    userName: string;
-    email: string;
-    phone: string;
-}
-
-export interface UserState {
-    users: IUser[];
-    error: string | null;
-    loading: boolean;
-}
+import { UserInfo } from "../../reducers/login";
+import { FETCH_USER_REQUEST, FETCH_USER_FAILURE, CREATE_USER_REQUEST } from "./actionTypes";
 
 export interface FetchUserRequestPayload {
     user: ThirdPartyUser;
 }
 
-export interface FetchUserSuccessPayload {
-    users: IUser[];
-}
-
 export interface FetchUserFailurePayload {
-    error: string;
+    message: string;
 }
 
 export interface FetchUserRequest {
@@ -32,14 +15,14 @@ export interface FetchUserRequest {
     payload: FetchUserRequestPayload;
 }
 
-export type FetchUserSuccess = {
-    type: typeof FETCH_USER_SUCCESS;
-    payload: FetchUserSuccessPayload;
-};
-
 export type FetchUserFailure = {
     type: typeof FETCH_USER_FAILURE;
     payload: FetchUserFailurePayload;
 };
 
-export type UserActions = FetchUserRequest | FetchUserSuccess | FetchUserFailure;
+export type CreateUserRequest = {
+    type: typeof CREATE_USER_REQUEST;
+    payload: UserInfo;
+};
+
+export type UserActions = FetchUserRequest | FetchUserFailure | CreateUserRequest;

@@ -13,7 +13,7 @@ type ChipItem = {
     value: string;
 };
 
-type SelectedChipsType = {
+export type SelectedChipsType = {
     [label: string]: string;
 };
 

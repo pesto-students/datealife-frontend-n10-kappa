@@ -5,18 +5,29 @@ import { useState } from "react";
 import Layout from "../components/layout/Layout";
 import Boxed from "../components/boxed/Boxed";
 import { Container } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../store/reducers/login";
+import moment, { Moment } from "moment";
 
 const DOB = (): JSX.Element => {
-    const [value, setValue] = useState<Date | null>(new Date());
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [dob, setDob] = useState<Date | null>(moment().toDate());
 
-    const handleChange = (newValue: Date | null) => {
-        setValue(newValue);
+    const handleChange = (newValue: any) => {
+        setDob(newValue?.toDate());
+    };
+
+    const handleClick = () => {
+        dispatch(updateUser({ dob: dob?.getTime() }));
+        navigate("/user/identify");
     };
     return (
         <Layout
             headerProps={{
                 text: "My DOB is",
-                backFunction: () => {}
+                backFunction: () => {},
             }}
         >
             <Boxed type="full">
@@ -24,13 +35,13 @@ const DOB = (): JSX.Element => {
                     <Boxed type="textField">
                         <DatePicker
                             label="Enter your Date of birth"
-                            value={value}
+                            value={dob}
                             onChange={handleChange}
                             inputFormat="DD-MM-yyyy"
                             renderInput={(params: TextFieldProps) => <TextField {...params} fullWidth variant="standard" />}
                         />
                     </Boxed>
-                    <Button color="primary" variant="contained" fullWidth whiteText>
+                    <Button color="primary" variant="contained" fullWidth whiteText onClick={handleClick}>
                         Continue
                     </Button>
                 </Container>

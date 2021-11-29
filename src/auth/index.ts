@@ -6,11 +6,15 @@ import {
     signOut,
     signInWithPhoneNumber,
     RecaptchaVerifier,
-    Auth,
+    connectAuthEmulator,
 } from "firebase/auth";
 import { firebaseApp } from "../firebase.config";
 
 const auth = getAuth(firebaseApp);
+
+if (process.env.NODE_ENV === "development") {
+    connectAuthEmulator(auth, "http://localhost:5003");
+}
 
 interface UpdatedWindow extends Window {
     recaptchaVerifier?: any;

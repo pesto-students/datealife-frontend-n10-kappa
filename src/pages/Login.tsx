@@ -8,7 +8,7 @@ import { Container, Stack, Typography } from "@mui/material";
 import Logo from "../components/logo/Logo";
 import { Link } from "react-router-dom";
 import { thirdPartySignin, ThirdPartyUser } from "../auth";
-import { isLoggedIn } from "../store/reducers/login";
+import { getIsLoggedIn, getIsExistingUser } from "../store/reducers/login";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +17,8 @@ import { fetchUserRequest } from "../store/sagas/user/actions";
 const Login = (): JSX.Element => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const isLogged = useSelector(isLoggedIn);
+    const isLoggedIn = useSelector(getIsLoggedIn);
+    const isExistingUser = useSelector(getIsExistingUser);
     const handleClick = async (type: string) => {
         if (type === "number") {
             navigate("/signup/number");
@@ -27,8 +28,11 @@ const Login = (): JSX.Element => {
     };
 
     useEffect(() => {
-        if (isLogged) navigate("/home");
-    }, [navigate, isLogged]);
+        if (isLoggedIn) {
+            const url = isExistingUser ? "/home" : "/user/name";
+            navigate(url);
+        }
+    }, [navigate, isExistingUser, isLoggedIn]);
 
     return (
         <Boxed type="backgroundShine">
