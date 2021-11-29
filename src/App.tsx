@@ -6,7 +6,7 @@ const App = (): JSX.Element => {
     return (
         <Routes>
             {routes.map((route) => {
-                return (<Route path={route.pathname} element={<route.component />} />);
+                return <Route path={route.pathname} element={<route.component />} key={route.pathname} />;
             })}
         </Routes>
     );
