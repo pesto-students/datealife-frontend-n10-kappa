@@ -1,31 +1,28 @@
-import Home from "./pages/Home";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
-import Interests from "./pages/Interests";
-import EditInterests from "./pages/EditInterests";
-import EditPictures from "./pages/EditPictures";
-import Name from "./pages/Name";
-import DOB from "./pages/DOB";
-import IdentifyAs from "./pages/Identify";
-import EditIdentifyAs from "./pages/EditIdentify";
-import ErrorPage from "./pages/ErrorPage";
-import Number from "./pages/Number";
-import OTP from "./pages/OTP";
-import Listings from "./pages/Listing";
-import Learning from "./pages/Learning";
-import Matchmaking from "./pages/Matchmaking";
-import EditProfile from "./pages/EditProfile";
-import Chat from "./pages/Chat";
-import EditAboutUs from "./pages/EditAboutUs";
-import EditPicture from "./pages/EditPicture";
+import {
+    Chat,
+    DOB,
+    EditAboutUs,
+    EditIdentifyAs,
+    EditInterests,
+    EditPicture,
+    EditPictures,
+    EditProfile,
+    ErrorPage,
+    IdentifyAs,
+    Interests,
+    Learning,
+    Listings,
+    Login,
+    Matchmaking,
+    Name,
+    Number,
+    OTP,
+    SignUp,
+} from "./pages";
 
 const routes: RoutesType[] = [
     {
-        pathname: "/signup",
-        component: Signup,
-    },
-    {
-        pathname: "/login",
+        pathname: "/:authType",
         component: Login,
     },
     {
@@ -82,6 +79,10 @@ const routes: RoutesType[] = [
     },
     {
         pathname: "/chatting",
+        component: Chat,
+    },
+    {
+        pathname: "/chatting/:chatId",
         component: Chat,
     },
     {

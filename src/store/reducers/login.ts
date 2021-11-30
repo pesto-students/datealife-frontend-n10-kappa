@@ -10,6 +10,7 @@ export type UserInfo = {
     orientation?: string;
     profession?: string;
     interests?: string[];
+    pictures?: string[];
 };
 type loginState = {
     isLoggedIn: boolean;
@@ -29,6 +30,7 @@ const initialState: loginState = {
         profession: "",
         profilePicture: "",
         interests: [],
+        pictures: [],
     },
     isExistingUser: false,
 };
@@ -44,7 +46,7 @@ export const loginSlice = createSlice({
             // immutable state based off those changes
             const { isLoggedIn, isExitingUser, user } = action.payload;
             state.isLoggedIn = isLoggedIn;
-            state.user = user;
+            state.user = { ...state.user, ...user };
             state.isExistingUser = isExitingUser;
         },
         logout: (state) => {

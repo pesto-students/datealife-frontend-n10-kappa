@@ -1,6 +1,10 @@
+import { useState } from "react";
+
 import { BoxProps as MUIBoxProps } from "@mui/system";
+import Input from "@mui/material/Input";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+
 import {
     ImageUploaderContainer,
     ImageUploaderContent,
@@ -8,20 +12,20 @@ import {
     AddButtonContent,
     ImageUplaoderImage,
 } from "./ImageUploader.style";
-import Input from "@mui/material/Input";
-import { useState } from "react";
 
 export interface ImageUploaderProps extends MUIBoxProps<"div", unknown> {
     canUpload?: boolean;
     onUpload?: (file: File) => void;
+    removeFile?: () => void;
+    src?: string;
     width?: number;
     height?: number;
     maxHeight?: number;
     maxWidth?: number;
 }
 
-const ImageUploader = ({ canUpload, onUpload, ...restProps }: ImageUploaderProps): JSX.Element => {
-    const [file, setFile] = useState<string>();
+const ImageUploader = ({ canUpload, onUpload, removeFile, src, ...restProps }: ImageUploaderProps): JSX.Element => {
+    const [file, setFile] = useState<string | undefined>(src);
     const handleChange = (e: any) => {
         const latestFile = e.target.files[0];
         setFile(URL.createObjectURL(latestFile).toString());
@@ -33,6 +37,7 @@ const ImageUploader = ({ canUpload, onUpload, ...restProps }: ImageUploaderProps
             e.preventDefault();
             setFile("");
             e.target.value = null;
+            removeFile && removeFile();
         }
     };
     const id: string = Date.now().toString();

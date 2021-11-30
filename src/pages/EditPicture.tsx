@@ -7,7 +7,7 @@ import { getLoggedInUser, updateUser } from "../store/reducers/login";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import uplaodImageToStorage from "../effects/useStorage";
-import { createUser } from "../store/sagas/user/actions";
+import { createUserRequest } from "../store/sagas/user/actions";
 
 const EditPicture = (): JSX.Element => {
     const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const EditPicture = (): JSX.Element => {
 
     const handleClick = () => {
         dispatch(updateUser({ profilePicture }));
-        dispatch(createUser({ ...user, profilePicture }));
+        dispatch(createUserRequest({ ...user, profilePicture }));
         navigate("/matchmaking");
     };
 
@@ -34,7 +34,6 @@ const EditPicture = (): JSX.Element => {
 
     return (
         <Layout
-            hasDrawer
             headerProps={{
                 text: "Interests",
                 backFunction: () => {},

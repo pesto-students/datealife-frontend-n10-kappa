@@ -37,9 +37,9 @@ export default function Header(props: HeaderProps): JSX.Element {
     );
 }
 
-export interface HeaderProps {
+export type HeaderProps = {
     text: string;
     backFunction: () => void;
     color?: "inherit" | "transparent" | "default" | "primary" | "secondary" | undefined;
     headerWidth?: string;
-}
+};

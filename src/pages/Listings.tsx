@@ -1,21 +1,29 @@
 import { useState, useEffect } from "react";
-import { Tab as MUITab, Box, Grid, Typography, Container, IconButton, ImageListItem, ImageListItemBar, ImageList, Stack } from "@mui/material";
+
 import { TabContext, TabList, TabPanel, TimePicker } from "@mui/lab";
-import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
+import {
+    Tab as MUITab,
+    Box,
+    Grid,
+    Typography,
+    Container,
+    IconButton,
+    ImageListItem,
+    ImageListItemBar,
+    ImageList,
+    Stack,
+} from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
-import { CardInfo, Card, CardMedia, CardActions, Layout, Button } from "../components";
-import { OdourlessWrapper, StyledBody } from "../assets/styles/Common.styles";
-import Modal from "../components/modal/Modal";
-import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
-import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
-import StaticDatePicker from "@mui/lab/StaticDatePicker";
 import TextField from "@mui/material/TextField";
-import Boxed from "../components/boxed/Boxed";
+import StaticDatePicker from "@mui/lab/StaticDatePicker";
+import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import { CrossButton } from "../assets/styles/Common.styles";
-
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
+import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
+import { Boxed, Button, CardInfo, Card, CardMedia, CardActions, Layout, Modal } from "../components";
+import { CrossButton, OdourlessWrapper, StyledBody } from "../assets/styles/Common.styles";
 
 type Item = {
     label: string;
@@ -23,7 +31,6 @@ type Item = {
 };
 
 const Listing = (): JSX.Element => {
-
     const items = [
         {
             label: "Likes",
@@ -56,7 +63,9 @@ const Listing = (): JSX.Element => {
 
     useEffect(() => {
         return () => {
-            setTimeout(() => {setCounter(0)}, 300);
+            setTimeout(() => {
+                setCounter(0);
+            }, 300);
         };
     }, [inviteModalOpen]);
 
@@ -145,13 +154,12 @@ const Listing = (): JSX.Element => {
         ),
     };
 
-
     return (
         <Layout
             hasDrawer
             headerProps={{
                 text: "Likes / Matches",
-                backFunction: () => {}
+                backFunction: () => {},
             }}
         >
             <StyledBody>
@@ -181,7 +189,7 @@ const Listing = (): JSX.Element => {
             {/* Matchmaking modal */}
             <Modal modalOpen={inviteModalOpen} toggleModal={toggleInviteModal} ariaLabel={"invites modal"}>
                 <>
-                    { counter !== 2 && (
+                    {counter !== 2 && (
                         <Container>
                             <Grid container spacing={2} alignItems="center">
                                 <Grid item xs={2}>
@@ -190,7 +198,8 @@ const Listing = (): JSX.Element => {
                                         edge="start"
                                         color="inherit"
                                         aria-label="back icon"
-                                        onClick={toggleInviteModal}>
+                                        onClick={toggleInviteModal}
+                                    >
                                         <ArrowBackRoundedIcon />
                                     </IconButton>
                                 </Grid>
@@ -198,97 +207,107 @@ const Listing = (): JSX.Element => {
                                     Schedule a meeting
                                 </Grid>
                                 <Grid item xs={2} textAlign="right">
-                                    {   counter === 1 && (
-                                            <IconButton
-                                                size="large"
-                                                edge="start"
-                                                color="inherit"
-                                                aria-label="apply icon"
-                                                onClick={handleCounter}>
-                                                <CheckRoundedIcon color="error" />
-                                            </IconButton>
+                                    {counter === 1 && (
+                                        <IconButton
+                                            size="large"
+                                            edge="start"
+                                            color="inherit"
+                                            aria-label="apply icon"
+                                            onClick={handleCounter}
+                                        >
+                                            <CheckRoundedIcon color="error" />
+                                        </IconButton>
                                     )}
-
                                 </Grid>
                             </Grid>
                         </Container>
                     )}
 
-                    {   counter === 0 && (
-                            <Container sx={{overflowY: "scroll", maxHeight: "100vh"}}>
-                                <ImageList>
-                                    {itemData.map((item) => (
-                                        <ImageListItem key={item.img} onClick={handleCounter}>
-                                            <img
-                                                src={`${item.img}?w=248&fit=crop&auto=format`}
-                                                srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                                alt={item.title}
-                                                loading="lazy"
-                                            />
-                                            <ImageListItemBar
-                                                title={item.title}
-                                                subtitle={item.author}
-                                                actionIcon={
+                    {counter === 0 && (
+                        <Container sx={{ overflowY: "scroll", maxHeight: "100vh" }}>
+                            <ImageList>
+                                {itemData.map((item) => (
+                                    <ImageListItem key={item.img} onClick={handleCounter}>
+                                        <img
+                                            src={`${item.img}?w=248&fit=crop&auto=format`}
+                                            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                            alt={item.title}
+                                            loading="lazy"
+                                        />
+                                        <ImageListItemBar
+                                            title={item.title}
+                                            subtitle={item.author}
+                                            actionIcon={
                                                 <IconButton
                                                     sx={{ color: "rgba(255, 255, 255, 0.54)" }}
                                                     aria-label={`info about ${item.title}`}
-                                                >
-                                                </IconButton>
-                                                }
-                                            />
-                                        </ImageListItem>
-                                    ))}
-                                </ImageList>
-                            </Container>
-                        )
-                    }
-
-                    {   counter === 1 && (
-                            <Container>
-                                <>
-                                    <StaticDatePicker
-                                        displayStaticWrapperAs="desktop"
-                                        value={date}
-                                        onChange={(newValue) => {
-                                            setDate(newValue);
-                                        }}
-                                        renderInput={(params) => <TextField {...params} />}
-                                    />
-                                    <Grid container justifyContent="center" mb={4}>
-                                       <Stack spacing={2} direction="row">
-                                            <TimePicker
-                                                value={date}
-                                                onChange={setDate}
-                                                renderInput={(params) => <TextField {...params} />}
-                                            />
-
-                                            <TimePicker
-                                                value={newDate}
-                                                onChange={setNewDate}
-                                                renderInput={(params) => <TextField {...params} />}
-                                            />
-                                       </Stack>
-                                    </Grid>
-                                </>
-                            </Container>
+                                                ></IconButton>
+                                            }
+                                        />
+                                    </ImageListItem>
+                                ))}
+                            </ImageList>
+                        </Container>
                     )}
 
-                    {   counter === 2 && (
+                    {counter === 1 && (
+                        <Container>
+                            <>
+                                <StaticDatePicker
+                                    displayStaticWrapperAs="desktop"
+                                    value={date}
+                                    onChange={(newValue) => {
+                                        setDate(newValue);
+                                    }}
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
+                                <Grid container justifyContent="center" mb={4}>
+                                    <Stack spacing={2} direction="row">
+                                        <TimePicker
+                                            value={date}
+                                            onChange={setDate}
+                                            renderInput={(params) => <TextField {...params} />}
+                                        />
+
+                                        <TimePicker
+                                            value={newDate}
+                                            onChange={setNewDate}
+                                            renderInput={(params) => <TextField {...params} />}
+                                        />
+                                    </Stack>
+                                </Grid>
+                            </>
+                        </Container>
+                    )}
+
+                    {counter === 2 && (
                         <Boxed type="invites">
                             <Boxed type="backgroundShine2">
                                 <Stack>
-                                    <Typography align="center" variant="h3" color="white" style={{
-                                        fontFamily: "DancingScript-Regular",
-                                        paddingTop: "80px"
-                                    }}>Invite Sent</Typography>
+                                    <Typography
+                                        align="center"
+                                        variant="h3"
+                                        color="white"
+                                        style={{
+                                            fontFamily: "DancingScript-Regular",
+                                            paddingTop: "80px",
+                                        }}
+                                    >
+                                        Invite Sent
+                                    </Typography>
                                     <CrossButton onClick={toggleInviteModal}>
-                                        <ClearRoundedIcon style={{color: "white"}}/>
+                                        <ClearRoundedIcon style={{ color: "white" }} />
                                     </CrossButton>
                                     <Boxed>
                                         <Container maxWidth="md">
-                                            <Button variant="contained" color="warning" fullWidth curved
-                                                style={{marginTop: "30px", color: "white", padding: "10px"}}
-                                                onClick={toggleInviteModal}>
+                                            <Button
+                                                variant="contained"
+                                                color="warning"
+                                                fullWidth
+                                                curved
+                                                style={{ marginTop: "30px", color: "white", padding: "10px" }}
+                                                onClick={toggleInviteModal}
+                                            >
                                                 Return to matches
                                             </Button>
                                         </Container>
@@ -305,53 +324,53 @@ const Listing = (): JSX.Element => {
 
 const itemData = [
     {
-      img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-      title: "Breakfast",
-      author: "@bkristastucchio",
-      rows: 2,
-      cols: 2,
-      featured: true,
+        img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+        title: "Breakfast",
+        author: "@bkristastucchio",
+        rows: 2,
+        cols: 2,
+        featured: true,
     },
     {
-      img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-      title: "Burger",
-      author: "@rollelflex_graphy726",
+        img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
+        title: "Burger",
+        author: "@rollelflex_graphy726",
     },
     {
-      img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-      title: "Camera",
-      author: "@helloimnik",
+        img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
+        title: "Camera",
+        author: "@helloimnik",
     },
     {
-      img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-      title: "Coffee",
-      author: "@nolanissac",
-      cols: 2,
+        img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
+        title: "Coffee",
+        author: "@nolanissac",
+        cols: 2,
     },
     {
-      img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-      title: "Hats",
-      author: "@hjrc33",
-      cols: 2,
+        img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
+        title: "Hats",
+        author: "@hjrc33",
+        cols: 2,
     },
     {
-      img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
-      title: "Honey",
-      author: "@arwinneil",
-      rows: 2,
-      cols: 2,
-      featured: true,
+        img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
+        title: "Honey",
+        author: "@arwinneil",
+        rows: 2,
+        cols: 2,
+        featured: true,
     },
     {
-      img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
-      title: "Basketball",
-      author: "@tjdragotta",
+        img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
+        title: "Basketball",
+        author: "@tjdragotta",
     },
     {
-      img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
-      title: "Fern",
-      author: "@katie_wasserman",
-    }
-  ];
+        img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
+        title: "Fern",
+        author: "@katie_wasserman",
+    },
+];
 
 export default Listing;

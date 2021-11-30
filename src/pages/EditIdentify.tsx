@@ -1,12 +1,12 @@
-import { Button } from "../components/button/index";
+import { useState } from "react";
+
 import Stack from "@mui/material/Stack";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { useState } from "react";
-import Layout from "../components/layout/Layout";
-import Boxed from "../components/boxed/Boxed";
+
+import { Button, Boxed, Layout } from "../components";
 import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
 
 const Identify = (): JSX.Element => {
@@ -24,7 +24,7 @@ const Identify = (): JSX.Element => {
             hasDrawer
             headerProps={{
                 text: "I identify as",
-                backFunction: () => {}
+                backFunction: () => {},
             }}
         >
             <Boxed type="full">
@@ -37,12 +37,13 @@ const Identify = (): JSX.Element => {
                                 id="gender-select"
                                 value={gender}
                                 label="Gender"
-                                onChange={handleGenderChange}>
-                                {GENDER_VALUES.map((gender) => {
-                                    return (<MenuItem value={gender}>
-                                                {gender}
-                                            </MenuItem>);
-                                })}
+                                onChange={handleGenderChange}
+                            >
+                                {GENDER_VALUES.map((gender) => (
+                                    <MenuItem value={gender} key={gender}>
+                                        {gender}
+                                    </MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
 
@@ -53,12 +54,13 @@ const Identify = (): JSX.Element => {
                                 id="orientation-select"
                                 value={orientation}
                                 label="orientation"
-                                onChange={handleOrientationChange}>
-                                {ORIENTATION_VALUES.map((orientation) => {
-                                    return (<MenuItem value={orientation}>
-                                                {orientation}
-                                            </MenuItem>);
-                                })}
+                                onChange={handleOrientationChange}
+                            >
+                                {ORIENTATION_VALUES.map((orientation) => (
+                                    <MenuItem value={orientation.toLowerCase()} key={orientation}>
+                                        {orientation}
+                                    </MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
                         <Button color="primary" variant="contained" whiteText>
