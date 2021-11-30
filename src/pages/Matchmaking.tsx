@@ -1,33 +1,41 @@
+import { useState } from "react";
+
 import AppBar from "@mui/material/AppBar";
+import { Grid, Stack, Container } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
+import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import logo from "../assets/images/logoDateALife40x40.png";
-import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-import Fab  from "../components/fab/Fab";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Card, CardMedia, CardInfo, CardActions } from "../components/card";
-import {useState} from "react";
-import { OdourlessWrapper } from "../assets/styles/Common.styles";
-import Logo from "../assets/images/logoDateALife.png";
-import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
-import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
-import Slider from "../components/slider/Slider";
 import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { Layout, ToggleButton, ToggleButtonGroup } from "../components";
-import Modal from "../components/modal/Modal";
-import Boxed from "../components/boxed/Boxed";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
+import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
+
+import {
+    Button,
+    Boxed,
+    Fab,
+    Card,
+    CardMedia,
+    CardInfo,
+    CardActions,
+    Slider,
+    Layout,
+    ToggleButton,
+    ToggleButtonGroup,
+    Modal,
+    MatchedPitctures,
+} from "../components";
 import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
-import { Grid, Stack, Container } from "@mui/material";
-import { Button } from "../components/button/index";
-import { CrossButton, WhiteBar } from "../assets/styles/Common.styles";
-import MatchedPitctures from "../components/matchedPictures/MatchedPictures";
+import { OdourlessWrapper, CrossButton, WhiteBar } from "../assets/styles/Common.styles";
+import logo from "../assets/images/logoDateALife40x40.png";
+import Logo from "../assets/images/logoDateALife.png";
 
 const Matchmaking = (): JSX.Element => {
     const [matchMakingOpen, setMatchmakingOpen] = useState(false);
@@ -36,15 +44,12 @@ const Matchmaking = (): JSX.Element => {
     const [sliderValue, setSliderValue] = useState<number[]>([18, 25]);
     const minDistance = 10;
     const [gender, setGender] = useState(GENDER_VALUES[0].toLocaleLowerCase());
-    const handleGenderChange = (
-        event: React.MouseEvent<HTMLElement>,
-        newGender: string,
-      ) => {
-          setGender(newGender);
-      };
+    const handleGenderChange = (event: React.MouseEvent<HTMLElement>, newGender: string) => {
+        setGender(newGender);
+    };
 
     const toggleMatchMaking = () => {
-      setMatchmakingOpen(!matchMakingOpen);
+        setMatchmakingOpen(!matchMakingOpen);
     };
 
     const toggleFilter = () => {
@@ -55,13 +60,9 @@ const Matchmaking = (): JSX.Element => {
         setOrientation(event.target.value as string);
     };
 
-    const handleAgeSliderChange = (
-        event: Event,
-        newValue: number | number[],
-        activeThumb: number,
-    ) => {
+    const handleAgeSliderChange = (event: Event, newValue: number | number[], activeThumb: number) => {
         if (!Array.isArray(newValue)) {
-        return;
+            return;
         }
 
         if (activeThumb === 0) {
@@ -73,40 +74,31 @@ const Matchmaking = (): JSX.Element => {
 
     function valuetext(value: number) {
         return `${value}`;
-      }
+    }
 
     return (
         <Layout
             hasDrawer
             headerProps={{
                 text: "Matches",
-                backFunction: () => {}
+                backFunction: () => {},
             }}
             displayHeader={false}
         >
-            <AppBar position="static" sx={{ backgroundColor: "white"}}>
+            <AppBar position="static" sx={{ backgroundColor: "white" }}>
                 <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="user icon">
+                    <IconButton size="large" edge="start" color="inherit" aria-label="user icon">
                         <PersonOutlineIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: "center" }}>
-                        <img src ={logo} alt="Date a life logo" />
+                        <img src={logo} alt="Date a life logo" />
                     </Typography>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="filter icon"
-                        onClick={toggleFilter}>
+                    <IconButton size="large" edge="start" color="inherit" aria-label="filter icon" onClick={toggleFilter}>
                         <FilterAltOutlinedIcon />
                     </IconButton>
                 </Toolbar>
             </AppBar>
-            <div style={{marginTop: "20px"}}>
+            <div style={{ marginTop: "20px" }}>
                 <Container maxWidth="md">
                     <Card>
                         <CardMedia
@@ -146,21 +138,37 @@ const Matchmaking = (): JSX.Element => {
                     <Boxed type="backgroundShine">
                         <>
                             <CrossButton onClick={toggleMatchMaking}>
-                                <ClearRoundedIcon style={{color: "white"}}/>
+                                <ClearRoundedIcon style={{ color: "white" }} />
                             </CrossButton>
                             <Boxed type="full">
                                 <Container>
-                                    <Typography align="center" variant="h3" color="white" style={{
-                                        fontFamily: "DancingScript-Regular",
-                                        paddingTop: "80px"}}>
+                                    <Typography
+                                        align="center"
+                                        variant="h3"
+                                        color="white"
+                                        style={{
+                                            fontFamily: "DancingScript-Regular",
+                                            paddingTop: "80px",
+                                        }}
+                                    >
                                         Match it is
                                     </Typography>
-                                    <Typography align="center" variant="subtitle2" mt={4} color="white">Riya likes you too</Typography>
-                                    <MatchedPitctures imgUrl1={Logo} imgUrl2={Logo} styles={{margin: "40px auto 30px"}} />
-                                    <Typography align="center" variant="subtitle1" fontStyle="italic" color="white">You and Riya have 85% match ratio</Typography>
+                                    <Typography align="center" variant="subtitle2" mt={4} color="white">
+                                        Riya likes you too
+                                    </Typography>
+                                    <MatchedPitctures imgUrl1={Logo} imgUrl2={Logo} styles={{ margin: "40px auto 30px" }} />
+                                    <Typography align="center" variant="subtitle1" fontStyle="italic" color="white">
+                                        You and Riya have 85% match ratio
+                                    </Typography>
                                     <WhiteBar />
                                     <Stack>
-                                        <Button variant="contained" whiteText size="large" curved sx={{margin: "25px auto 15px", width: "250px"}}>
+                                        <Button
+                                            variant="contained"
+                                            whiteText
+                                            size="large"
+                                            curved
+                                            sx={{ margin: "25px auto 15px", width: "250px" }}
+                                        >
                                             Send a message
                                         </Button>
                                         <Button variant="text" whiteText>
@@ -184,7 +192,8 @@ const Matchmaking = (): JSX.Element => {
                                         edge="start"
                                         color="inherit"
                                         aria-label="back icon"
-                                        onClick={toggleFilter}>
+                                        onClick={toggleFilter}
+                                    >
                                         <ArrowBackRoundedIcon />
                                     </IconButton>
                                 </Grid>
@@ -197,7 +206,8 @@ const Matchmaking = (): JSX.Element => {
                                         edge="start"
                                         color="inherit"
                                         aria-label="apply icon"
-                                        onClick={toggleFilter}>
+                                        onClick={toggleFilter}
+                                    >
                                         <CheckRoundedIcon color="error" />
                                     </IconButton>
                                 </Grid>
@@ -205,17 +215,27 @@ const Matchmaking = (): JSX.Element => {
 
                             <Boxed>
                                 <Stack>
-                                    <Typography variant="subtitle1" mb={1}>Gender</Typography>
+                                    <Typography variant="subtitle1" mb={1}>
+                                        Gender
+                                    </Typography>
                                     <ToggleButtonGroup
-                                    value={gender}
-                                    exclusive
-                                    onChange={handleGenderChange}
-                                    aria-label="outlined primary button group">
-                                    {GENDER_VALUES.map((gender, index) => {
-                                        return (<ToggleButton value={gender.toLocaleLowerCase()} curved={index === 0 || index === GENDER_VALUES.length -1}>
+                                        value={gender}
+                                        exclusive
+                                        onChange={handleGenderChange}
+                                        aria-label="outlined primary button group"
+                                    >
+                                        {GENDER_VALUES.map((gender, index) => {
+                                            return (
+                                                <ToggleButton
+                                                    value={gender.toLocaleLowerCase()}
+                                                    curved={index === 0 || index === GENDER_VALUES.length - 1}
+                                                    key={gender}
+                                                >
                                                     {gender}
-                                                </ToggleButton>);
-                                    })}</ToggleButtonGroup>
+                                                </ToggleButton>
+                                            );
+                                        })}
+                                    </ToggleButtonGroup>
                                 </Stack>
                             </Boxed>
 
@@ -226,7 +246,9 @@ const Matchmaking = (): JSX.Element => {
                                             <Typography variant="subtitle1">Age</Typography>
                                         </Grid>
                                         <Grid item xs={6} textAlign="right">
-                                            <Typography variant="body2" color="warning">{sliderValue[0]} - {sliderValue[1]} </Typography>
+                                            <Typography variant="body2" color="warning">
+                                                {sliderValue[0]} - {sliderValue[1]}{" "}
+                                            </Typography>
                                         </Grid>
                                     </Grid>
 
@@ -244,7 +266,9 @@ const Matchmaking = (): JSX.Element => {
 
                             <Boxed>
                                 <FormControl fullWidth>
-                                    <InputLabel id="orientation-label" color="warning">Orientation</InputLabel>
+                                    <InputLabel id="orientation-label" color="warning">
+                                        Orientation
+                                    </InputLabel>
                                     <Select
                                         labelId="orientation-label"
                                         id="orientation-select"
@@ -254,9 +278,11 @@ const Matchmaking = (): JSX.Element => {
                                         color="warning"
                                     >
                                         {ORIENTATION_VALUES.map((orientation) => {
-                                            return (<MenuItem value={orientation}>
-                                                        {orientation}
-                                                    </MenuItem>);
+                                            return (
+                                                <MenuItem value={orientation.toLowerCase()} key={orientation}>
+                                                    {orientation}
+                                                </MenuItem>
+                                            );
                                         })}
                                     </Select>
                                 </FormControl>
@@ -265,7 +291,6 @@ const Matchmaking = (): JSX.Element => {
                     </Boxed>
                 </Modal>
             </div>
-
         </Layout>
     );
 };

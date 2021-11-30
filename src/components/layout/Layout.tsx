@@ -1,14 +1,14 @@
+import { useNavigate } from "react-router-dom";
+
+import Grid from "@mui/material/Grid";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
 import ChatIcon from "@mui/icons-material/Chat";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import Grid from "@mui/material/Grid";
-import { useNavigate } from "react-router-dom";
-import Navigation from "../navigator/Navigator";
-import { ReactElement } from "react";
-import Header, { HeaderProps } from "../header/Header";
 
-const Layout = (props: LayoutProps): ReactElement => {
+import { Navigator, Header, HeaderProps } from "../";
+
+const Layout = (props: LayoutProps): JSX.Element => {
     const { children, hasDrawer, drawerWidth = 3, headerProps } = props;
     const navigate = useNavigate();
     const NavigatorItems = [
@@ -42,7 +42,7 @@ const Layout = (props: LayoutProps): ReactElement => {
         <Grid container>
             {hasDrawer && (
                 <Grid item xs={12} sm={3}>
-                    <Navigation
+                    <Navigator
                         items={NavigatorItems}
                         drawerWidth={`${calcDrawerWidth}%`}
                         onNavigation={handleNavigation}
@@ -51,20 +51,20 @@ const Layout = (props: LayoutProps): ReactElement => {
                 </Grid>
             )}
             <Grid item xs={12} sm={hasDrawer ? 9 : 12}>
-                { props.displayHeader &&
-                    (<Header
+                {props.displayHeader && (
+                    <Header
                         {...headerProps}
                         headerWidth={`${headerWidth}%`}
                         backFunction={() => {
                             alert("Moving back");
                         }}
-                    />)}
+                    />
+                )}
                 {children}
             </Grid>
         </Grid>
     );
 };
-
 
 interface LayoutProps {
     children?: React.ReactNode;
@@ -76,7 +76,7 @@ interface LayoutProps {
 
 const defaultProps: LayoutProps = {
     displayHeader: true,
-    headerProps: {} as HeaderProps
+    headerProps: {} as HeaderProps,
 };
 
 Layout.defaultProps = defaultProps;

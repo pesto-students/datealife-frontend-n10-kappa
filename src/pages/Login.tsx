@@ -1,20 +1,20 @@
-import DateALifeLogo from "../assets/images/logoDateALife.png";
-import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams, Link } from "react-router-dom";
+
+import { Container, Stack, Typography } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
-import { Button } from "../components/button/index";
-import Boxed from "../components/boxed/Boxed";
-import { Container, Stack, Typography } from "@mui/material";
-import Logo from "../components/logo/Logo";
-import { Link } from "react-router-dom";
+import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
+
 import { thirdPartySignin, ThirdPartyUser } from "../auth";
+import { Boxed, Button, Logo } from "../components";
 import { getIsLoggedIn, getIsExistingUser } from "../store/reducers/login";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { fetchUserRequest } from "../store/sagas/user/actions";
+import DateALifeLogo from "../assets/images/logoDateALife.png";
 
 const Login = (): JSX.Element => {
+    const { authType } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isLoggedIn = useSelector(getIsLoggedIn);
@@ -64,7 +64,7 @@ const Login = (): JSX.Element => {
                                 whiteBackground
                                 onClick={() => handleClick("google")}
                             >
-                                Login with google
+                                {authType} with google
                             </Button>
 
                             <Button
@@ -73,7 +73,7 @@ const Login = (): JSX.Element => {
                                 whiteBackground
                                 onClick={() => handleClick("fb")}
                             >
-                                Login with facebook
+                                {authType} with facebook
                             </Button>
 
                             <Button
@@ -82,14 +82,14 @@ const Login = (): JSX.Element => {
                                 whiteBackground
                                 onClick={() => handleClick("number")}
                             >
-                                Login with number
+                                {authType} with number
                             </Button>
 
                             <Typography variant="subtitle2" color="white" textAlign="center">
                                 Don’t have account?{" "}
                                 <strong>
-                                    <Link to="/signup" style={{ color: "white" }}>
-                                        Signup
+                                    <Link to={authType === "login" ? "/signup" : "/login"} style={{ color: "white" }}>
+                                        {authType === "login" ? "Signup" : "Login"}
                                     </Link>
                                 </strong>
                             </Typography>

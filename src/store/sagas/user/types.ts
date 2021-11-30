@@ -1,6 +1,6 @@
 import { ThirdPartyUser } from "../../../auth";
 import { UserInfo } from "../../reducers/login";
-import { FETCH_USER_REQUEST, FETCH_USER_FAILURE, CREATE_USER_REQUEST } from "./actionTypes";
+import { FETCH_USER_REQUEST, FETCH_USER_FAILURE, CREATE_USER_REQUEST, UPDATE_USER_REQUEST } from "./actionTypes";
 
 export interface FetchUserRequestPayload {
     user: ThirdPartyUser;
@@ -25,4 +25,9 @@ export type CreateUserRequest = {
     payload: UserInfo;
 };
 
-export type UserActions = FetchUserRequest | FetchUserFailure | CreateUserRequest;
+export type UpdateUserRequest = {
+    type: typeof UPDATE_USER_REQUEST;
+    payload: UserInfo;
+};
+
+export type UserActions = FetchUserRequest | FetchUserFailure | CreateUserRequest | UpdateUserRequest;
