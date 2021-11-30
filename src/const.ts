@@ -8,5 +8,7 @@ export const WHITE_TEXT_COLOR = "#FFFFFF";
 export const WARNING_COLOR = "#DC823A";
 export const GENDER_VALUES = ["Male", "Female", "Others"];
 export const ORIENTATION_VALUES = ["Straight", "Gay/Lesbian", "Bisexual", "Pansexual", "Transexual"];
-export const API_BASE_URL = "http://localhost:5001/date-a-life/us-central1/api";
-// export const API_BASE_URL = "https://us-central1-date-a-life.cloudfunctions.net/api";
+export const API_BASE_URL =
+    process.env.NODE_ENV !== "development"
+        ? "https://us-central1-date-a-life.cloudfunctions.net/"
+        : "http://localhost:5001/date-a-life/us-central1/api";
