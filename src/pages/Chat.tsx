@@ -1,32 +1,30 @@
-import { useEffect } from "react";
-import { StyledBody } from "../assets/styles/Common.styles";
-import { CometChatConversationListWithMessages } from "../third-party/comet-chat";
+import { useParams } from "react-router";
+
+import CircularProgress from "@mui/material/CircularProgress";
+
 import { Layout } from "../components";
-import { CometChat } from "@cometchat-pro/chat";
-import { COMETCHAT_CONSTANTS } from "../third-party/comet-chat/consts";
+import { useChat } from "../effects/useChat";
+import { CometChatConversationListWithMessages } from "../third-party/comet-chat";
+import { StyledBody } from "../assets/styles/Common.styles";
 
 const Chat = (): JSX.Element => {
-    useEffect(() => {
-        const { TEST_USER_UUID, AUTH_KEY } = COMETCHAT_CONSTANTS;
-        CometChat.login(TEST_USER_UUID, AUTH_KEY)
-            .then((user: any) => {
-                // console.log(user);
-            })
-            .catch((error: Error) => {
-                // console.log("CometChatLogin Failed", error);
-                // dispatch(authFail(error));
-            });
-    }, []);
+    const cometUser = useChat();
+    const { chatId = "" } = useParams();
     return (
         <Layout
             hasDrawer
             headerProps={{
                 text: "Interests",
-                backFunction: () => {}
+                color: "secondary",
+                backFunction: () => {},
             }}
         >
-            <StyledBody style={{ height: "502px", width: "100%", maxWidth: "90%" }}>
-                <CometChatConversationListWithMessages />
+            <StyledBody style={{ height: "502px", width: "100%", maxWidth: "90%", display: "flex", alignItems: "center" }}>
+                {cometUser ? (
+                    <CometChatConversationListWithMessages chatWithUser={chatId} />
+                ) : (
+                    <CircularProgress sx={{ m: "auto" }} />
+                )}
             </StyledBody>
         </Layout>
     );

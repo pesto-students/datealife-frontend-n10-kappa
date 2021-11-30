@@ -48,9 +48,11 @@ const Identify = (): JSX.Element => {
                                 label="Gender"
                                 onChange={handleGenderChange}
                             >
-                                {GENDER_VALUES.map((gender) => {
-                                    return <MenuItem value={gender}>{gender}</MenuItem>;
-                                })}
+                                {GENDER_VALUES.map((gender) => (
+                                    <MenuItem value={gender.toLowerCase()} key={gender}>
+                                        {gender}
+                                    </MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
 
@@ -63,9 +65,11 @@ const Identify = (): JSX.Element => {
                                 label="orientation"
                                 onChange={handleOrientationChange}
                             >
-                                {ORIENTATION_VALUES.map((orientation) => {
-                                    return <MenuItem value={orientation}>{orientation}</MenuItem>;
-                                })}
+                                {ORIENTATION_VALUES.map((orientation) => (
+                                    <MenuItem value={orientation.toLowerCase()} key={orientation}>
+                                        {orientation}
+                                    </MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
                         <Button color="primary" variant="contained" whiteText onClick={handleClick}>
