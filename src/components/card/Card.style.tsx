@@ -13,6 +13,7 @@ const CardContainer = styled(Box)`
         justify-content: center;
         align-items: center;
         flex-direction: column;
+
     }
 `;
 
@@ -57,6 +58,9 @@ const CardActionsContent = styled(({ width, ...props }: BoxProps) => <Box {...pr
         "& > :not(style)": {
             margin: 8px;
         }
+        "& > hover": {
+            border: 2px solid black;
+        }
         display: flex;
         justify-content: space-between;
         width: ${({ width = 200 }: CardActionsProps) => width * 0.8}px;
@@ -73,6 +77,7 @@ const CardInfoContainer = styled(Box)`
         height: 0;
         justify-content: center;
         align-items: center;
+
     }
 `;
 

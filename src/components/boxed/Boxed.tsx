@@ -37,6 +37,9 @@ const  Boxed = (props: BoxedProps): JSX.Element => {
         case "error":
             styleProps = { padding: "60px 0" };
             break;
+        case "learningPage":
+            styleProps = {padding: "20px 0"};
+            break;
         default:
             styleProps = {padding: "20px 40px"};
             break;

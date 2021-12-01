@@ -6,8 +6,9 @@ export const SUCCESS_COLOR = "#29AE62";
 export const DEFAULT_TEXT_COLOR = "#474747";
 export const WHITE_TEXT_COLOR = "#FFFFFF";
 export const WARNING_COLOR = "#DC823A";
-export const GENDER_VALUES = ["Male", "Female", "Others"];
+export const GENDER_VALUES = ["Male", "Female", "No Filter"];
 export const ORIENTATION_VALUES = ["Straight", "Gay/Lesbian", "Bisexual", "Pansexual", "Transexual"];
+export const CURRENT_LEARNING_KEY = "currentLearning";
 export const API_BASE_URL =
     process.env.NODE_ENV !== "development"
         ? "https://us-central1-date-a-life.cloudfunctions.net/api"

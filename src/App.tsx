@@ -5,8 +5,8 @@ import routes from "./routes";
 const App = (): JSX.Element => {
     return (
         <Routes>
-            {routes.map((route) => {
-                return <Route path={route.pathname} element={<route.component />} key={route.pathname} />;
+            {routes.map((route, routeIndex) => {
+                return <Route path={route.pathname} element={<route.component key={routeIndex}/>} key={route.pathname} />;
             })}
         </Routes>
     );

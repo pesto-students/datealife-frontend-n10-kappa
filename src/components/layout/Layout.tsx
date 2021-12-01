@@ -55,9 +55,6 @@ const Layout = (props: LayoutProps): JSX.Element => {
                     <Header
                         {...headerProps}
                         headerWidth={`${headerWidth}%`}
-                        backFunction={() => {
-                            alert("Moving back");
-                        }}
                     />
                 )}
                 {children}
