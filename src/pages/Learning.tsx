@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import { CardInfo, Card, CardMedia, Layout } from "../components";
 import { OdourlessWrapper, StyledBody } from "../assets/styles/Common.styles";
-import { Grid, IconButton } from "@mui/material";
+import { Container, Grid, IconButton } from "@mui/material";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
@@ -9,11 +9,21 @@ import Modal from "../components/modal/Modal";
 import { useState } from "react";
 import {ToggleButton, ToggleButtonGroup} from "../components/toogle-button/index";
 import Boxed from "../components/boxed/Boxed";
-import { GENDER_VALUES } from "../const";
+import { CURRENT_LEARNING_KEY, GENDER_VALUES } from "../const";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLearningListRequest } from "../store/sagas/learning/actions";
+import { useEffect } from "react";
+import { getLearningList } from "../store/reducers/learnings";
+import {Learning as LearningType} from "../store/sagas/learning/types";
+import { useNavigate } from "react-router-dom";
+
 
 const Learning = (): JSX.Element => {
+    const dispatch = useDispatch();
     const [filterOpen, setFilterOpen] = useState(false);
     const [gender, setGender] = useState(GENDER_VALUES[0].toLocaleLowerCase());
+    const learningList = useSelector(getLearningList);
+    const navigate = useNavigate();
 
     const toggleFilter = () => {
         setFilterOpen(!filterOpen);
@@ -26,15 +36,25 @@ const Learning = (): JSX.Element => {
         setGender(newGender);
     };
 
+    const handleCardClick = (index: number) => {
+        const currentLearning =  learningList[index];
+        window.localStorage.setItem(CURRENT_LEARNING_KEY, JSON.stringify(currentLearning));
+        navigate(`/learning/${currentLearning.id}/${currentLearning.title.split(" ").join("-")}`);
+    };
+
+    useEffect(() => {
+        dispatch(fetchLearningListRequest());
+    }, []);
+
     return (
         <Layout
             hasDrawer
             headerProps={{
                 text: "Learning",
-                backFunction: () => {}
+                backFunction: () => navigate("/home")
             }}
         >
-            <StyledBody>
+            <Container maxWidth="md">
                 <IconButton sx={{
                             position: "fixed",
                             right: "20px",
@@ -44,32 +64,34 @@ const Learning = (): JSX.Element => {
                     <FilterAltOutlinedIcon />
                 </IconButton>
 
-                {[1, 2, 3, 4].map((item): any => {
-                    return (
-                        <Card sx={{ p: "10px 0" }} key={item}>
-                            <CardMedia
-                                src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
-                                alt="Paella dish"
-                                onError={(event: any) => {
-                                    if (event.target)
-                                        event.target.src =
-                                            "https://thednetworks.com/wp-content/uploads/2012/01/picture_not_available_400-300.png";
-                                }}
-                                width={500}
-                                height={300}
-                            />
-                            <CardInfo alignment="bottom" imgHeight={300} imgWidth={500}>
-                                <OdourlessWrapper variant="h5" component={Typography}>
-                                    Full Name
-                                </OdourlessWrapper>
-                                <OdourlessWrapper variant="subtitle1" component={Typography}>
-                                    Profession
-                                </OdourlessWrapper>
-                            </CardInfo>
-                        </Card>
-                    );
-                })}
-            </StyledBody>
+                <>
+                    {learningList.map((learning: LearningType, index: number): any => {
+                        return (
+                            <Card sx={{ p: "10px 0" }} key={learning.id} onClick={() => handleCardClick(index)}>
+                                <CardMedia
+                                    src={learning.imgUrl}
+                                    alt={`${learning.title} img`}
+                                    onError={(event: any) => {
+                                        if (event.target)
+                                            event.target.src =
+                                                "https://thednetworks.com/wp-content/uploads/2012/01/picture_not_available_400-300.png";
+                                    }}
+                                    width={900}
+                                    height={300}
+                                />
+                                <CardInfo alignment="bottom" imgHeight={300} imgWidth={800}>
+                                    <OdourlessWrapper variant="h5" component={Typography}>
+                                        {learning.title}
+                                    </OdourlessWrapper>
+                                    <OdourlessWrapper variant="subtitle2" component={Typography}>
+                                        {learning.author}
+                                    </OdourlessWrapper>
+                                </CardInfo>
+                            </Card>
+                        );
+                    })}
+                </>
+            </Container>
 
             {/* Filter modal */}
             <Modal modalOpen={filterOpen} toggleModal={toggleFilter} ariaLabel={"learning filter modal"}>
@@ -109,7 +131,7 @@ const Learning = (): JSX.Element => {
                                     exclusive
                                     onChange={handleGenderChange}>
                                     {GENDER_VALUES.map((gender, index) => {
-                                        return (<ToggleButton value={gender.toLocaleLowerCase()} curved={index === 0 || index === GENDER_VALUES.length -1}>
+                                        return (<ToggleButton value={gender.toLocaleLowerCase()} curved={index === 0 || index === GENDER_VALUES.length -1} key={index}>
                                                     {gender}
                                                 </ToggleButton>);
                                     })}
