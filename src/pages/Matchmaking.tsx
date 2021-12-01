@@ -212,7 +212,7 @@ const Matchmaking = (): JSX.Element => {
                                     onChange={handleGenderChange}
                                     aria-label="outlined primary button group">
                                     {GENDER_VALUES.map((gender, index) => {
-                                        return (<ToggleButton value={gender.toLocaleLowerCase()} curved={index === 0 || index === GENDER_VALUES.length -1}>
+                                        return (<ToggleButton value={gender.toLocaleLowerCase()} curved={index === 0 || index === GENDER_VALUES.length -1} key={index}>
                                                     {gender}
                                                 </ToggleButton>);
                                     })}</ToggleButtonGroup>

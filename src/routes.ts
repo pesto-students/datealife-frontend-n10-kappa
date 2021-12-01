@@ -1,4 +1,3 @@
-import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Interests from "./pages/Interests";
@@ -12,6 +11,7 @@ import ErrorPage from "./pages/ErrorPage";
 import Number from "./pages/Number";
 import OTP from "./pages/OTP";
 import Listings from "./pages/Listing";
+import CurrentLearning from "./pages/CurrentLearning";
 import Learning from "./pages/Learning";
 import Matchmaking from "./pages/Matchmaking";
 import EditProfile from "./pages/EditProfile";
@@ -61,7 +61,7 @@ const routes: RoutesType[] = [
     },
     {
         pathname: "/user/picture",
-        component: Home
+        component: EditPictures
     },
     {
         pathname: "/user/profile/editProfile",
@@ -78,6 +78,10 @@ const routes: RoutesType[] = [
     {
         pathname: "/learning",
         component: Learning
+    },
+    {
+        pathname: "/learning/:learningId/:learningTitle",
+        component: CurrentLearning
     },
     {
         pathname: "/chatting",

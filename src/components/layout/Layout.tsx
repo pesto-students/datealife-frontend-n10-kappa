@@ -55,9 +55,6 @@ const Layout = (props: LayoutProps): ReactElement => {
                     (<Header
                         {...headerProps}
                         headerWidth={`${headerWidth}%`}
-                        backFunction={() => {
-                            alert("Moving back");
-                        }}
                     />)}
                 {children}
             </Grid>

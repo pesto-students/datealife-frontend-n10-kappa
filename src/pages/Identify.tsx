@@ -39,7 +39,7 @@ const Identify = (): JSX.Element => {
                                 label="Gender"
                                 onChange={handleGenderChange}>
                                 {GENDER_VALUES.map((gender) => {
-                                    return (<MenuItem value={gender}>
+                                    return (<MenuItem value={gender} key={gender}>
                                                 {gender}
                                             </MenuItem>);
                                 })}
