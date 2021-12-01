@@ -1,14 +1,14 @@
-import { Button } from "../components/button/index";
 import { useEffect, useState } from "react";
-import OtpInput from "react-otp-input-rc-17";
-import Layout from "../components/layout/Layout";
-import Boxed from "../components/boxed/Boxed";
-import { Container } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { ThirdPartyUser, confirmOtp } from "../auth";
-import { fetchUserRequest } from "../store/sagas/user/actions";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { Container } from "@mui/material";
+import OtpInput from "react-otp-input-rc-17";
+
+import { ThirdPartyUser, confirmOtp } from "../auth";
+import { Button, Boxed, Layout } from "../components";
 import { getIsLoggedIn } from "../store/reducers/login";
+import { fetchUserRequest } from "../store/sagas/user/actions";
 
 const OTP = (): JSX.Element => {
     const numInputs = 6;
@@ -27,7 +27,7 @@ const OTP = (): JSX.Element => {
     const handleClick = async () => {
         if (otp.length === numInputs) {
             const user: ThirdPartyUser = await confirmOtp(otp);
-            dispatch(fetchUserRequest({ user }));
+            dispatch(fetchUserRequest({ userId: user.uid as string }));
         }
     };
     return (

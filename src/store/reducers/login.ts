@@ -1,27 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { FetchUserFailurePayload } from "../sagas/user/types";
 
-export type UserInfo = {
-    uid?: string;
-    fullName?: string;
-    profilePicture?: string;
-    dob?: number;
-    gender?: string;
-    orientation?: string;
-    profession?: string;
-    interests?: string[];
-    pictures?: string[];
-};
-type loginState = {
+import { FetchUserFailurePayload, UserInfo } from "../sagas/user/types";
+
+type LoginState = {
     isLoggedIn: boolean;
     user: UserInfo;
     isExistingUser: boolean;
-    error?: {
-        message?: string;
-    };
+    error?: string;
 };
 
-const initialState: loginState = {
+type State = {
+    login: LoginState;
+};
+
+const initialState: LoginState = {
     isLoggedIn: false,
     user: {
         fullName: "",
@@ -58,15 +50,15 @@ export const loginSlice = createSlice({
             state.user = { ...state.user, ...payload };
         },
         updateError: (state, { payload }: { payload: FetchUserFailurePayload }) => {
-            state.error = payload;
+            state.error = payload.error;
         },
     },
 });
 
-export const getIsLoggedIn = (state: { login: loginState }): boolean => state.login.isLoggedIn;
-export const getIsExistingUser = (state: { login: loginState }): boolean => state.login.isExistingUser;
-export const getLoggedInUser = (state: { login: loginState }): UserInfo => state.login.user;
-export const getError = (state: { login: loginState }): { message?: string } | undefined => state.login.error;
+export const getIsLoggedIn = (state: State): boolean => state.login.isLoggedIn;
+export const getIsExistingUser = (state: State): boolean => state.login.isExistingUser;
+export const getLoggedInUser = (state: State): UserInfo => state.login.user;
+export const getError = (state: State): string | undefined => state.login.error;
 
 // Action creators are generated for each case reducer function
 export const { loginSuccessful, logout, updateUser, updateError } = loginSlice.actions;

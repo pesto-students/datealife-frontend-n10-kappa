@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import AppBar from "@mui/material/AppBar";
 import { Grid, Stack, Container } from "@mui/material";
@@ -36,14 +37,27 @@ import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
 import { OdourlessWrapper, CrossButton, WhiteBar } from "../assets/styles/Common.styles";
 import logo from "../assets/images/logoDateALife40x40.png";
 import Logo from "../assets/images/logoDateALife.png";
+import { getLoggedInUser } from "../store/reducers/login";
+import { getUserSuggestions } from "../store/reducers/matchMaking";
+import { fetchUserSuggestionsRequest } from "../store/sagas/match-making/actions";
 
 const Matchmaking = (): JSX.Element => {
+    const user = useSelector(getLoggedInUser);
+    const suggestions = useSelector(getUserSuggestions);
     const [matchMakingOpen, setMatchmakingOpen] = useState(false);
     const [filterOpen, setFilterOpen] = useState(false);
     const [orientation, setOrientation] = useState("");
     const [sliderValue, setSliderValue] = useState<number[]>([18, 25]);
     const minDistance = 10;
     const [gender, setGender] = useState(GENDER_VALUES[0].toLocaleLowerCase());
+
+    useEffect(() => {
+        const { uid: userId } = user;
+        if (userId) {
+            fetchUserSuggestionsRequest({ userId });
+        }
+    }, [user]);
+
     const handleGenderChange = (event: React.MouseEvent<HTMLElement>, newGender: string) => {
         setGender(newGender);
     };
@@ -102,7 +116,7 @@ const Matchmaking = (): JSX.Element => {
                 <Container maxWidth="md">
                     <Card>
                         <CardMedia
-                            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
+                            src={suggestions[0]?.profilePicture}
                             alt="Paella dish"
                             onError={(event: any) => {
                                 if (event.target)
