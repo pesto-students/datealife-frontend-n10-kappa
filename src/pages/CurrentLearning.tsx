@@ -1,7 +1,5 @@
-import Typography from "@mui/material/Typography";
-import { Card, CardMedia, Layout } from "../components";
-import { CircularProgress, Container, Grid, IconButton } from "@mui/material";
-import Boxed from "../components/boxed/Boxed";
+import { Card, CardMedia, Layout, Boxed } from "../components";
+import { CircularProgress, Container, Typography } from "@mui/material";
 import { CURRENT_LEARNING_KEY } from "../const";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLearningRequest } from "../store/sagas/learning/actions";

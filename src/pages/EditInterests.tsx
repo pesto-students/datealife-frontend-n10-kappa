@@ -1,6 +1,5 @@
-import ChipStack from "../components/chip-stack/ChipStack";
 import { Stack, Container } from "@mui/material";
-import { Boxed, Layout, Button } from "../components";
+import { Boxed, Layout, Button, ChipStack } from "../components";
 import { INTERESTS_VALUES } from "../const";
 
 const Interests = (): JSX.Element => {

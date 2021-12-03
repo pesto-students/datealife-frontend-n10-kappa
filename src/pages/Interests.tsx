@@ -1,11 +1,11 @@
-import ChipStack, { SelectedChipsType } from "../components/chip-stack/ChipStack";
 import { Stack, Container } from "@mui/material";
-import { Boxed, Button, Layout } from "../components";
+import { Boxed, Button, Layout, ChipStack } from "../components";
 import { useState } from "react";
 import { updateUser } from "../store/reducers/login";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { INTERESTS_VALUES } from "../const";
+import { SelectedChipsType } from "../components/chip-stack/ChipStack";
 
 const Interests = (): JSX.Element => {
     const dispatch = useDispatch();

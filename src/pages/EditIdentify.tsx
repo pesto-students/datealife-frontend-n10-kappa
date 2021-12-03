@@ -1,11 +1,6 @@
 import { useState } from "react";
-
-import Stack from "@mui/material/Stack";
-import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-
+import {MenuItem, InputLabel, FormControl, Select, Stack }  from "@mui/material";
+import { SelectChangeEvent } from "@mui/material/Select";
 import { Button, Boxed, Layout } from "../components";
 import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
 

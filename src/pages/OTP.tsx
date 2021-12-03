@@ -1,8 +1,6 @@
-import { Button } from "../components/button/index";
+import { Button, Layout, Boxed } from "../components";
 import { useEffect, useState } from "react";
 import OtpInput from "react-otp-input-rc-17";
-import Layout from "../components/layout/Layout";
-import Boxed from "../components/boxed/Boxed";
 import { Container } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { ThirdPartyUser, confirmOtp } from "../auth";

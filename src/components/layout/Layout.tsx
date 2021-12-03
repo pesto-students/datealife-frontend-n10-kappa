@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router-dom";
-
 import Grid from "@mui/material/Grid";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
 import ChatIcon from "@mui/icons-material/Chat";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-
 import { Navigator, Header, HeaderProps } from "../";
 
 const Layout = (props: LayoutProps): JSX.Element => {

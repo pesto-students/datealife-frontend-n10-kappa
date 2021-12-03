@@ -1,6 +1,5 @@
-import Layout from "../components/layout/Layout";
 import { Stack, Container } from "@mui/material";
-import { Boxed, Button, ImageUploader } from "../components";
+import { Boxed, Button, ImageUploader, Layout } from "../components";
 import { useState } from "react";
 import { getLoggedInUser, updateUser } from "../store/reducers/login";
 import { useDispatch, useSelector } from "react-redux";
