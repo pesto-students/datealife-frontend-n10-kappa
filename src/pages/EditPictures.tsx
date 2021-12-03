@@ -38,7 +38,6 @@ const EditPictures = (): JSX.Element => {
             hasDrawer
             headerProps={{
                 text: "Edit Pictures",
-                color: "secondary",
                 backFunction: () => {},
             }}
         >

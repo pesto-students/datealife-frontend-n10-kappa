@@ -1,4 +1,5 @@
 import { useParams } from "react-router";
+
 import CircularProgress from "@mui/material/CircularProgress";
 import { Boxed, Layout } from "../components";
 import { useChat } from "../effects/useChat";
@@ -12,8 +13,7 @@ const Chat = (): JSX.Element => {
         <Layout
             hasDrawer
             headerProps={{
-                text: "Interests",
-                color: "secondary",
+                text: "Chat",
                 backFunction: () => {},
             }}
         >
