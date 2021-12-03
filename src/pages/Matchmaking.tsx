@@ -5,13 +5,11 @@ import InputLabel from "@mui/material/InputLabel";
 import { SelectChangeEvent } from "@mui/material/Select";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import {
-    Button,
     Boxed,
     Fab,
     Card,
@@ -23,13 +21,13 @@ import {
     ToggleButton,
     ToggleButtonGroup,
     Modal,
-    MatchedPitctures,
-    Bar,
+    MatchmakingModal
 } from "../components";
 import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
-import { OdourlessWrapper, CrossButton } from "../assets/styles/Common.styles";
+import { OdourlessWrapper } from "../assets/styles/Common.styles";
 import logo from "../assets/images/logoDateALife40x40.png";
 import Logo from "../assets/images/logoDateALife.png";
+import { useNavigate } from "react-router-dom";
 
 const Matchmaking = (): JSX.Element => {
     const [matchMakingOpen, setMatchmakingOpen] = useState(false);
@@ -37,6 +35,7 @@ const Matchmaking = (): JSX.Element => {
     const [orientation, setOrientation] = useState("");
     const [sliderValue, setSliderValue] = useState<number[]>([18, 25]);
     const minDistance = 10;
+    const navigate = useNavigate();
     const [gender, setGender] = useState(GENDER_VALUES[0].toLocaleLowerCase());
     const handleGenderChange = (event: React.MouseEvent<HTMLElement>, newGender: string) => {
         setGender(newGender);
@@ -128,52 +127,15 @@ const Matchmaking = (): JSX.Element => {
                 </Container>
 
                 {/* Matchmaking modal */}
-                <Modal modalOpen={matchMakingOpen} toggleModal={toggleMatchMaking} ariaLabel={"new match modal"}>
-                    <Boxed type="backgroundShine">
-                        <>
-                            <CrossButton onClick={toggleMatchMaking}>
-                                <ClearRoundedIcon style={{ color: "white" }} />
-                            </CrossButton>
-                            <Boxed type="full">
-                                <Container>
-                                    <Typography
-                                        align="center"
-                                        variant="h3"
-                                        color="white"
-                                        style={{
-                                            fontFamily: "DancingScript-Regular",
-                                            paddingTop: "80px",
-                                        }}
-                                    >
-                                        Match it is
-                                    </Typography>
-                                    <Typography align="center" variant="subtitle2" mt={4} color="white">
-                                        Riya likes you too
-                                    </Typography>
-                                    <MatchedPitctures imgUrl1={Logo} imgUrl2={Logo} styles={{ margin: "40px auto 30px" }} />
-                                    <Typography align="center" variant="subtitle1" fontStyle="italic" color="white">
-                                        You and Riya have 85% match ratio
-                                    </Typography>
-                                    <Bar />
-                                    <Stack>
-                                        <Button
-                                            variant="contained"
-                                            whiteText
-                                            size="large"
-                                            curved
-                                            sx={{ margin: "25px auto 15px", width: "250px" }}
-                                        >
-                                            Send a message
-                                        </Button>
-                                        <Button variant="text" whiteText>
-                                            Keep Searching
-                                        </Button>
-                                    </Stack>
-                                </Container>
-                            </Boxed>
-                        </>
-                    </Boxed>
-                </Modal>
+                <MatchmakingModal
+                    toggleMatchMaking={toggleMatchMaking}
+                    matchMakingOpen={matchMakingOpen}
+                    pictureUrl1={Logo}
+                    pictureUrl2={Logo}
+                    matchUserName="Riya"
+                    matchUserPercentage="85"
+                    chatRedirect={() => navigate("/chatting")}
+                />
 
                 {/* Filter modal */}
                 <Modal modalOpen={filterOpen} toggleModal={toggleFilter} ariaLabel={"matchmaking filter modal"}>

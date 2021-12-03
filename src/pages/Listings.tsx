@@ -187,7 +187,6 @@ const Listing = (): JSX.Element => {
                     </TabContext>
                 </Container>
             </Boxed>
-            {/* Matchmaking modal */}
             <Modal modalOpen={inviteModalOpen} toggleModal={toggleInviteModal} ariaLabel={"invites modal"}>
                 <>
                     {counter !== 2 && (
