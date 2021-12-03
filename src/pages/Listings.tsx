@@ -1,5 +1,7 @@
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { TabContext, TabList, TabPanel, TimePicker } from "@mui/lab";
+
+import { TabContext, TabList, TabPanel, TimePicker, StaticDatePicker } from "@mui/lab";
 import {
     Tab as MUITab,
     Box,
@@ -11,18 +13,21 @@ import {
     ImageListItemBar,
     ImageList,
     Stack,
+    TextField,
 } from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
-import TextField from "@mui/material/TextField";
-import StaticDatePicker from "@mui/lab/StaticDatePicker";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
+
 import { Boxed, Button, CardInfo, Card, CardMedia, CardActions, Layout, Modal } from "../components";
+import { getLoggedInUser } from "../store/reducers/login";
+import { getListingData } from "../store/reducers/matchMaking";
 import { CrossButton, OdourlessWrapper } from "../assets/styles/Common.styles";
+import { fetchUserListingRequest } from "../store/sagas/match-making/actions";
 
 type Item = {
     label: string;
@@ -44,7 +49,9 @@ const Listing = (): JSX.Element => {
             value: "invites",
         },
     ];
-
+    const dispatch = useDispatch();
+    const user = useSelector(getLoggedInUser);
+    const listings = useSelector(getListingData);
     const [inviteModalOpen, setInviteModalOpen] = useState(false);
     const toggleInviteModal = () => {
         setInviteModalOpen(!inviteModalOpen);
@@ -53,6 +60,13 @@ const Listing = (): JSX.Element => {
     const [newDate, setNewDate] = useState<Date | null>(new Date());
     const [counter, setCounter] = useState(0);
     const [value, setValue] = useState("likes");
+
+    useEffect(() => {
+        const { uid: userId } = user;
+        if (userId) {
+            dispatch(fetchUserListingRequest({ userId }));
+        }
+    }, [user]);
 
     const handleCounter = () => setCounter(counter + 1);
 
@@ -70,11 +84,11 @@ const Listing = (): JSX.Element => {
 
     // should ne replaced with actual data
     const tabPanelData: any = {
-        likes: (
+        likes: (item: any) => (
             <Card>
                 <CardMedia
-                    src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
-                    alt="Paella dish"
+                    src={item.profilePicture}
+                    alt={`${item.fullName} image`}
                     onError={(event: any) => {
                         if (event.target)
                             event.target.src =
@@ -85,19 +99,19 @@ const Listing = (): JSX.Element => {
                 />
                 <CardInfo alignment="bottom" imgHeight={200} imgWidth={200}>
                     <OdourlessWrapper variant="subtitle1" component={Typography}>
-                        Full Name
+                        {item.fullName}
                     </OdourlessWrapper>
                     <OdourlessWrapper variant="subtitle2" component={Typography}>
-                        Profession
+                        {item.profession}
                     </OdourlessWrapper>
                 </CardInfo>
             </Card>
         ),
-        matches: (
+        matches: (item: any) => (
             <Card>
                 <CardMedia
-                    src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
-                    alt="Paella dish"
+                    src={item.profilePicture}
+                    alt={`${item.fullName} image`}
                     onError={(event: any) => {
                         if (event.target)
                             event.target.src =
@@ -108,10 +122,10 @@ const Listing = (): JSX.Element => {
                 />
                 <CardInfo alignment="top" imgHeight={200} imgWidth={200}>
                     <OdourlessWrapper variant="subtitle1" component={Typography}>
-                        Full Name
+                        {item.fullName}
                     </OdourlessWrapper>
                     <OdourlessWrapper variant="subtitle2" component={Typography}>
-                        Profession
+                        {item.profession}
                     </OdourlessWrapper>
                 </CardInfo>
                 <CardInfo alignment="bottom" imgHeight={200} imgWidth={200} hasIcon>
@@ -122,11 +136,11 @@ const Listing = (): JSX.Element => {
                 </CardInfo>
             </Card>
         ),
-        invites: (
+        invites: (item: any) => (
             <Card>
                 <CardMedia
-                    src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
-                    alt="Paella dish"
+                    src={item.profilePicture}
+                    alt={`${item.fullName} image`}
                     onError={(event: any) => {
                         if (event.target)
                             event.target.src =
@@ -137,10 +151,10 @@ const Listing = (): JSX.Element => {
                 />
                 <CardInfo alignment="top" imgHeight={200} imgWidth={200}>
                     <OdourlessWrapper variant="subtitle1" component={Typography}>
-                        Full Name
+                        {item.fullName}
                     </OdourlessWrapper>
                     <OdourlessWrapper variant="subtitle2" component={Typography}>
-                        Profession
+                        {item.profession}
                     </OdourlessWrapper>
                 </CardInfo>
                 <CardInfo alignment="bottom" imgHeight={200} imgWidth={200} hasIcon>
@@ -172,15 +186,16 @@ const Listing = (): JSX.Element => {
                             </TabList>
                         </Box>
                         {items.map(({ value }: Item) => (
-                            <TabPanel value={value} sx={{ p: "20px 0" }}>
+                            <TabPanel value={value} sx={{ p: "20px 0" }} key={value}>
                                 <Grid container justifyContent="space-between" alignItems="center" wrap="wrap" spacing={2}>
-                                    {[1, 2, 3, 4].map((item): any => {
-                                        return (
-                                            <Grid item xs={6} key={item}>
-                                                {tabPanelData[value]}
-                                            </Grid>
-                                        );
-                                    })}
+                                    {listings[value] &&
+                                        Object.values(listings[value]).map((item): any => {
+                                            return (
+                                                <Grid item xs={6} key={item.uid}>
+                                                    {tabPanelData[value](item)}
+                                                </Grid>
+                                            );
+                                        })}
                                 </Grid>
                             </TabPanel>
                         ))}

@@ -1,21 +1,23 @@
 import axios, { AxiosResponse } from "axios";
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { API_BASE_URL } from "../../../const";
-import { loginSuccessful, UserInfo, updateError } from "../../reducers/login";
 
 import { CREATE_USER_REQUEST, FETCH_USER_REQUEST, UPDATE_USER_REQUEST } from "./actionTypes";
-import { CreateUserRequest, FetchUserRequest, UpdateUserRequest } from "./types";
+import { CreateUserRequest, FetchUserRequest, FetchUserRequestPayload, UpdateUserRequest, UserInfo } from "./types";
+import { loginSuccessful, updateError } from "../../reducers/login";
+import { API_BASE_URL } from "../../../const";
 
-const getUserApi = (userId: string | null | undefined) => axios.get<UserInfo>(`${API_BASE_URL}/user/${userId}`);
+const getUserApi = ({ userId }: FetchUserRequestPayload) => axios.get<UserInfo>(`${API_BASE_URL}/user/${userId}`);
+
 const postUserApi = (user: UserInfo) => axios.post<UserInfo>(`${API_BASE_URL}/user`, user);
 
 /*
   Worker Saga: Fired on FETCH_USER_REQUEST action
 */
-function* fetchUserSaga({ payload: { user } }: FetchUserRequest) {
+function* fetchUserSaga({ payload }: FetchUserRequest) {
     try {
-        const response: AxiosResponse<UserInfo> = yield call(getUserApi, user.uid);
-        const userData = response.data || user;
+        const response: AxiosResponse<UserInfo> = yield call(getUserApi, payload);
+        const userData = response.data;
+
         yield put(
             loginSuccessful({
                 isLoggedIn: true,
@@ -26,7 +28,7 @@ function* fetchUserSaga({ payload: { user } }: FetchUserRequest) {
     } catch (e: any) {
         yield put(
             updateError({
-                message: e.message,
+                error: e.message,
             })
         );
     }
@@ -39,6 +41,9 @@ function* createUserSaga({ payload }: CreateUserRequest | UpdateUserRequest) {
     try {
         const response: AxiosResponse<UserInfo> = yield call(postUserApi, payload);
         const userData = response.data;
+        if (!userData) {
+            throw new Error("Not able to create user");
+        }
         yield put(
             loginSuccessful({
                 isLoggedIn: !!response.data,
@@ -49,7 +54,7 @@ function* createUserSaga({ payload }: CreateUserRequest | UpdateUserRequest) {
     } catch (e: any) {
         yield put(
             updateError({
-                message: e.message,
+                error: e.message,
             })
         );
     }

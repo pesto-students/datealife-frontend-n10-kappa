@@ -10,10 +10,10 @@ import {
 } from "firebase/auth";
 
 import { firebaseApp } from "../firebase.config";
-
-export const auth = getAuth(firebaseApp);
+import { UserInfo } from "../store/sagas/user/types";
 
 if (process.env.NODE_ENV === "development") {
+    const auth = getAuth(firebaseApp);
     connectAuthEmulator(auth, "http://localhost:5003");
 }
 
@@ -22,27 +22,29 @@ interface UpdatedWindow extends Window {
     confirmationResult?: any;
 }
 
-export type ThirdPartyUser = {
-    fullName?: string | null;
-    uid?: string | null;
-    profilePicture?: string | null;
-};
+export interface ThirdPartyUser extends UserInfo {
+    fullName?: string;
+    uid?: string;
+    profilePicture?: string;
+}
 
-export const thirdPartySignin = async (type: string): Promise<ThirdPartyUser> => {
+export const thirdPartySignin = async (type: string, isExistingUser: boolean): Promise<ThirdPartyUser> => {
+    const auth = getAuth(firebaseApp);
     const provider = type === "google" ? new GoogleAuthProvider() : new FacebookAuthProvider();
-    let loggedInUser = auth.currentUser;
-    if (!loggedInUser) {
+    let { currentUser } = auth;
+    if (!currentUser || !isExistingUser) {
         const { user } = await signInWithPopup(auth, provider);
-        loggedInUser = user;
+        currentUser = user;
     }
     return {
-        fullName: loggedInUser?.displayName,
-        uid: loggedInUser?.uid,
-        profilePicture: loggedInUser?.photoURL,
+        fullName: currentUser?.displayName as string,
+        uid: currentUser?.uid as string,
+        profilePicture: currentUser?.photoURL as string,
     };
 };
 
 export const loginWithPhoneNumber = async (phoneNumber: string): Promise<any> => {
+    const auth = getAuth(firebaseApp);
     (window as UpdatedWindow).recaptchaVerifier = new RecaptchaVerifier(
         //this is the id of the button for phonenumber submission
         "login-with-number",
@@ -58,20 +60,22 @@ export const loginWithPhoneNumber = async (phoneNumber: string): Promise<any> =>
 };
 
 export const confirmOtp = async (otp: string): Promise<ThirdPartyUser> => {
-    let loggedInUser = auth.currentUser;
-    if (!loggedInUser) {
+    const auth = getAuth(firebaseApp);
+    let { currentUser } = auth;
+    if (!currentUser) {
         const { user } = await (window as UpdatedWindow).confirmationResult.confirm(otp);
-        loggedInUser = user;
+        currentUser = user;
     }
     return {
-        fullName: loggedInUser?.displayName,
-        uid: loggedInUser?.uid,
-        profilePicture: loggedInUser?.photoURL,
+        fullName: currentUser?.displayName as string,
+        uid: currentUser?.uid as string,
+        profilePicture: currentUser?.photoURL as string,
     };
 };
 
 // after calling this method logout reducer action should be called
 export const onSignOut = async (): Promise<any> => {
+    const auth = getAuth(firebaseApp);
     await signOut(auth);
     return {};
 };

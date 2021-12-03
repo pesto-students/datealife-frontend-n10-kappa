@@ -29,11 +29,11 @@ export const useChat = (): CometChat.User | undefined => {
                                             setCometUser(user);
                                         })
                                         .catch((error: Error) => {
-                                            dispatch(updateError(error));
+                                            dispatch(updateError({ error: error?.message }));
                                         });
                                 })
                                 .catch((error: Error) => {
-                                    dispatch(updateError(error));
+                                    dispatch(updateError({ error: error?.message }));
                                 });
                         });
                     return;

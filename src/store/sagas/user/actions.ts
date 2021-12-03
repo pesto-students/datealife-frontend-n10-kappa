@@ -1,4 +1,3 @@
-import { UserInfo } from "../../reducers/login";
 import { FETCH_USER_REQUEST, FETCH_USER_FAILURE, CREATE_USER_REQUEST, UPDATE_USER_REQUEST } from "./actionTypes";
 import {
     FetchUserRequest,
@@ -7,6 +6,7 @@ import {
     FetchUserRequestPayload,
     CreateUserRequest,
     UpdateUserRequest,
+    UserInfo,
 } from "./types";
 
 export const fetchUserRequest = (payload: FetchUserRequestPayload): FetchUserRequest => ({

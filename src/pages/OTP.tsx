@@ -1,31 +1,25 @@
-import { Button, Layout, Boxed } from "../components";
-import { useEffect, useState } from "react";
-import OtpInput from "react-otp-input-rc-17";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+
 import { Container } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import OtpInput from "react-otp-input-rc-17";
+
 import { ThirdPartyUser, confirmOtp } from "../auth";
+import { Button, Boxed, Layout } from "../components";
 import { fetchUserRequest } from "../store/sagas/user/actions";
-import { useNavigate } from "react-router-dom";
-import { getIsLoggedIn } from "../store/reducers/login";
 
 const OTP = (): JSX.Element => {
     const numInputs = 6;
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const isLogged = useSelector(getIsLoggedIn);
     const [otp, setOtp] = useState("");
     const handleChange = (value: any) => {
         setOtp(value);
     };
 
-    useEffect(() => {
-        if (isLogged) navigate("/home");
-    }, [navigate, isLogged]);
-
     const handleClick = async () => {
         if (otp.length === numInputs) {
             const user: ThirdPartyUser = await confirmOtp(otp);
-            dispatch(fetchUserRequest({ user }));
+            user?.uid && dispatch(fetchUserRequest({ userId: user?.uid }));
         }
     };
     return (

@@ -1,14 +1,19 @@
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
 import ChatIcon from "@mui/icons-material/Chat";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
+
 import { Navigator, Header, HeaderProps } from "../";
+import { getCurrentPage, updateCurrentPage } from "../../store/reducers/login";
 
 const Layout = (props: LayoutProps): JSX.Element => {
     const { children, hasDrawer, drawerWidth = 3, headerProps } = props;
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const currentPage = useSelector(getCurrentPage);
     const NavigatorItems = [
         {
             label: "Home",
@@ -33,6 +38,7 @@ const Layout = (props: LayoutProps): JSX.Element => {
     ];
     const handleNavigation = (selectedNavigation = "/") => {
         navigate(selectedNavigation);
+        dispatch(updateCurrentPage(selectedNavigation));
     };
     const calcDrawerWidth = (drawerWidth / 12) * 100;
     const headerWidth = hasDrawer ? 100 - calcDrawerWidth : 100;
@@ -44,17 +50,12 @@ const Layout = (props: LayoutProps): JSX.Element => {
                         items={NavigatorItems}
                         drawerWidth={`${calcDrawerWidth}%`}
                         onNavigation={handleNavigation}
-                        defaultValue="/matchmaking"
+                        currentPage={currentPage}
                     />
                 </Grid>
             )}
             <Grid item xs={12} sm={hasDrawer ? 9 : 12}>
-                {props.displayHeader && (
-                    <Header
-                        {...headerProps}
-                        headerWidth={`${headerWidth}%`}
-                    />
-                )}
+                {props.displayHeader && <Header {...headerProps} headerWidth={`${headerWidth}%`} />}
                 {children}
             </Grid>
         </Grid>
