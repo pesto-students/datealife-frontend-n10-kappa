@@ -17,3 +17,4 @@ export { default as Modal } from "./modal/Modal";
 export { default as Slider } from "./slider/Slider";
 export { default as MatchedPitctures } from "./matchedPictures/MatchedPictures";
 export { default as Bar } from "./bar/Bar";
+export { default as MatchmakingModal } from "./matchmakingModal/MatchmakingModal";
