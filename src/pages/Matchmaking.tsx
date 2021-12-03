@@ -1,13 +1,8 @@
 import { useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import { Grid, Stack, Container } from "@mui/material";
-import Toolbar from "@mui/material/Toolbar";
-import MenuItem from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
+import { Grid, Stack, Container, Toolbar, MenuItem, AppBar, Typography, FormControl, Select } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { SelectChangeEvent } from "@mui/material/Select";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
@@ -15,7 +10,6 @@ import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-
 import {
     Button,
     Boxed,

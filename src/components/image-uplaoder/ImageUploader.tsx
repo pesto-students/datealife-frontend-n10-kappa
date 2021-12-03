@@ -1,10 +1,8 @@
 import { useState } from "react";
-
 import { BoxProps as MUIBoxProps } from "@mui/system";
 import Input from "@mui/material/Input";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-
 import {
     ImageUploaderContainer,
     ImageUploaderContent,

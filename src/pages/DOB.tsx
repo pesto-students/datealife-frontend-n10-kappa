@@ -2,11 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
-
-import { Container } from "@mui/material";
+import { Container, TextField, TextFieldProps } from "@mui/material";
 import DatePicker from "@mui/lab/DatePicker";
-import TextField, { TextFieldProps } from "@mui/material/TextField";
-
 import { Button, Layout, Boxed } from "../components";
 import { updateUser } from "../store/reducers/login";
 

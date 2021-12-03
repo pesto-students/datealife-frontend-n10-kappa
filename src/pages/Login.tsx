@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, Link } from "react-router-dom";
-
 import { Container, Stack, Typography } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
-
 import { thirdPartySignin, ThirdPartyUser } from "../auth";
 import { Boxed, Button, Logo } from "../components";
 import { getIsLoggedIn, getIsExistingUser } from "../store/reducers/login";

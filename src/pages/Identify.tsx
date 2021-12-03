@@ -1,12 +1,6 @@
-import { Button } from "../components/button/index";
-import Stack from "@mui/material/Stack";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import {Stack, InputLabel, MenuItem, FormControl, Select, SelectChangeEvent} from "@mui/material";
 import { useState } from "react";
-import Layout from "../components/layout/Layout";
-import Boxed from "../components/boxed/Boxed";
+import {Layout, Boxed, Button} from "../components";
 import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";

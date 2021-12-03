@@ -1,10 +1,8 @@
 import { useParams } from "react-router";
-
-import CircularProgress from "@mui/material/CircularProgress";
 import { Boxed, Layout } from "../components";
 import { useChat } from "../effects/useChat";
 import { CometChatConversationListWithMessages } from "../third-party/comet-chat";
-import {Box, Container} from "@mui/material";
+import {Box, Container, CircularProgress} from "@mui/material";
 
 const Chat = (): JSX.Element => {
     const cometUser = useChat();

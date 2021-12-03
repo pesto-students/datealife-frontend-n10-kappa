@@ -1,7 +1,7 @@
-import { Container, Stack } from "@mui/material";
+import { Container, Stack, Button } from "@mui/material";
 import { Error, Boxed } from "../components/index";
 import {Link} from "react-router-dom";
-import Button from "@mui/material/Button";
+
 const ErrorPage = (): JSX.Element => {
     return (
         <Boxed type="textField">

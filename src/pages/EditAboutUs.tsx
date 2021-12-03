@@ -1,7 +1,6 @@
-import { Container, Stack, TextField, Typography } from "@mui/material";
+import { Container, Stack, TextField } from "@mui/material";
 import { Button } from "../components/button";
-import Layout from "../components/layout/Layout";
-import Boxed from "../components/boxed/Boxed";
+import { Layout, Boxed } from "../components";
 
 const Interests = (): JSX.Element => {
     return (
