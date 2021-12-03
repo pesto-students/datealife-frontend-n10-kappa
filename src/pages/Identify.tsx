@@ -2,12 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import Stack from "@mui/material/Stack";
-import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-
+import { Stack, InputLabel, MenuItem, FormControl, Select, SelectChangeEvent } from "@mui/material";
 import { Button, Boxed, Layout } from "../components";
 import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
 import { updateUser } from "../store/reducers/login";

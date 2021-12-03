@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import MUIToggleButton from "@mui/material/ToggleButton";
-import MUIToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import {ToggleButtonGroup as MUIToggleButtonGroup, ToggleButton as MUIToggleButton} from "@mui/material";
+
 import { ToggleButtonGroupProps } from "./ToggleButtonGroup";
 import { ThemeProps } from "styled-components";
 import Theme from "../../theme";

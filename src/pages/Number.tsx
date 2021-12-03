@@ -1,9 +1,6 @@
-import Header from "../components/header/Header";
-import { Button } from "../components/button/index";
+import { Button, Layout, Boxed } from "../components";
 import MuiPhoneNumber from "material-ui-phone-number";
 import { useState } from "react";
-import Layout from "../components/layout/Layout";
-import Boxed from "../components/boxed/Boxed";
 import { Container } from "@mui/material";
 import { loginWithPhoneNumber } from "../auth";
 import { useNavigate } from "react-router";

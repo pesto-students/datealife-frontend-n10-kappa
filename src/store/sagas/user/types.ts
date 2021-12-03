@@ -1,5 +1,4 @@
 import { FETCH_USER_REQUEST, FETCH_USER_FAILURE, CREATE_USER_REQUEST, UPDATE_USER_REQUEST } from "./actionTypes";
-import { ThirdPartyUser } from "../../../auth";
 
 export type UserInfo = {
     uid?: string;

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import { TabContext, TabList, TabPanel, TimePicker } from "@mui/lab";
 import {
     Tab as MUITab,
@@ -23,7 +22,7 @@ import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import { Boxed, Button, CardInfo, Card, CardMedia, CardActions, Layout, Modal } from "../components";
-import { CrossButton, OdourlessWrapper, StyledBody } from "../assets/styles/Common.styles";
+import { CrossButton, OdourlessWrapper } from "../assets/styles/Common.styles";
 
 type Item = {
     label: string;
@@ -162,31 +161,32 @@ const Listing = (): JSX.Element => {
                 backFunction: () => {},
             }}
         >
-            <StyledBody>
-                <TabContext value={value}>
-                    <Box sx={{ borderBottom: 3, borderColor: "divider" }}>
-                        <TabList onChange={handleChange} aria-label="lab API tabs example" centered variant="fullWidth">
-                            {items.map(({ label, value }: Item) => (
-                                <MUITab label={label} value={value} key={value} />
-                            ))}
-                        </TabList>
-                    </Box>
-                    {items.map(({ value }: Item) => (
-                        <TabPanel value={value} sx={{ p: "20px 0" }}>
-                            <Grid container justifyContent="space-between" alignItems="center" wrap="wrap" spacing={2}>
-                                {[1, 2, 3, 4].map((item): any => {
-                                    return (
-                                        <Grid item xs={6} key={item}>
-                                            {tabPanelData[value]}
-                                        </Grid>
-                                    );
-                                })}
-                            </Grid>
-                        </TabPanel>
-                    ))}
-                </TabContext>
-            </StyledBody>
-            {/* Matchmaking modal */}
+            <Boxed type="error">
+                <Container maxWidth="md">
+                    <TabContext value={value}>
+                        <Box sx={{ borderBottom: 3, borderColor: "divider" }}>
+                            <TabList onChange={handleChange} aria-label="lab API tabs example" centered variant="fullWidth">
+                                {items.map(({ label, value }: Item) => (
+                                    <MUITab label={label} value={value} key={value} />
+                                ))}
+                            </TabList>
+                        </Box>
+                        {items.map(({ value }: Item) => (
+                            <TabPanel value={value} sx={{ p: "20px 0" }}>
+                                <Grid container justifyContent="space-between" alignItems="center" wrap="wrap" spacing={2}>
+                                    {[1, 2, 3, 4].map((item): any => {
+                                        return (
+                                            <Grid item xs={6} key={item}>
+                                                {tabPanelData[value]}
+                                            </Grid>
+                                        );
+                                    })}
+                                </Grid>
+                            </TabPanel>
+                        ))}
+                    </TabContext>
+                </Container>
+            </Boxed>
             <Modal modalOpen={inviteModalOpen} toggleModal={toggleInviteModal} ariaLabel={"invites modal"}>
                 <>
                     {counter !== 2 && (

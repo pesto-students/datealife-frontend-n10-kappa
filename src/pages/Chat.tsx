@@ -1,11 +1,8 @@
 import { useParams } from "react-router";
-
-import CircularProgress from "@mui/material/CircularProgress";
-
-import { Layout } from "../components";
+import { Boxed, Layout } from "../components";
 import { useChat } from "../effects/useChat";
 import { CometChatConversationListWithMessages } from "../third-party/comet-chat";
-import { StyledBody } from "../assets/styles/Common.styles";
+import {Box, Container, CircularProgress} from "@mui/material";
 
 const Chat = (): JSX.Element => {
     const cometUser = useChat();
@@ -14,18 +11,21 @@ const Chat = (): JSX.Element => {
         <Layout
             hasDrawer
             headerProps={{
-                text: "Interests",
-                color: "secondary",
+                text: "Chat",
                 backFunction: () => {},
             }}
         >
-            <StyledBody style={{ height: "502px", width: "100%", maxWidth: "90%", display: "flex", alignItems: "center" }}>
-                {cometUser ? (
-                    <CometChatConversationListWithMessages chatWithUser={chatId} />
-                ) : (
-                    <CircularProgress sx={{ m: "auto" }} />
-                )}
-            </StyledBody>
+            <Boxed type="error">
+                <Container maxWidth="md">
+                    <Box style={{ height: "502px", width: "100%", maxWidth: "90%", display: "flex", alignItems: "center" }}>
+                        {cometUser ? (
+                            <CometChatConversationListWithMessages chatWithUser={chatId} />
+                        ) : (
+                            <CircularProgress sx={{ m: "auto" }} />
+                        )}
+                    </Box>
+                </Container>
+            </Boxed>
         </Layout>
     );
 };

@@ -1,16 +1,8 @@
-import Header from "../components/header/Header";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Img from "../assets/images/ben-parker.jpg";
-import { Fab, Typography } from "@mui/material";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import Stack from "@mui/material/Stack";
+import { Fab, Typography, Grid, Box, Container, ImageList, ImageListItem, Stack } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { Button } from "../components/button/index";
-import Grid from "@mui/material/Grid";
-import { Layout } from "../components";
+import { Layout, Button, Header } from "../components";
 import { PhotoDiv } from "../assets/styles/Common.styles";
+import Img from "../assets/images/ben-parker.jpg";
 
 const itemData = [
     {

@@ -2,8 +2,7 @@ import DateALifeLogo from "../assets/images/logoDateALife.png";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import GoogleIcon from "@mui/icons-material/Google";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
-import { Button } from "../components/button/index";
-import Boxed from "../components/boxed/Boxed";
+import { Button, Boxed } from "../components";
 import { Container, Stack, Typography } from "@mui/material";
 import Logo from "../components/logo/Logo";
 import {Link} from "react-router-dom";
@@ -11,7 +10,7 @@ import {Link} from "react-router-dom";
 const SignUp = (): JSX.Element => {
     return (
         <Boxed type="backgroundShine">
-            <Container maxWidth="md">
+            <Container maxWidth="sm">
                 <Stack >
                     <Logo imgUrl={DateALifeLogo} styles={{marginTop: "50px"}} />
 
