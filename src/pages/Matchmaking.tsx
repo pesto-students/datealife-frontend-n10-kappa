@@ -1,33 +1,26 @@
 import { useState } from "react";
-import { Grid, Stack, Container, Toolbar, MenuItem, AppBar, Typography, FormControl, Select } from "@mui/material";
+import { Container, Toolbar, MenuItem, AppBar, Typography, FormControl } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import InputLabel from "@mui/material/InputLabel";
 import { SelectChangeEvent } from "@mui/material/Select";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import {
-    Boxed,
     Fab,
     Card,
     CardMedia,
     CardInfo,
     CardActions,
-    Slider,
     Layout,
-    ToggleButton,
-    ToggleButtonGroup,
-    Modal,
     MatchmakingModal
 } from "../components";
-import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
+import { GENDER_VALUES } from "../const";
 import { OdourlessWrapper } from "../assets/styles/Common.styles";
 import logo from "../assets/images/logoDateALife40x40.png";
 import Logo from "../assets/images/logoDateALife.png";
 import { useNavigate } from "react-router-dom";
+import MatchmakingFilterModal from "../components/matchmaking-filter-modal/MatchmakingFilterModal";
 
 const Matchmaking = (): JSX.Element => {
     const [matchMakingOpen, setMatchmakingOpen] = useState(false);
@@ -57,7 +50,6 @@ const Matchmaking = (): JSX.Element => {
         if (!Array.isArray(newValue)) {
             return;
         }
-
         if (activeThumb === 0) {
             setSliderValue([Math.min(newValue[0], sliderValue[1] - minDistance), sliderValue[1]]);
         } else {
@@ -138,114 +130,18 @@ const Matchmaking = (): JSX.Element => {
                 />
 
                 {/* Filter modal */}
-                <Modal modalOpen={filterOpen} toggleModal={toggleFilter} ariaLabel={"matchmaking filter modal"}>
-                    <Boxed>
-                        <>
-                            <Grid container spacing={2}>
-                                <Grid item xs={4}>
-                                    <IconButton
-                                        size="large"
-                                        edge="start"
-                                        color="inherit"
-                                        aria-label="back icon"
-                                        onClick={toggleFilter}
-                                    >
-                                        <ArrowBackRoundedIcon />
-                                    </IconButton>
-                                </Grid>
-                                <Grid item xs={4} textAlign="center">
-                                    Filter
-                                </Grid>
-                                <Grid item xs={4} textAlign="right">
-                                    <IconButton
-                                        size="large"
-                                        edge="start"
-                                        color="inherit"
-                                        aria-label="apply icon"
-                                        onClick={toggleFilter}
-                                    >
-                                        <CheckRoundedIcon color="error" />
-                                    </IconButton>
-                                </Grid>
-                            </Grid>
-
-                            <Boxed>
-                                <Stack>
-                                    <Typography variant="subtitle1" mb={1}>
-                                        Gender
-                                    </Typography>
-                                    <ToggleButtonGroup
-                                        value={gender}
-                                        exclusive
-                                        onChange={handleGenderChange}
-                                        aria-label="outlined primary button group"
-                                    >
-                                        {GENDER_VALUES.map((gender, index) => {
-                                            return (
-                                                <ToggleButton
-                                                    value={gender.toLocaleLowerCase()}
-                                                    curved={index === 0 || index === GENDER_VALUES.length - 1}
-                                                    key={gender}
-                                                >
-                                                    {gender}
-                                                </ToggleButton>
-                                            );
-                                        })}
-                                    </ToggleButtonGroup>
-                                </Stack>
-                            </Boxed>
-
-                            <Boxed>
-                                <>
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={6}>
-                                            <Typography variant="subtitle1">Age</Typography>
-                                        </Grid>
-                                        <Grid item xs={6} textAlign="right">
-                                            <Typography variant="body2" color="warning">
-                                                {sliderValue[0]} - {sliderValue[1]}{" "}
-                                            </Typography>
-                                        </Grid>
-                                    </Grid>
-
-                                    <Slider
-                                        getAriaLabel={() => "Minimum distance"}
-                                        value={sliderValue}
-                                        onChange={handleAgeSliderChange}
-                                        valueLabelDisplay="auto"
-                                        getAriaValueText={valuetext}
-                                        min={18}
-                                        max={80}
-                                    />
-                                </>
-                            </Boxed>
-
-                            <Boxed>
-                                <FormControl fullWidth>
-                                    <InputLabel id="orientation-label" color="warning">
-                                        Orientation
-                                    </InputLabel>
-                                    <Select
-                                        labelId="orientation-label"
-                                        id="orientation-select"
-                                        value={orientation}
-                                        label="orientation"
-                                        onChange={handleOrientationChange}
-                                        color="warning"
-                                    >
-                                        {ORIENTATION_VALUES.map((orientation) => {
-                                            return (
-                                                <MenuItem value={orientation.toLowerCase()} key={orientation}>
-                                                    {orientation}
-                                                </MenuItem>
-                                            );
-                                        })}
-                                    </Select>
-                                </FormControl>
-                            </Boxed>
-                        </>
-                    </Boxed>
-                </Modal>
+                <MatchmakingFilterModal
+                     toggleFilter={toggleFilter}
+                     filterOpen={filterOpen}
+                     applyFilter={toggleFilter}
+                     currentGender={gender}
+                     handleGenderChange={handleGenderChange}
+                     sliderValue={sliderValue}
+                     handleAgeSliderChange={handleAgeSliderChange}
+                     valuetext={valuetext}
+                     currentOrientation={orientation}
+                     handleOrientationChange={handleOrientationChange}
+                />
             </div>
         </Layout>
     );
