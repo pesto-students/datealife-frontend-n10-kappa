@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import Grid from "@mui/material/Grid";
-
-import { Button, Layout, ImageUploader } from "../components";
+import { Button, Layout, ImageUploader, Boxed } from "../components";
 import uplaodImageToStorage from "../effects/useStorage";
 import { getLoggedInUser } from "../store/reducers/login";
-import { StyledBody } from "../assets/styles/Common.styles";
 import { updateUserRequest } from "../store/sagas/user/actions";
+import { Container, Grid } from "@mui/material";
 
 const EditPictures = (): JSX.Element => {
     const dispatch = useDispatch();
@@ -45,24 +42,26 @@ const EditPictures = (): JSX.Element => {
                 backFunction: () => {},
             }}
         >
-            <StyledBody>
-                <Grid container justifyContent="space-between" alignItems="center" wrap="wrap" spacing={2}>
-                    {[0, 1, 2, 3, 4, 5].map((index) => (
-                        <Grid item xs={6} key={index}>
-                            <ImageUploader
-                                canUpload
-                                {...ImageUploaderProps}
-                                onUpload={(file) => onUplaod(file, index)}
-                                removeFile={() => removeFile(index)}
-                                src={localPics[index]}
-                            />
-                        </Grid>
-                    ))}
-                </Grid>
-                <Button color="primary" variant="contained" fullWidth whiteText onClick={handleClick}>
-                    Done
-                </Button>
-            </StyledBody>
+            <Boxed type="full">
+                <Container maxWidth="sm">
+                    <Grid container justifyContent="space-between" alignItems="center" wrap="wrap" spacing={4} mt={2} mb={6}>
+                        {[0, 1, 2, 3, 4, 5].map((index) => (
+                            <Grid item xs={6} key={index}>
+                                <ImageUploader
+                                    canUpload
+                                    {...ImageUploaderProps}
+                                    onUpload={(file) => onUplaod(file, index)}
+                                    removeFile={() => removeFile(index)}
+                                    src={localPics[index]}
+                                />
+                            </Grid>
+                        ))}
+                    </Grid>
+                    <Button color="primary" variant="contained" fullWidth whiteText onClick={handleClick}>
+                        Done
+                    </Button>
+                </Container>
+            </Boxed>
         </Layout>
     );
 };

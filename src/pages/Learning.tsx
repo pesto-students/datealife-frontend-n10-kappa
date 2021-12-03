@@ -1,6 +1,6 @@
 import Typography from "@mui/material/Typography";
 import { CardInfo, Card, CardMedia, Layout } from "../components";
-import { OdourlessWrapper, StyledBody } from "../assets/styles/Common.styles";
+import { OdourlessWrapper } from "../assets/styles/Common.styles";
 import { Container, Grid, IconButton } from "@mui/material";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
