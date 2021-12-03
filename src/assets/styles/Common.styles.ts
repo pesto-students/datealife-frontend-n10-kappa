@@ -8,15 +8,6 @@ const CrossButton = styled.div`
     top: 20px;
 `;
 
-const WhiteBar = styled.div`
-    width: 200px;
-    color: white;
-    height: 1px;
-    background: white;
-    margin: 30px auto 10px;
-    border-radius: 15px;
-`;
-
 const PhotoDiv = styled.div`
     width: 150px;
     height: 150px;
@@ -26,16 +17,8 @@ const PhotoDiv = styled.div`
     margin-bottom: 20px;
 `;
 
-// const StyledBody = styled.div`
-//     max-width: 500px;
-//     margin: 56px auto;
-//     @media (max-width: 599.99px) {
-//         margin: 56px 20px;
-//     }
-// `;
-
 const OdourlessWrapper = styled((props) => React.createElement(props.component, props))`
     color: ${({ theme }: ThemeProps<typeof Theme>) => theme.palette.common.white};
 `;
 
-export { OdourlessWrapper, CrossButton, WhiteBar, PhotoDiv };
+export { OdourlessWrapper, CrossButton, PhotoDiv };

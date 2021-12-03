@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import AppBar from "@mui/material/AppBar";
 import { Grid, Stack, Container } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
@@ -31,9 +30,10 @@ import {
     ToggleButtonGroup,
     Modal,
     MatchedPitctures,
+    Bar,
 } from "../components";
 import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
-import { OdourlessWrapper, CrossButton, WhiteBar } from "../assets/styles/Common.styles";
+import { OdourlessWrapper, CrossButton } from "../assets/styles/Common.styles";
 import logo from "../assets/images/logoDateALife40x40.png";
 import Logo from "../assets/images/logoDateALife.png";
 
@@ -160,7 +160,7 @@ const Matchmaking = (): JSX.Element => {
                                     <Typography align="center" variant="subtitle1" fontStyle="italic" color="white">
                                         You and Riya have 85% match ratio
                                     </Typography>
-                                    <WhiteBar />
+                                    <Bar />
                                     <Stack>
                                         <Button
                                             variant="contained"
