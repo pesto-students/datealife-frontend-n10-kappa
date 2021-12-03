@@ -2,6 +2,9 @@ import {
     FETCH_USER_LISTING_REQUEST,
     FETCH_USER_LISTING_FAILURE,
     FETCH_USER_LISTING_SUCCESS,
+    FETCH_USER_LISTING_TYPE_REQUEST,
+    FETCH_USER_LISTING_TYPE_FAILURE,
+    FETCH_USER_LISTING_TYPE_SUCCESS,
     FETCH_USER_SUGGESTIONS_REQUEST,
     FETCH_USER_SUGGESTIONS_FAILURE,
     FETCH_USER_SUGGESTIONS_SUCCESS,
@@ -16,6 +19,12 @@ import {
     FetchUserListingRequestPayload,
     FetchUserListingSuccess,
     FetchUserListingSuccessPayload,
+    FetchUserListingTypeFailure,
+    FetchUserListingTypeFailurePayload,
+    FetchUserListingTypeRequest,
+    FetchUserListingTypeRequestPayload,
+    FetchUserListingTypeSuccess,
+    FetchUserListingTypeSuccessPayload,
     FetchUserSuggestionsFailure,
     FetchUserSuggestionsFailurePayload,
     FetchUserSuggestionsRequest,
@@ -44,6 +53,24 @@ export const fetchUserListingSuccess = (payload: FetchUserListingSuccessPayload)
 
 export const fetchUserListingFailure = (payload: FetchUserListingFailurePayload): FetchUserListingFailure => ({
     type: FETCH_USER_LISTING_FAILURE,
+    payload,
+    loading: false,
+});
+
+export const fetchUserListingTypeRequest = (payload: FetchUserListingTypeRequestPayload): FetchUserListingTypeRequest => ({
+    type: FETCH_USER_LISTING_TYPE_REQUEST,
+    payload,
+    loading: true,
+});
+
+export const fetchUserListingTypeSuccess = (payload: FetchUserListingTypeSuccessPayload): FetchUserListingTypeSuccess => ({
+    type: FETCH_USER_LISTING_TYPE_SUCCESS,
+    payload,
+    loading: false,
+});
+
+export const fetchUserListingTypeFailure = (payload: FetchUserListingTypeFailurePayload): FetchUserListingTypeFailure => ({
+    type: FETCH_USER_LISTING_TYPE_FAILURE,
     payload,
     loading: false,
 });

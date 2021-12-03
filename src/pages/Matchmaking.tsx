@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -41,12 +41,17 @@ import { OdourlessWrapper } from "../assets/styles/Common.styles";
 import logo from "../assets/images/logoDateALife40x40.png";
 import Logo from "../assets/images/logoDateALife.png";
 import { getLoggedInUser } from "../store/reducers/login";
-import { getUserSuggestions } from "../store/reducers/matchMaking";
-import { fetchUserSuggestionsRequest } from "../store/sagas/match-making/actions";
+import { getCurrentSuggestion } from "../store/reducers/matchMaking";
+import {
+    fetchUserListingRequest,
+    fetchUserSuggestionsRequest,
+    updateUserListingRequest,
+} from "../store/sagas/match-making/actions";
 
 const Matchmaking = (): JSX.Element => {
+    const dispatch = useDispatch();
     const user = useSelector(getLoggedInUser);
-    const suggestions = useSelector(getUserSuggestions);
+    const currentSuggestion = useSelector(getCurrentSuggestion);
     const [matchMakingOpen, setMatchmakingOpen] = useState(false);
     const [filterOpen, setFilterOpen] = useState(false);
     const [orientation, setOrientation] = useState("");
@@ -58,7 +63,8 @@ const Matchmaking = (): JSX.Element => {
     useEffect(() => {
         const { uid: userId } = user;
         if (userId) {
-            fetchUserSuggestionsRequest({ userId });
+            dispatch(fetchUserListingRequest({ userId }));
+            dispatch(fetchUserSuggestionsRequest({ user }));
         }
     }, [user]);
 
@@ -90,6 +96,16 @@ const Matchmaking = (): JSX.Element => {
         }
     };
 
+    const handleClick = (actionType: string) => {
+        dispatch(
+            updateUserListingRequest({
+                userId: user.uid || "",
+                listingType: actionType,
+                selectedUser: currentSuggestion,
+            })
+        );
+    };
+
     function valuetext(value: number) {
         return `${value}`;
     }
@@ -118,37 +134,43 @@ const Matchmaking = (): JSX.Element => {
             </AppBar>
             <div style={{ marginTop: "20px" }}>
                 <Container maxWidth="md">
-                    <Card>
-                        <CardMedia
-                            src={suggestions[0]?.profilePicture}
-                            alt="Paella dish"
-                            onError={(event: any) => {
-                                if (event.target)
-                                    event.target.src =
-                                        "https://thednetworks.com/wp-content/uploads/2012/01/picture_not_available_400-300.png";
-                            }}
-                            width={500}
-                            height={500}
-                        />
-                        <CardInfo alignment="bottom" imgHeight={0} imgWidth={500}>
-                            <OdourlessWrapper variant="subtitle1" component={Typography}>
-                                Full Name
-                            </OdourlessWrapper>
-                            <OdourlessWrapper variant="subtitle2" component={Typography}>
-                                Profession
-                            </OdourlessWrapper>
-                        </CardInfo>
-                        <Container maxWidth="md">
-                            <CardActions width={500}>
-                                <Fab success={false} aria-label="disliked">
-                                    <CloseRoundedIcon />
-                                </Fab>
-                                <Fab success={true} aria-label="like" onClick={toggleMatchMaking}>
-                                    <FavoriteIcon />
-                                </Fab>
-                            </CardActions>
-                        </Container>
-                    </Card>
+                    {currentSuggestion.uid ? (
+                        <Card>
+                            <CardMedia
+                                src={currentSuggestion?.profilePicture}
+                                alt="Paella dish"
+                                onError={(event: any) => {
+                                    if (event.target)
+                                        event.target.src =
+                                            "https://thednetworks.com/wp-content/uploads/2012/01/picture_not_available_400-300.png";
+                                }}
+                                width={500}
+                                height={500}
+                            />
+                            <CardInfo alignment="bottom" imgHeight={0} imgWidth={500}>
+                                <OdourlessWrapper variant="subtitle1" component={Typography}>
+                                    {currentSuggestion?.fullName}
+                                </OdourlessWrapper>
+                                <OdourlessWrapper variant="subtitle2" component={Typography}>
+                                    {currentSuggestion?.profession}
+                                </OdourlessWrapper>
+                            </CardInfo>
+                            <Container maxWidth="md">
+                                <CardActions width={500}>
+                                    <Fab success={false} aria-label="dislike" onClick={() => handleClick("dislike")}>
+                                        <CloseRoundedIcon />
+                                    </Fab>
+                                    <Fab success={true} aria-label="like" onClick={() => handleClick("like")}>
+                                        <FavoriteIcon />
+                                    </Fab>
+                                </CardActions>
+                            </Container>
+                        </Card>
+                    ) : (
+                        <Typography variant="h3" sx={{ textAlign: "center" }}>
+                            No Suggestions found
+                        </Typography>
+                    )}
                 </Container>
 
                 {/* Matchmaking modal */}

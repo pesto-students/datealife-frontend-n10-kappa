@@ -21,6 +21,7 @@ const Login = (): JSX.Element => {
     const handleClick = async (type: string) => {
         if (type === "number") {
             navigate("/signup/number");
+            return;
         }
         const user: ThirdPartyUser = await thirdPartySignin(type, isExistingUser);
         if (!isExistingUser) dispatch(updateUser(user));
@@ -34,71 +35,72 @@ const Login = (): JSX.Element => {
         }
     }, [navigate, isExistingUser, isLoggedIn]);
 
-    return (
-        authType === "signup" || authType === "login" ?
-            (<Boxed type="backgroundShine">
-                <Container maxWidth="sm">
-                    <Stack>
-                        <Logo imgUrl={DateALifeLogo} styles={{ marginTop: "50px" }} />
+    return authType === "signup" || authType === "login" ? (
+        <Boxed type="backgroundShine">
+            <Container maxWidth="sm">
+                <Stack>
+                    <Logo imgUrl={DateALifeLogo} styles={{ marginTop: "50px" }} />
 
-                        <Typography
-                            variant="h4"
-                            color="white"
-                            textAlign="center"
-                            style={{ fontFamily: "DancingScript-Regular, cursive" }}
-                            mt={2}
-                            mb={5}
-                        >
-                            Date A Life
-                        </Typography>
+                    <Typography
+                        variant="h4"
+                        color="white"
+                        textAlign="center"
+                        style={{ fontFamily: "DancingScript-Regular, cursive" }}
+                        mt={2}
+                        mb={5}
+                    >
+                        Date A Life
+                    </Typography>
 
-                        <Typography variant="subtitle1" color="white" textAlign="center" mt={2} mb={2}>
-                            By clicking Log In, you agree with our Terms. Learn how we process your data in our{" "}
-                            <a href="/">Privacy Policy</a> and Cookies Policy.
-                        </Typography>
+                    <Typography variant="subtitle1" color="white" textAlign="center" mt={2} mb={2}>
+                        By clicking Log In, you agree with our Terms. Learn how we process your data in our{" "}
+                        <a href="/">Privacy Policy</a> and Cookies Policy.
+                    </Typography>
 
-                        <Boxed type="main">
-                            <Stack spacing={3}>
-                                <Button
-                                    variant="contained"
-                                    startIcon={<GoogleIcon color="warning" />}
-                                    whiteBackground
-                                    onClick={() => handleClick("google")}
-                                >
-                                    {authType} with google
-                                </Button>
+                    <Boxed type="main">
+                        <Stack spacing={3}>
+                            <Button
+                                variant="contained"
+                                startIcon={<GoogleIcon color="warning" />}
+                                whiteBackground
+                                onClick={() => handleClick("google")}
+                            >
+                                {authType} with google
+                            </Button>
 
-                                <Button
-                                    variant="contained"
-                                    startIcon={<FacebookOutlinedIcon sx={{ color: "#00B1CD" }} fontSize="large" />}
-                                    whiteBackground
-                                    onClick={() => handleClick("fb")}
-                                >
-                                    {authType} with facebook
-                                </Button>
+                            <Button
+                                variant="contained"
+                                startIcon={<FacebookOutlinedIcon sx={{ color: "#00B1CD" }} fontSize="large" />}
+                                whiteBackground
+                                onClick={() => handleClick("fb")}
+                            >
+                                {authType} with facebook
+                            </Button>
 
-                                <Button
-                                    variant="contained"
-                                    startIcon={<LocalPhoneIcon color="secondary" />}
-                                    whiteBackground
-                                    onClick={() => handleClick("number")}
-                                >
-                                    {authType} with number
-                                </Button>
+                            <Button
+                                variant="contained"
+                                startIcon={<LocalPhoneIcon color="secondary" />}
+                                whiteBackground
+                                onClick={() => handleClick("number")}
+                            >
+                                {authType} with number
+                            </Button>
 
-                                <Typography variant="subtitle2" color="white" textAlign="center">
-                                    Don’t have account?{" "}
-                                    <strong>
-                                        <Link to={authType === "login" ? "/signup" : "/login"} style={{ color: "white" }}>
-                                            {authType === "login" ? "Signup" : "Login"}
-                                        </Link>
-                                    </strong>
-                                </Typography>
-                            </Stack>
-                        </Boxed>
-                    </Stack>
-                </Container>
-            </Boxed>) : <Navigate to="/error" replace={true} />
+                            <Typography variant="subtitle2" color="white" textAlign="center">
+                                Don’t have account?{" "}
+                                <strong>
+                                    <Link to={authType === "login" ? "/signup" : "/login"} style={{ color: "white" }}>
+                                        {authType === "login" ? "Signup" : "Login"}
+                                    </Link>
+                                </strong>
+                            </Typography>
+                        </Stack>
+                    </Boxed>
+                </Stack>
+            </Container>
+        </Boxed>
+    ) : (
+        <Navigate to="/error" replace={true} />
     );
 };
 

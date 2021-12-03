@@ -7,6 +7,7 @@ type LoginState = {
     user: UserInfo;
     isExistingUser: boolean;
     error?: string;
+    currentPage: string;
 };
 
 type State = {
@@ -16,6 +17,7 @@ type State = {
 const initialState: LoginState = {
     isLoggedIn: false,
     user: {
+        uid: "",
         fullName: "",
         gender: "",
         orientation: "",
@@ -25,6 +27,7 @@ const initialState: LoginState = {
         pictures: [],
     },
     isExistingUser: false,
+    currentPage: "",
 };
 
 export const loginSlice = createSlice({
@@ -40,17 +43,22 @@ export const loginSlice = createSlice({
             state.isLoggedIn = isLoggedIn;
             state.user = { ...state.user, ...user };
             state.isExistingUser = isExitingUser;
+            user.uid && localStorage.setItem("loggedInUserId", user.uid);
         },
         logout: (state) => {
             state.isLoggedIn = false;
             state.user = {};
             state.isExistingUser = false;
+            localStorage.removeItem("loggedInUserId");
         },
         updateUser: (state, { payload }: { payload: UserInfo }) => {
             state.user = { ...state.user, ...payload };
         },
         updateError: (state, { payload }: { payload: FetchUserFailurePayload }) => {
             state.error = payload.error;
+        },
+        updateCurrentPage: (state, { payload }: { payload: string }) => {
+            state.currentPage = payload;
         },
     },
 });
@@ -59,8 +67,10 @@ export const getIsLoggedIn = (state: State): boolean => state.login.isLoggedIn;
 export const getIsExistingUser = (state: State): boolean => state.login.isExistingUser;
 export const getLoggedInUser = (state: State): UserInfo => state.login.user;
 export const getError = (state: State): string | undefined => state.login.error;
+export const getCurrentPage = (state: State): string => state.login.currentPage;
+export const getLoggedInUserIdFromLS = (): string | null => localStorage.getItem("loggedInUserId");
 
 // Action creators are generated for each case reducer function
-export const { loginSuccessful, logout, updateUser, updateError } = loginSlice.actions;
+export const { loginSuccessful, logout, updateUser, updateError, updateCurrentPage } = loginSlice.actions;
 
 export default loginSlice.reducer;

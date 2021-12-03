@@ -12,9 +12,8 @@ import {
 import { firebaseApp } from "../firebase.config";
 import { UserInfo } from "../store/sagas/user/types";
 
-export const auth = getAuth(firebaseApp);
-
 if (process.env.NODE_ENV === "development") {
+    const auth = getAuth(firebaseApp);
     connectAuthEmulator(auth, "http://localhost:5003");
 }
 
@@ -30,6 +29,7 @@ export interface ThirdPartyUser extends UserInfo {
 }
 
 export const thirdPartySignin = async (type: string, isExistingUser: boolean): Promise<ThirdPartyUser> => {
+    const auth = getAuth(firebaseApp);
     const provider = type === "google" ? new GoogleAuthProvider() : new FacebookAuthProvider();
     let { currentUser } = auth;
     if (!currentUser || !isExistingUser) {
@@ -44,6 +44,7 @@ export const thirdPartySignin = async (type: string, isExistingUser: boolean): P
 };
 
 export const loginWithPhoneNumber = async (phoneNumber: string): Promise<any> => {
+    const auth = getAuth(firebaseApp);
     (window as UpdatedWindow).recaptchaVerifier = new RecaptchaVerifier(
         //this is the id of the button for phonenumber submission
         "login-with-number",
@@ -59,6 +60,7 @@ export const loginWithPhoneNumber = async (phoneNumber: string): Promise<any> =>
 };
 
 export const confirmOtp = async (otp: string): Promise<ThirdPartyUser> => {
+    const auth = getAuth(firebaseApp);
     let { currentUser } = auth;
     if (!currentUser) {
         const { user } = await (window as UpdatedWindow).confirmationResult.confirm(otp);
@@ -73,6 +75,7 @@ export const confirmOtp = async (otp: string): Promise<ThirdPartyUser> => {
 
 // after calling this method logout reducer action should be called
 export const onSignOut = async (): Promise<any> => {
+    const auth = getAuth(firebaseApp);
     await signOut(auth);
     return {};
 };

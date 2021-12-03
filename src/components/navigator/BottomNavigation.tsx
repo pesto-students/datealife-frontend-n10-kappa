@@ -5,16 +5,16 @@ import { NavigatorItem, NavigatorProps } from "./Navigator";
 import { BottomNavigationContainer } from "./Navigator.style";
 
 interface BottomNavigationProps extends NavigatorProps {
-    selectedValue: string;
-    setSelectedValue: (string: string) => void;
+    currentPage: string;
+    onNavigation: (string: string) => void;
 }
 
-const BottomNavigation = ({ items = [], selectedValue, setSelectedValue }: BottomNavigationProps): ReactElement => (
+const BottomNavigation = ({ items = [], currentPage, onNavigation }: BottomNavigationProps): ReactElement => (
     <BottomNavigationContainer elevation={3}>
         <MUIBottomNavigation
-            value={selectedValue}
+            value={currentPage}
             onChange={(event: any, newValue: string) => {
-                setSelectedValue(newValue);
+                onNavigation(newValue);
             }}
         >
             {items.map(({ icon, label, value }: NavigatorItem) => (

@@ -1,19 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { UserInfo } from "../sagas/user/types";
-import { ListingData } from "../sagas/match-making/types";
+import { ListingData, ListingTypeData } from "../sagas/match-making/types";
 
 type matchMakingState = {
     suggestions: UserInfo[];
+    currentSuggestion: UserInfo;
+    nextSuggestionIndex: number;
     listings: ListingData;
+    allListingType: ListingTypeData;
     loading: boolean;
 };
 
 const initialState: matchMakingState = {
     suggestions: [],
+    currentSuggestion: {},
+    nextSuggestionIndex: 0,
     listings: {},
+    allListingType: {},
     loading: false,
 };
+
+const listingTypes = ["likes", "invites", "matches"];
 
 type State = { matchMaking: matchMakingState };
 
@@ -22,11 +30,29 @@ export const matchMakingSlice = createSlice({
     initialState,
     reducers: {
         saveSuggestions: (state, action) => {
-            const { suggestions, loading } = action.payload;
+            let { suggestions } = action.payload;
+            const { loading, allListingType } = state;
+            suggestions = suggestions.filter(({ uid }: UserInfo) => uid && !allListingType[uid]);
+
             state.suggestions = suggestions;
             state.loading = loading;
         },
+        saveCurrentSuggestion: (state) => {
+            const { nextSuggestionIndex, suggestions } = state;
+            state.currentSuggestion = suggestions[nextSuggestionIndex] || {};
+            state.nextSuggestionIndex++;
+        },
         saveListings: (state, action) => {
+            const { listings, loading } = action.payload;
+            state.listings = listings;
+            state.loading = loading;
+            let allListingType: ListingTypeData = {};
+            listingTypes.map((type) => {
+                if (listings[type]) allListingType = { ...allListingType, ...listings[type] };
+            });
+            state.allListingType = allListingType;
+        },
+        saveListingType: (state, action) => {
             const { listingData, listingType, loading } = action.payload;
             state.listings[listingType] = listingData;
             state.loading = loading;
@@ -36,6 +62,7 @@ export const matchMakingSlice = createSlice({
             const { uid } = updatedData;
             state.listings[listingType] = { ...state.listings[listingType], [uid]: updatedData };
             state.loading = loading;
+            state.allListingType[uid] = updatedData;
         },
     },
 });
@@ -43,10 +70,13 @@ export const matchMakingSlice = createSlice({
 export const getUserSuggestions = (state: State): UserInfo[] => {
     return state.matchMaking.suggestions;
 };
+export const getCurrentSuggestion = (state: State): UserInfo => {
+    return state.matchMaking.currentSuggestion;
+};
 export const getListingData = (state: State): ListingData => state.matchMaking.listings;
 export const isLoading = (state: State): boolean => state.matchMaking.loading;
 
 // Action creators are generated for each case reducer function
-export const { saveSuggestions, saveListings, updateListing } = matchMakingSlice.actions;
+export const { saveSuggestions, saveCurrentSuggestion, saveListings, saveListingType, updateListing } = matchMakingSlice.actions;
 
 export default matchMakingSlice.reducer;

@@ -8,6 +8,9 @@ import {
     UPDATE_USER_LISTING_REQUEST,
     UPDATE_USER_LISTING_FAILURE,
     UPDATE_USER_LISTING_SUCCESS,
+    FETCH_USER_LISTING_TYPE_SUCCESS,
+    FETCH_USER_LISTING_TYPE_FAILURE,
+    FETCH_USER_LISTING_TYPE_REQUEST,
 } from "./actionTypes";
 import { UserInfo } from "../user/types";
 
@@ -18,7 +21,7 @@ export type InvitationInfo = {
 };
 
 export interface ListingData {
-    [listingType: string]: ListingData;
+    [listingType: string]: ListingTypeData;
 }
 
 export interface ListingTypeData {
@@ -32,7 +35,6 @@ export interface ListingTypeData {
 
 export interface FetchUserListingRequestPayload {
     userId: string;
-    listingType: string;
 }
 
 export interface FetchUserListingSuccessPayload {
@@ -43,8 +45,21 @@ export interface FetchUserListingFailurePayload {
     error: string;
 }
 
-export interface FetchUserSuggestionsRequestPayload {
+export interface FetchUserListingTypeRequestPayload {
     userId: string;
+    listingType: string;
+}
+
+export interface FetchUserListingTypeSuccessPayload {
+    listings: ListingData;
+}
+
+export interface FetchUserListingTypeFailurePayload {
+    error: string;
+}
+
+export interface FetchUserSuggestionsRequestPayload {
+    user: UserInfo;
 }
 
 export interface FetchUserSuggestionsSuccessPayload {
@@ -87,6 +102,24 @@ export type FetchUserListingFailure = {
     loading: boolean;
 };
 
+export interface FetchUserListingTypeRequest {
+    type: typeof FETCH_USER_LISTING_TYPE_REQUEST;
+    payload: FetchUserListingTypeRequestPayload;
+    loading: boolean;
+}
+
+export type FetchUserListingTypeSuccess = {
+    type: typeof FETCH_USER_LISTING_TYPE_SUCCESS;
+    payload: FetchUserListingTypeSuccessPayload;
+    loading: boolean;
+};
+
+export type FetchUserListingTypeFailure = {
+    type: typeof FETCH_USER_LISTING_TYPE_FAILURE;
+    payload: FetchUserListingTypeFailurePayload;
+    loading: boolean;
+};
+
 export interface FetchUserSuggestionsRequest {
     type: typeof FETCH_USER_SUGGESTIONS_REQUEST;
     payload: FetchUserSuggestionsRequestPayload;
@@ -124,9 +157,9 @@ export type UpdateUserListingFailure = {
 };
 
 export type MatchMakingListActions =
-    | FetchUserListingRequest
-    | FetchUserListingSuccess
-    | FetchUserListingFailure
+    | FetchUserListingTypeRequest
+    | FetchUserListingTypeSuccess
+    | FetchUserListingTypeFailure
     | FetchUserSuggestionsRequest
     | FetchUserSuggestionsSuccess
     | FetchUserSuggestionsFailure

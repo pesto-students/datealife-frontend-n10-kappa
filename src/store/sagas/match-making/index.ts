@@ -8,21 +8,36 @@ import {
     UpdateUserListingRequestPayload,
     FetchUserListingRequest,
     UpdateUserListingRequest,
+    FetchUserListingTypeRequest,
+    FetchUserListingTypeRequestPayload,
 } from "./types";
 import { UserInfo } from "../user/types";
-import { fetchUserListingFailure, fetchUserSuggestionsFailure, updateUserListingFailure } from "./actions";
-import { FETCH_USER_LISTING_REQUEST, FETCH_USER_SUGGESTIONS_REQUEST, UPDATE_USER_LISTING_REQUEST } from "./actionTypes";
+import {
+    fetchUserListingFailure,
+    fetchUserListingTypeFailure,
+    fetchUserSuggestionsFailure,
+    updateUserListingFailure,
+} from "./actions";
+import {
+    FETCH_USER_LISTING_REQUEST,
+    FETCH_USER_LISTING_TYPE_REQUEST,
+    FETCH_USER_SUGGESTIONS_REQUEST,
+    UPDATE_USER_LISTING_REQUEST,
+} from "./actionTypes";
 import { API_BASE_URL } from "../../../const";
-import { saveListings, saveSuggestions, updateListing } from "../../reducers/matchMaking";
+import { saveCurrentSuggestion, saveListings, saveListingType, saveSuggestions, updateListing } from "../../reducers/matchMaking";
 
-const getUserListingApi = ({ userId, listingType }: FetchUserListingRequestPayload) =>
-    axios.get<UserInfo>(`${API_BASE_URL}/user/${userId}/listing/${listingType}`);
+const getUserListingApi = ({ userId }: FetchUserListingRequestPayload) =>
+    axios.get<UserInfo>(`${API_BASE_URL}/user/${userId}/listing`);
+
+const getUserListingTypeApi = ({ userId, listingType }: FetchUserListingTypeRequestPayload) =>
+    axios.get<UserInfo>(`${API_BASE_URL}/user/${userId}/${listingType}`);
 
 const postUserListingApi = ({ userId, selectedUser, listingType }: UpdateUserListingRequestPayload) =>
-    axios.post<UserInfo>(`${API_BASE_URL}/user/${userId}/listing/${listingType}`, selectedUser);
+    axios.post<UserInfo>(`${API_BASE_URL}/user/${userId}/${listingType}`, selectedUser);
 
-const getUserSuggestionsApi = ({ userId }: FetchUserSuggestionsRequestPayload) =>
-    axios.get<UserInfo>(`${API_BASE_URL}/user/${userId}/matchMaking`);
+const getUserSuggestionsApi = ({ user }: FetchUserSuggestionsRequestPayload) =>
+    axios.post<string, UserInfo>(`${API_BASE_URL}/match-making`, user);
 
 /*
   Worker Saga: Fired on FETCH_USER_SUGGESTIONS_REQUEST action
@@ -33,7 +48,7 @@ function* fetchUserSuggestionsSaga({ payload }: FetchUserSuggestionsRequest) {
         const suggestions = response.data;
 
         if (!suggestions) {
-            throw new Error(`Not able to find suggestions for user ${payload.userId}`);
+            throw new Error(`Not able to find suggestions for user ${payload.user.uid}`);
         }
 
         yield put(
@@ -42,6 +57,7 @@ function* fetchUserSuggestionsSaga({ payload }: FetchUserSuggestionsRequest) {
                 loading: false,
             })
         );
+        yield put(saveCurrentSuggestion());
     } catch (e: any) {
         yield put(
             fetchUserSuggestionsFailure({
@@ -57,6 +73,33 @@ function* fetchUserSuggestionsSaga({ payload }: FetchUserSuggestionsRequest) {
 function* fetchUserListingSaga({ payload }: FetchUserListingRequest) {
     try {
         const response: AxiosResponse<UserInfo[]> = yield call(getUserListingApi, payload);
+        const listings = response.data;
+
+        if (!listings) {
+            throw new Error(`Not able to find user listings for ${payload.userId} user`);
+        }
+
+        yield put(
+            saveListings({
+                listings,
+                loading: false,
+            })
+        );
+    } catch (e: any) {
+        yield put(
+            fetchUserListingFailure({
+                error: e.message,
+            })
+        );
+    }
+}
+
+/*
+  Worker Saga: Fired on FETCH_USER_LISTING_TPYE_REQUEST action
+*/
+function* fetchUserListingTypeSaga({ payload }: FetchUserListingTypeRequest) {
+    try {
+        const response: AxiosResponse<UserInfo[]> = yield call(getUserListingTypeApi, payload);
         const listingData = response.data;
 
         if (!listingData) {
@@ -64,7 +107,7 @@ function* fetchUserListingSaga({ payload }: FetchUserListingRequest) {
         }
 
         yield put(
-            saveListings({
+            saveListingType({
                 listingData,
                 listingType: payload.listingType,
                 loading: false,
@@ -72,7 +115,7 @@ function* fetchUserListingSaga({ payload }: FetchUserListingRequest) {
         );
     } catch (e: any) {
         yield put(
-            fetchUserListingFailure({
+            fetchUserListingTypeFailure({
                 error: e.message,
             })
         );
@@ -98,6 +141,7 @@ function* updateUserListingSaga({ payload }: UpdateUserListingRequest) {
                 loading: false,
             })
         );
+        yield put(saveCurrentSuggestion());
     } catch (e: any) {
         yield put(
             updateUserListingFailure({
@@ -107,12 +151,11 @@ function* updateUserListingSaga({ payload }: UpdateUserListingRequest) {
     }
 }
 
-function* matchMakingSaga(): any {
+export default function* matchMakingSaga(): any {
     yield all([
         takeLatest(FETCH_USER_SUGGESTIONS_REQUEST, fetchUserSuggestionsSaga),
         takeLatest(FETCH_USER_LISTING_REQUEST, fetchUserListingSaga),
+        takeLatest(FETCH_USER_LISTING_TYPE_REQUEST, fetchUserListingTypeSaga),
         takeLatest(UPDATE_USER_LISTING_REQUEST, updateUserListingSaga),
     ]);
 }
-
-export default matchMakingSaga;
