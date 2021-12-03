@@ -11,7 +11,7 @@ import {Link} from "react-router-dom";
 const SignUp = (): JSX.Element => {
     return (
         <Boxed type="backgroundShine">
-            <Container maxWidth="md">
+            <Container maxWidth="sm">
                 <Stack >
                     <Logo imgUrl={DateALifeLogo} styles={{marginTop: "50px"}} />
 

@@ -65,7 +65,7 @@ const Learning = (): JSX.Element => {
                                 <Typography variant="body1" mt={4}>{currentLearning.description}</Typography>
                            </Container>
                         </Boxed>
-                    </Card>) : <CircularProgress sx={{display: "absolute", top: "50%"}} />}
+                    </Card>) : <CircularProgress sx={{ m: "auto" }} />}
 
         </Layout>
     );

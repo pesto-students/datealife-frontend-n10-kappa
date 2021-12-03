@@ -1,7 +1,6 @@
-import { StyledBody } from "../assets/styles/Common.styles";
 import Layout from "../components/layout/Layout";
-import { Stack } from "@mui/material";
-import { Button, ImageUploader } from "../components";
+import { Stack, Container } from "@mui/material";
+import { Boxed, Button, ImageUploader } from "../components";
 import { useState } from "react";
 import { getLoggedInUser, updateUser } from "../store/reducers/login";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,16 +38,18 @@ const EditPicture = (): JSX.Element => {
                 backFunction: () => {},
             }}
         >
-            <StyledBody>
-                <Stack spacing={5}>
-                    <StyledBody>
-                        <ImageUploader canUpload {...ImageUploaderProps} onUpload={(file) => onUplaod(file)} />
-                    </StyledBody>
-                    <Button color="primary" variant="contained" fullWidth whiteText onClick={handleClick}>
-                        Done
-                    </Button>
-                </Stack>
-            </StyledBody>
+            <Boxed type="error">
+                <Container maxWidth="sm">
+                    <Stack spacing={5}>
+                        <Container maxWidth="md">
+                            <ImageUploader canUpload {...ImageUploaderProps} onUpload={(file) => onUplaod(file)} />
+                        </Container>
+                        <Button color="primary" variant="contained" fullWidth whiteText onClick={handleClick}>
+                            Done
+                        </Button>
+                    </Stack>
+                </Container>
+            </Boxed>
         </Layout>
     );
 };

@@ -116,6 +116,10 @@ const routes: RoutesType[] = [
         component: EditIdentifyAs,
     },
     {
+        pathname: "/error",
+        component: ErrorPage,
+    },
+    {
         pathname: "*",
         component: ErrorPage,
     },

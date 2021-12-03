@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 const ErrorPage = (): JSX.Element => {
     return (
         <Boxed type="textField">
-            <Container maxWidth="md">
+            <Container maxWidth="sm">
                 <Error errorHeading="404" errorsubText="Page does not exist" />
                 <Stack mt={4} pl={4} pr={4}>
                     <Button variant="contained"  component={Link} to="/login" sx={{color: "white", marginBottom: "20px"}}>

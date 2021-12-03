@@ -9,6 +9,29 @@ export const WARNING_COLOR = "#DC823A";
 export const GENDER_VALUES = ["Male", "Female", "No Filter"];
 export const ORIENTATION_VALUES = ["Straight", "Gay/Lesbian", "Bisexual", "Pansexual", "Transexual"];
 export const CURRENT_LEARNING_KEY = "currentLearning";
+export const INTERESTS_VALUES = [
+    { label: "Dancing", value: "dancing" },
+    { label: "Singing", value: "singing" },
+    { label: "Reading", value: "reading" },
+    { label: "Playing", value: "playing" },
+    { label: "Trekking", value: "trekking" },
+    { label: "Cricket", value: "cricket" },
+    { label: "Football", value: "football" },
+    { label: "Martial arts", value: "martial arts" },
+    { label: "Piano", value: "piano" },
+    { label: "Guitar", value: "guitar" },
+    { label: "Singing", value: "singing" },
+    { label: "Table tennis", value: "table tennis" },
+    { label: "Carrom", value: "carrom" },
+    { label: "Card games", value: "card games" },
+    { label: "Programming", value: "programming" },
+    { label: "Workout", value: "workout" },
+    { label: "Kite flying", value: "kite flying" },
+    { label: "Knitting", value: "knitting" },
+    { label: "Cooking", value: "cooking" },
+    { label: "Designing", value: "designing" },
+    { label: "Walking", value: "walking" }
+];
 export const API_BASE_URL =
     process.env.NODE_ENV !== "development"
         ? "https://us-central1-date-a-life.cloudfunctions.net/api"
