@@ -8,7 +8,6 @@ import { getCurrentLearning } from "../store/reducers/learnings";
 import { useNavigate } from "react-router-dom";
 import {useParams} from "react-router";
 
-
 const Learning = (): JSX.Element => {
     const dispatch = useDispatch();
     const currentLearning = useSelector(getCurrentLearning);

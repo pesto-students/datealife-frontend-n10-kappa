@@ -61,7 +61,7 @@ const Login = (): JSX.Element => {
                                 <Button
                                     variant="contained"
                                     startIcon={<GoogleIcon color="warning" />}
-                                    whiteBackground
+                                    whiteBackground={true}
                                     onClick={() => handleClick("google")}
                                 >
                                     {authType} with google
@@ -70,7 +70,7 @@ const Login = (): JSX.Element => {
                                 <Button
                                     variant="contained"
                                     startIcon={<FacebookOutlinedIcon sx={{ color: "#00B1CD" }} fontSize="large" />}
-                                    whiteBackground
+                                    whiteBackground={true}
                                     onClick={() => handleClick("fb")}
                                 >
                                     {authType} with facebook
@@ -79,7 +79,7 @@ const Login = (): JSX.Element => {
                                 <Button
                                     variant="contained"
                                     startIcon={<LocalPhoneIcon color="secondary" />}
-                                    whiteBackground
+                                    whiteBackground={true}
                                     onClick={() => handleClick("number")}
                                 >
                                     {authType} with number

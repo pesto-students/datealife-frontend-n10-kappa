@@ -1,28 +1,20 @@
 import { useState, useEffect } from "react";
-import { TabContext, TabList, TabPanel, TimePicker } from "@mui/lab";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 import {
     Tab as MUITab,
     Box,
     Grid,
     Typography,
     Container,
-    IconButton,
-    ImageListItem,
-    ImageListItemBar,
-    ImageList,
-    Stack,
 } from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
-import TextField from "@mui/material/TextField";
-import StaticDatePicker from "@mui/lab/StaticDatePicker";
-import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
-import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
-import { Boxed, Button, CardInfo, Card, CardMedia, CardActions, Layout, Modal } from "../components";
-import { CrossButton, OdourlessWrapper } from "../assets/styles/Common.styles";
+import { Boxed, CardInfo, Card, CardMedia, CardActions, Layout, Modal } from "../components";
+import { OdourlessWrapper } from "../assets/styles/Common.styles";
+import InvitesModal from "../components/invites-modal/InvitesModal";
+import { LISTING_TABS } from "../const";
 
 type Item = {
     label: string;
@@ -30,31 +22,16 @@ type Item = {
 };
 
 const Listing = (): JSX.Element => {
-    const items = [
-        {
-            label: "Likes",
-            value: "likes",
-        },
-        {
-            label: "Matches",
-            value: "matches",
-        },
-        {
-            label: "Invites",
-            value: "invites",
-        },
-    ];
-
     const [inviteModalOpen, setInviteModalOpen] = useState(false);
     const toggleInviteModal = () => {
         setInviteModalOpen(!inviteModalOpen);
     };
     const [date, setDate] = useState<Date | null>(new Date());
     const [newDate, setNewDate] = useState<Date | null>(new Date());
-    const [counter, setCounter] = useState(0);
+    const [pageNumber, setPageNumber] = useState(0);
     const [value, setValue] = useState("likes");
-
-    const handleCounter = () => setCounter(counter + 1);
+    const handlePageInc = () => setPageNumber(pageNumber + 1);
+    const resetPage = () => setPageNumber(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
         setValue(newValue);
@@ -62,8 +39,9 @@ const Listing = (): JSX.Element => {
 
     useEffect(() => {
         return () => {
+            //resetting page on close
             setTimeout(() => {
-                setCounter(0);
+                resetPage();
             }, 300);
         };
     }, [inviteModalOpen]);
@@ -166,12 +144,12 @@ const Listing = (): JSX.Element => {
                     <TabContext value={value}>
                         <Box sx={{ borderBottom: 3, borderColor: "divider" }}>
                             <TabList onChange={handleChange} aria-label="lab API tabs example" centered variant="fullWidth">
-                                {items.map(({ label, value }: Item) => (
+                                {LISTING_TABS.map(({ label, value }: Item) => (
                                     <MUITab label={label} value={value} key={value} />
                                 ))}
                             </TabList>
                         </Box>
-                        {items.map(({ value }: Item) => (
+                        {LISTING_TABS.map(({ value }: Item) => (
                             <TabPanel value={value} sx={{ p: "20px 0" }}>
                                 <Grid container justifyContent="space-between" alignItems="center" wrap="wrap" spacing={2}>
                                     {[1, 2, 3, 4].map((item): any => {
@@ -187,137 +165,19 @@ const Listing = (): JSX.Element => {
                     </TabContext>
                 </Container>
             </Boxed>
-            <Modal modalOpen={inviteModalOpen} toggleModal={toggleInviteModal} ariaLabel={"invites modal"}>
-                <>
-                    {counter !== 2 && (
-                        <Container>
-                            <Grid container spacing={2} alignItems="center">
-                                <Grid item xs={2}>
-                                    <IconButton
-                                        size="large"
-                                        edge="start"
-                                        color="inherit"
-                                        aria-label="back icon"
-                                        onClick={toggleInviteModal}
-                                    >
-                                        <ArrowBackRoundedIcon />
-                                    </IconButton>
-                                </Grid>
-                                <Grid item xs={8} textAlign="center">
-                                    Schedule a meeting
-                                </Grid>
-                                <Grid item xs={2} textAlign="right">
-                                    {counter === 1 && (
-                                        <IconButton
-                                            size="large"
-                                            edge="start"
-                                            color="inherit"
-                                            aria-label="apply icon"
-                                            onClick={handleCounter}
-                                        >
-                                            <CheckRoundedIcon color="error" />
-                                        </IconButton>
-                                    )}
-                                </Grid>
-                            </Grid>
-                        </Container>
-                    )}
 
-                    {counter === 0 && (
-                        <Container sx={{ overflowY: "scroll", maxHeight: "100vh" }}>
-                            <ImageList>
-                                {itemData.map((item) => (
-                                    <ImageListItem key={item.img} onClick={handleCounter}>
-                                        <img
-                                            src={`${item.img}?w=248&fit=crop&auto=format`}
-                                            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                            alt={item.title}
-                                            loading="lazy"
-                                        />
-                                        <ImageListItemBar
-                                            title={item.title}
-                                            subtitle={item.author}
-                                            actionIcon={
-                                                <IconButton
-                                                    sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                                                    aria-label={`info about ${item.title}`}
-                                                ></IconButton>
-                                            }
-                                        />
-                                    </ImageListItem>
-                                ))}
-                            </ImageList>
-                        </Container>
-                    )}
-
-                    {counter === 1 && (
-                        <Container>
-                            <>
-                                <StaticDatePicker
-                                    displayStaticWrapperAs="desktop"
-                                    value={date}
-                                    onChange={(newValue) => {
-                                        setDate(newValue);
-                                    }}
-                                    renderInput={(params) => <TextField {...params} />}
-                                />
-                                <Grid container justifyContent="center" mb={4}>
-                                    <Stack spacing={2} direction="row">
-                                        <TimePicker
-                                            value={date}
-                                            onChange={setDate}
-                                            renderInput={(params) => <TextField {...params} />}
-                                        />
-
-                                        <TimePicker
-                                            value={newDate}
-                                            onChange={setNewDate}
-                                            renderInput={(params) => <TextField {...params} />}
-                                        />
-                                    </Stack>
-                                </Grid>
-                            </>
-                        </Container>
-                    )}
-
-                    {counter === 2 && (
-                        <Boxed type="invites">
-                            <Boxed type="backgroundShine2">
-                                <Stack>
-                                    <Typography
-                                        align="center"
-                                        variant="h3"
-                                        color="white"
-                                        style={{
-                                            fontFamily: "DancingScript-Regular",
-                                            paddingTop: "80px",
-                                        }}
-                                    >
-                                        Invite Sent
-                                    </Typography>
-                                    <CrossButton onClick={toggleInviteModal}>
-                                        <ClearRoundedIcon style={{ color: "white" }} />
-                                    </CrossButton>
-                                    <Boxed>
-                                        <Container maxWidth="md">
-                                            <Button
-                                                variant="contained"
-                                                color="warning"
-                                                fullWidth
-                                                curved
-                                                style={{ marginTop: "30px", color: "white", padding: "10px" }}
-                                                onClick={toggleInviteModal}
-                                            >
-                                                Return to matches
-                                            </Button>
-                                        </Container>
-                                    </Boxed>
-                                </Stack>
-                            </Boxed>
-                        </Boxed>
-                    )}
-                </>
-            </Modal>
+            <InvitesModal
+                inviteModalOpen={inviteModalOpen}
+                toggleInviteModal={toggleInviteModal}
+                pageNumber={pageNumber}
+                handlePageInc={handlePageInc}
+                resetPage={resetPage}
+                itemData={itemData}
+                currentDate={date}
+                currentDateHandler={setDate}
+                nextDate={newDate}
+                nextDateHandler={setNewDate}
+            />
         </Layout>
     );
 };
@@ -327,9 +187,6 @@ const itemData = [
         img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
         title: "Breakfast",
         author: "@bkristastucchio",
-        rows: 2,
-        cols: 2,
-        featured: true,
     },
     {
         img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
