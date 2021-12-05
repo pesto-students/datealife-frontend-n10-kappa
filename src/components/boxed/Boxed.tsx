@@ -32,7 +32,11 @@ const  Boxed = (props: BoxedProps): JSX.Element => {
             };
             break;
         case "invites":
-            styleProps = { height: "300px", width: "100%"};
+            styleProps = {
+                height: "350px",
+                width: "100%",
+                background: "linear-gradient(0deg, #f56e65 0%, #f66699 33.85%, #9b8af4 100%)",
+            };
             break;
         case "error":
             styleProps = { padding: "60px 0" };

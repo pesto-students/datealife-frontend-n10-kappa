@@ -1,10 +1,8 @@
 import Typography from "@mui/material/Typography";
 import { CardInfo, Card, CardMedia, Layout, Modal, ToggleButton, ToggleButtonGroup, Boxed } from "../components";
 import { OdourlessWrapper } from "../assets/styles/Common.styles";
-import { Container, Grid, IconButton } from "@mui/material";
+import { Container, IconButton } from "@mui/material";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
-import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import { CURRENT_LEARNING_KEY, GENDER_VALUES } from "../const";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLearningListRequest } from "../store/sagas/learning/actions";
@@ -12,6 +10,7 @@ import { useEffect, useState } from "react";
 import { getLearningList } from "../store/reducers/learnings";
 import {Learning as LearningType} from "../store/sagas/learning/types";
 import { useNavigate } from "react-router-dom";
+import LearningFilterModal from "../components/learning-filter-modal/LearningFilterModal";
 
 
 const Learning = (): JSX.Element => {
@@ -59,7 +58,6 @@ const Learning = (): JSX.Element => {
                     }} onClick={toggleFilter}>
                     <FilterAltOutlinedIcon />
                 </IconButton>
-
                 <>
                     {learningList.map((learning: LearningType, index: number): any => {
                         return (
@@ -90,53 +88,13 @@ const Learning = (): JSX.Element => {
             </Container>
 
             {/* Filter modal */}
-            <Modal modalOpen={filterOpen} toggleModal={toggleFilter} ariaLabel={"learning filter modal"}>
-                <Boxed>
-                   <>
-                        <Grid container spacing={2}>
-                            <Grid item xs={4}>
-                                <IconButton
-                                    size="large"
-                                    edge="start"
-                                    color="inherit"
-                                    aria-label="back icon"
-                                    onClick={toggleFilter}>
-                                    <ArrowBackRoundedIcon />
-                                </IconButton>
-                            </Grid>
-                            <Grid item xs={4} textAlign="center">
-                                Filter
-                            </Grid>
-                            <Grid item xs={4} textAlign="right">
-                                <IconButton
-                                    size="large"
-                                    edge="start"
-                                    color="inherit"
-                                    aria-label="apply icon"
-                                    onClick={toggleFilter}>
-                                    <CheckRoundedIcon color="error" />
-                                </IconButton>
-                            </Grid>
-                        </Grid>
-
-                        <Boxed>
-                            <>
-                                <Typography variant="subtitle1" mb={2}>Gender</Typography>
-                                <ToggleButtonGroup
-                                    value={gender}
-                                    exclusive
-                                    onChange={handleGenderChange}>
-                                    {GENDER_VALUES.map((gender, index) => {
-                                        return (<ToggleButton value={gender.toLocaleLowerCase()} curved={index === 0 || index === GENDER_VALUES.length -1} key={index}>
-                                                    {gender}
-                                                </ToggleButton>);
-                                    })}
-                                </ToggleButtonGroup>
-                            </>
-                        </Boxed>
-                   </>
-                </Boxed>
-            </Modal>
+            <LearningFilterModal
+                toggleFilter={toggleFilter}
+                filterOpen={filterOpen}
+                applyFilter={toggleFilter}
+                currentGender={gender}
+                handleGenderChange={handleGenderChange}
+            />
         </Layout>
     );
 };

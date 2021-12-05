@@ -56,35 +56,34 @@ const Login = (): JSX.Element => {
                         By clicking Log In, you agree with our Terms. Learn how we process your data in our{" "}
                         <a href="/">Privacy Policy</a> and Cookies Policy.
                     </Typography>
+                        <Boxed type="main">
+                            <Stack spacing={3}>
+                                <Button
+                                    variant="contained"
+                                    startIcon={<GoogleIcon color="warning" />}
+                                    whiteBackground={true}
+                                    onClick={() => handleClick("google")}
+                                >
+                                    {authType} with google
+                                </Button>
 
-                    <Boxed type="main">
-                        <Stack spacing={3}>
-                            <Button
-                                variant="contained"
-                                startIcon={<GoogleIcon color="warning" />}
-                                whiteBackground
-                                onClick={() => handleClick("google")}
-                            >
-                                {authType} with google
-                            </Button>
+                                <Button
+                                    variant="contained"
+                                    startIcon={<FacebookOutlinedIcon sx={{ color: "#00B1CD" }} fontSize="large" />}
+                                    whiteBackground={true}
+                                    onClick={() => handleClick("fb")}
+                                >
+                                    {authType} with facebook
+                                </Button>
 
-                            <Button
-                                variant="contained"
-                                startIcon={<FacebookOutlinedIcon sx={{ color: "#00B1CD" }} fontSize="large" />}
-                                whiteBackground
-                                onClick={() => handleClick("fb")}
-                            >
-                                {authType} with facebook
-                            </Button>
-
-                            <Button
-                                variant="contained"
-                                startIcon={<LocalPhoneIcon color="secondary" />}
-                                whiteBackground
-                                onClick={() => handleClick("number")}
-                            >
-                                {authType} with number
-                            </Button>
+                                <Button
+                                    variant="contained"
+                                    startIcon={<LocalPhoneIcon color="secondary" />}
+                                    whiteBackground={true}
+                                    onClick={() => handleClick("number")}
+                                >
+                                    {authType} with number
+                                </Button>
 
                             <Typography variant="subtitle2" color="white" textAlign="center">
                                 Don’t have account?{" "}
