@@ -14,6 +14,7 @@ import DateAdapter from "@mui/lab/AdapterMoment";
 
 import { CometChat } from "@cometchat-pro/chat";
 import { COMETCHAT_CONSTANTS } from "./third-party/comet-chat/consts";
+import { ErrorBoundary } from "./components";
 
 const appID = COMETCHAT_CONSTANTS.APP_ID;
 const region = COMETCHAT_CONSTANTS.REGION;
@@ -30,9 +31,11 @@ CometChat.init(appID, appSetting).then(
                     <LocalizationProvider dateAdapter={DateAdapter}>
                         <MUIThemeProvider theme={theme}>
                             <ThemeProvider theme={theme}>
-                                <Router>
-                                    <App />
-                                </Router>
+                                    <Router>
+                                        <ErrorBoundary>
+                                            <App />
+                                        </ErrorBoundary>
+                                    </Router>
                             </ThemeProvider>
                         </MUIThemeProvider>
                     </LocalizationProvider>
