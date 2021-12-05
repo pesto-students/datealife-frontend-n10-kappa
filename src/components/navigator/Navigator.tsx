@@ -12,25 +12,20 @@ export interface NavigatorItem {
 export interface NavigatorProps {
     items: NavigatorItem[];
     drawerWidth?: string;
-    onNavigation?: (string: string) => void;
-    defaultValue?: string;
+    onNavigation: (string: string) => void;
+    currentPage: string;
 }
 
 export default function Navigation(props: NavigatorProps): JSX.Element {
-    const { items, onNavigation, defaultValue = "" } = props;
+    const { items, onNavigation, currentPage = "" } = props;
     const [width] = useWindowSize();
-    const [selectedValue, setSelectedValue] = React.useState(defaultValue);
-
-    useEffect(() => {
-        onNavigation && onNavigation(selectedValue);
-    }, [selectedValue]);
 
     return (
         <>
             {width <= 600 ? (
-                <BottomNavigation items={items} selectedValue={selectedValue} setSelectedValue={setSelectedValue} />
+                <BottomNavigation items={items} currentPage={currentPage} onNavigation={onNavigation} />
             ) : (
-                <Drawer {...props} selectedValue={selectedValue} setSelectedValue={setSelectedValue} />
+                <Drawer {...props} currentPage={currentPage} onNavigation={onNavigation} />
             )}
         </>
     );

@@ -18,9 +18,8 @@ import {
     Number,
     OTP,
     SignUp,
-    CurrentLearning
+    CurrentLearning,
 } from "./pages";
-
 
 const routes: RoutesType[] = [
     {
@@ -28,8 +27,8 @@ const routes: RoutesType[] = [
         component: Login,
     },
     {
-        pathname: "/signup",
-        component: SignUp,
+        pathname: "/:authType",
+        component: Login,
     },
     {
         pathname: "/user/name",
@@ -85,7 +84,7 @@ const routes: RoutesType[] = [
     },
     {
         pathname: "/learning/:learningId/:learningTitle",
-        component: CurrentLearning
+        component: CurrentLearning,
     },
     {
         pathname: "/chatting",

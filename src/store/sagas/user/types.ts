@@ -1,13 +1,23 @@
-import { ThirdPartyUser } from "../../../auth";
-import { UserInfo } from "../../reducers/login";
 import { FETCH_USER_REQUEST, FETCH_USER_FAILURE, CREATE_USER_REQUEST, UPDATE_USER_REQUEST } from "./actionTypes";
 
+export type UserInfo = {
+    uid?: string;
+    fullName?: string;
+    profilePicture?: string;
+    dob?: number;
+    gender?: string;
+    orientation?: string;
+    profession?: string;
+    interests?: string[];
+    pictures?: string[];
+};
+
 export interface FetchUserRequestPayload {
-    user: ThirdPartyUser;
+    userId: string;
 }
 
 export interface FetchUserFailurePayload {
-    message: string;
+    error: string;
 }
 
 export interface FetchUserRequest {

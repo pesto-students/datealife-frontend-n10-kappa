@@ -4,12 +4,11 @@ import MUIButtonGroup from "@mui/material/ButtonGroup";
 import { ButtonProps } from "./Button";
 import { ButtonGroupProps } from "./ButtonGroup";
 
-const StyledButton = styled(({ curved, whiteText, ...props }) => <MUIButton {...props} />)`
+const StyledButton = styled(({ curved, whiteText, whiteBackground, ...props }) => <MUIButton {...props} />)`
     && {
         border-radius: ${({ curved }: ButtonProps) => (curved ? 12 : 0)}px;
         color: ${({ whiteText }: ButtonProps) => (whiteText ? "white" : "initial")};
         background-color: ${({ whiteBackground }: ButtonProps) => (whiteBackground ? "white" : "none")};
-
     }
 `;
 

@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import {
@@ -5,16 +6,19 @@ import {
     Box,
     Grid,
     Typography,
-    Container,
+    Container
 } from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
-import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
-import { Boxed, CardInfo, Card, CardMedia, CardActions, Layout, Modal } from "../components";
-import { OdourlessWrapper } from "../assets/styles/Common.styles";
 import InvitesModal from "../components/invites-modal/InvitesModal";
 import { LISTING_TABS } from "../const";
+import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
+import { Boxed, CardInfo, Card, CardMedia, CardActions, Layout, Modal } from "../components";
+import { getLoggedInUser } from "../store/reducers/login";
+import { getListingData } from "../store/reducers/matchMaking";
+import { OdourlessWrapper } from "../assets/styles/Common.styles";
+import { fetchUserListingRequest } from "../store/sagas/match-making/actions";
 
 type Item = {
     label: string;
@@ -22,6 +26,9 @@ type Item = {
 };
 
 const Listing = (): JSX.Element => {
+    const dispatch = useDispatch();
+    const user = useSelector(getLoggedInUser);
+    const listings = useSelector(getListingData);
     const [inviteModalOpen, setInviteModalOpen] = useState(false);
     const toggleInviteModal = () => {
         setInviteModalOpen(!inviteModalOpen);
@@ -32,6 +39,13 @@ const Listing = (): JSX.Element => {
     const [value, setValue] = useState("likes");
     const handlePageInc = () => setPageNumber(pageNumber + 1);
     const resetPage = () => setPageNumber(0);
+
+    useEffect(() => {
+        const { uid: userId } = user;
+        if (userId) {
+            dispatch(fetchUserListingRequest({ userId }));
+        }
+    }, [user]);
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
         setValue(newValue);
@@ -48,11 +62,11 @@ const Listing = (): JSX.Element => {
 
     // should ne replaced with actual data
     const tabPanelData: any = {
-        likes: (
+        likes: (item: any) => (
             <Card>
                 <CardMedia
-                    src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
-                    alt="Paella dish"
+                    src={item.profilePicture}
+                    alt={`${item.fullName} image`}
                     onError={(event: any) => {
                         if (event.target)
                             event.target.src =
@@ -63,19 +77,19 @@ const Listing = (): JSX.Element => {
                 />
                 <CardInfo alignment="bottom" imgHeight={200} imgWidth={200}>
                     <OdourlessWrapper variant="subtitle1" component={Typography}>
-                        Full Name
+                        {item.fullName}
                     </OdourlessWrapper>
                     <OdourlessWrapper variant="subtitle2" component={Typography}>
-                        Profession
+                        {item.profession}
                     </OdourlessWrapper>
                 </CardInfo>
             </Card>
         ),
-        matches: (
+        matches: (item: any) => (
             <Card>
                 <CardMedia
-                    src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
-                    alt="Paella dish"
+                    src={item.profilePicture}
+                    alt={`${item.fullName} image`}
                     onError={(event: any) => {
                         if (event.target)
                             event.target.src =
@@ -86,10 +100,10 @@ const Listing = (): JSX.Element => {
                 />
                 <CardInfo alignment="top" imgHeight={200} imgWidth={200}>
                     <OdourlessWrapper variant="subtitle1" component={Typography}>
-                        Full Name
+                        {item.fullName}
                     </OdourlessWrapper>
                     <OdourlessWrapper variant="subtitle2" component={Typography}>
-                        Profession
+                        {item.profession}
                     </OdourlessWrapper>
                 </CardInfo>
                 <CardInfo alignment="bottom" imgHeight={200} imgWidth={200} hasIcon>
@@ -100,11 +114,11 @@ const Listing = (): JSX.Element => {
                 </CardInfo>
             </Card>
         ),
-        invites: (
+        invites: (item: any) => (
             <Card>
                 <CardMedia
-                    src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
-                    alt="Paella dish"
+                    src={item.profilePicture}
+                    alt={`${item.fullName} image`}
                     onError={(event: any) => {
                         if (event.target)
                             event.target.src =
@@ -115,10 +129,10 @@ const Listing = (): JSX.Element => {
                 />
                 <CardInfo alignment="top" imgHeight={200} imgWidth={200}>
                     <OdourlessWrapper variant="subtitle1" component={Typography}>
-                        Full Name
+                        {item.fullName}
                     </OdourlessWrapper>
                     <OdourlessWrapper variant="subtitle2" component={Typography}>
-                        Profession
+                        {item.profession}
                     </OdourlessWrapper>
                 </CardInfo>
                 <CardInfo alignment="bottom" imgHeight={200} imgWidth={200} hasIcon>
@@ -152,13 +166,14 @@ const Listing = (): JSX.Element => {
                         {LISTING_TABS.map(({ value }: Item) => (
                             <TabPanel value={value} sx={{ p: "20px 0" }}>
                                 <Grid container justifyContent="space-between" alignItems="center" wrap="wrap" spacing={2}>
-                                    {[1, 2, 3, 4].map((item): any => {
-                                        return (
-                                            <Grid item xs={6} key={item}>
-                                                {tabPanelData[value]}
-                                            </Grid>
-                                        );
-                                    })}
+                                    {listings[value] &&
+                                        Object.values(listings[value]).map((item): any => {
+                                            return (
+                                                <Grid item xs={6} key={item.uid}>
+                                                    {tabPanelData[value](item)}
+                                                </Grid>
+                                            );
+                                        })}
                                 </Grid>
                             </TabPanel>
                         ))}

@@ -1,6 +1,8 @@
-import { useState } from "react";
 import { Container, Toolbar, MenuItem, AppBar, Typography, FormControl } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { SelectChangeEvent } from "@mui/material/Select";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
@@ -13,16 +15,25 @@ import {
     CardInfo,
     CardActions,
     Layout,
-    MatchmakingModal
+    MatchmakingModal,
 } from "../components";
 import { GENDER_VALUES } from "../const";
 import { OdourlessWrapper } from "../assets/styles/Common.styles";
 import logo from "../assets/images/logoDateALife40x40.png";
 import Logo from "../assets/images/logoDateALife.png";
-import { useNavigate } from "react-router-dom";
 import MatchmakingFilterModal from "../components/matchmaking-filter-modal/MatchmakingFilterModal";
+import { getLoggedInUser } from "../store/reducers/login";
+import { getCurrentSuggestion } from "../store/reducers/matchMaking";
+import {
+    fetchUserListingRequest,
+    fetchUserSuggestionsRequest,
+    updateUserListingRequest,
+} from "../store/sagas/match-making/actions";
 
 const Matchmaking = (): JSX.Element => {
+    const dispatch = useDispatch();
+    const user = useSelector(getLoggedInUser);
+    const currentSuggestion = useSelector(getCurrentSuggestion);
     const [matchMakingOpen, setMatchmakingOpen] = useState(false);
     const [filterOpen, setFilterOpen] = useState(false);
     const [orientation, setOrientation] = useState("");
@@ -30,6 +41,15 @@ const Matchmaking = (): JSX.Element => {
     const minDistance = 10;
     const navigate = useNavigate();
     const [gender, setGender] = useState(GENDER_VALUES[0].toLocaleLowerCase());
+
+    useEffect(() => {
+        const { uid: userId } = user;
+        if (userId) {
+            dispatch(fetchUserListingRequest({ userId }));
+            dispatch(fetchUserSuggestionsRequest({ user }));
+        }
+    }, [user]);
+
     const handleGenderChange = (event: React.MouseEvent<HTMLElement>, newGender: string) => {
         setGender(newGender);
     };
@@ -55,6 +75,16 @@ const Matchmaking = (): JSX.Element => {
         } else {
             setSliderValue([sliderValue[0], Math.max(newValue[1], sliderValue[0] + minDistance)]);
         }
+    };
+
+    const handleClick = (actionType: string) => {
+        dispatch(
+            updateUserListingRequest({
+                userId: user.uid || "",
+                listingType: actionType,
+                selectedUser: currentSuggestion,
+            })
+        );
     };
 
     function valuetext(value: number) {
@@ -85,37 +115,43 @@ const Matchmaking = (): JSX.Element => {
             </AppBar>
             <div style={{ marginTop: "20px" }}>
                 <Container maxWidth="md">
-                    <Card>
-                        <CardMedia
-                            src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80"
-                            alt="Paella dish"
-                            onError={(event: any) => {
-                                if (event.target)
-                                    event.target.src =
-                                        "https://thednetworks.com/wp-content/uploads/2012/01/picture_not_available_400-300.png";
-                            }}
-                            width={500}
-                            height={500}
-                        />
-                        <CardInfo alignment="bottom" imgHeight={0} imgWidth={500}>
-                            <OdourlessWrapper variant="subtitle1" component={Typography}>
-                                Full Name
-                            </OdourlessWrapper>
-                            <OdourlessWrapper variant="subtitle2" component={Typography}>
-                                Profession
-                            </OdourlessWrapper>
-                        </CardInfo>
-                        <Container maxWidth="md">
-                            <CardActions width={500}>
-                                <Fab success={false} aria-label="disliked">
-                                    <CloseRoundedIcon />
-                                </Fab>
-                                <Fab success={true} aria-label="like" onClick={toggleMatchMaking}>
-                                    <FavoriteIcon />
-                                </Fab>
-                            </CardActions>
-                        </Container>
-                    </Card>
+                    {currentSuggestion.uid ? (
+                        <Card>
+                            <CardMedia
+                                src={currentSuggestion?.profilePicture}
+                                alt="Paella dish"
+                                onError={(event: any) => {
+                                    if (event.target)
+                                        event.target.src =
+                                            "https://thednetworks.com/wp-content/uploads/2012/01/picture_not_available_400-300.png";
+                                }}
+                                width={500}
+                                height={500}
+                            />
+                            <CardInfo alignment="bottom" imgHeight={0} imgWidth={500}>
+                                <OdourlessWrapper variant="subtitle1" component={Typography}>
+                                    {currentSuggestion?.fullName}
+                                </OdourlessWrapper>
+                                <OdourlessWrapper variant="subtitle2" component={Typography}>
+                                    {currentSuggestion?.profession}
+                                </OdourlessWrapper>
+                            </CardInfo>
+                            <Container maxWidth="md">
+                                <CardActions width={500}>
+                                    <Fab success={false} aria-label="dislike" onClick={() => handleClick("dislike")}>
+                                        <CloseRoundedIcon />
+                                    </Fab>
+                                    <Fab success={true} aria-label="like" onClick={() => handleClick("like")}>
+                                        <FavoriteIcon />
+                                    </Fab>
+                                </CardActions>
+                            </Container>
+                        </Card>
+                    ) : (
+                        <Typography variant="h3" sx={{ textAlign: "center" }}>
+                            No Suggestions found
+                        </Typography>
+                    )}
                 </Container>
 
                 {/* Matchmaking modal */}

@@ -1,9 +1,10 @@
-import {Stack, InputLabel, MenuItem, FormControl, Select, SelectChangeEvent} from "@mui/material";
 import { useState } from "react";
-import {Layout, Boxed, Button} from "../components";
-import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+import { Stack, InputLabel, MenuItem, FormControl, Select, SelectChangeEvent } from "@mui/material";
+import { Button, Boxed, Layout } from "../components";
+import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
 import { updateUser } from "../store/reducers/login";
 
 const Identify = (): JSX.Element => {
@@ -24,7 +25,6 @@ const Identify = (): JSX.Element => {
     };
     return (
         <Layout
-            hasDrawer
             headerProps={{
                 text: "I identify as",
                 backFunction: () => {},
@@ -47,7 +47,6 @@ const Identify = (): JSX.Element => {
                                         {gender}
                                     </MenuItem>
                                 ))}
-
                             </Select>
                         </FormControl>
 
