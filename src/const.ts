@@ -32,6 +32,20 @@ export const INTERESTS_VALUES = [
     { label: "Designing", value: "designing" },
     { label: "Walking", value: "walking" }
 ];
+export const LISTING_TABS = [
+    {
+        label: "Likes",
+        value: "likes",
+    },
+    {
+        label: "Matches",
+        value: "matches",
+    },
+    {
+        label: "Invites",
+        value: "invites",
+    },
+];
 export const API_BASE_URL =
     process.env.NODE_ENV !== "development"
         ? "https://us-central1-date-a-life.cloudfunctions.net/api"
