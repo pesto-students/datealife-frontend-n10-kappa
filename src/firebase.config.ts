@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 import { serverTimestamp } from "firebase/firestore";
 
+//Move this to env file
 const firebaseConfig = {
     apiKey: "AIzaSyCyloujzWxjUl-lIgfgDQtjK7gDJtgw_9o",
     authDomain: "date-a-life.firebaseapp.com",

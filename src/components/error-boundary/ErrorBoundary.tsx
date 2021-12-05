@@ -1,37 +1,40 @@
 import { Component, ErrorInfo, ReactNode } from "react";
-import { Error } from "../index";
-
-export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
-    constructor(props: ErrorBoundaryProps) {
-      super(props);
-      this.state = { error: null, errorInfo: null };
-    }
-
-    public componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-      this.setState({
-        error: error,
-        errorInfo: errorInfo
-      });
-      // You can also log error messages to an error reporting service here
-    }
-
-    public render(): ReactNode {
-      if (this.state.errorInfo) {
-        // Error path
-        return (
-            <Error  errorHeading="Something went wrong" errorsubText={this.state.errorInfo} />
-        );
-      }
-      // Normally, just render children
-      return this.props.children;
-    }
+import { Boxed, Error } from "../index";
+interface Props {
+  children: ReactNode;
 }
 
-export interface ErrorBoundaryState{
-    error: any,
-    errorInfo: any
+interface State {
+  hasError: boolean;
+  error: Error | null;
+  errorInfo: ErrorInfo | null;
 }
 
-interface ErrorBoundaryProps{
+class ErrorBoundary extends Component<Props, State> {
+  public state: State = {
+    hasError: false,
+    error: null,
+    errorInfo: null
+  };
 
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo): void{
+    this.setState({hasError: true, error, errorInfo});
+
+  }
+
+  public render(): ReactNode {
+    if (this.state.hasError) {
+      return (
+          <Boxed type="textField2">
+              <>
+                <Error  errorHeading={this.state.error?.name || "Error" } errorsubText={this.state.error?.message || "Unexpected it was"} />;
+              </>
+          </Boxed>
+      );
+    }
+
+    return this.props.children;
+  }
 }
+
+export default ErrorBoundary;

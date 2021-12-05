@@ -19,3 +19,4 @@ export { default as MatchedPitctures } from "./matchedPictures/MatchedPictures";
 export { default as Bar } from "./bar/Bar";
 export { default as MatchmakingModal } from "./matchmaking-modal/MatchmakingModal";
 export { default as MatchmakingFilterModal } from "./matchmaking-filter-modal/MatchmakingFilterModal";
+export { default as ErrorBoundary } from "./error-boundary/ErrorBoundary";
