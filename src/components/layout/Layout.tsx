@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -7,12 +7,11 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
 
 import { Navigator, Header, HeaderProps } from "../";
-import { getCurrentPage, updateCurrentPage } from "../../store/reducers/login";
+import { getCurrentPage, updatePage } from "../../store/reducers/login";
 
 const Layout = (props: LayoutProps): JSX.Element => {
     const { children, hasDrawer, drawerWidth = 3, headerProps } = props;
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const currentPage = useSelector(getCurrentPage);
     const NavigatorItems = [
         {
@@ -38,7 +37,6 @@ const Layout = (props: LayoutProps): JSX.Element => {
     ];
     const handleNavigation = (selectedNavigation = "/") => {
         navigate(selectedNavigation);
-        dispatch(updateCurrentPage(selectedNavigation));
     };
     const calcDrawerWidth = (drawerWidth / 12) * 100;
     const headerWidth = hasDrawer ? 100 - calcDrawerWidth : 100;

@@ -83,6 +83,10 @@ const Matchmaking = (): JSX.Element => {
         return `${value}`;
     }
 
+    const handleEditProfile = () => {
+        navigate("/user/profile/editProfile");
+    };
+
     return (
         <Layout
             hasDrawer
@@ -94,7 +98,7 @@ const Matchmaking = (): JSX.Element => {
         >
             <AppBar position="static" sx={{ backgroundColor: "white" }}>
                 <Toolbar>
-                    <IconButton size="large" edge="start" color="inherit" aria-label="user icon">
+                    <IconButton size="large" edge="start" color="inherit" aria-label="user icon" onClick={handleEditProfile}>
                         <PersonOutlineIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: "center" }}>

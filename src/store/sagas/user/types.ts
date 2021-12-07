@@ -10,6 +10,7 @@ export type UserInfo = {
     profession?: string;
     interests?: string[];
     pictures?: string[];
+    age?: string;
 };
 
 export interface FetchUserRequestPayload {

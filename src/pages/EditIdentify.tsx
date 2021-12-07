@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {MenuItem, InputLabel, FormControl, Select, Stack }  from "@mui/material";
+import { MenuItem, InputLabel, FormControl, Select, Stack } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { Button, Boxed, Layout } from "../components";
 import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";

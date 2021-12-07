@@ -1,11 +1,12 @@
 import { ChipProps as MUIChipProps } from "@mui/material/Chip";
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { StyledChip, StyledStack } from "./ChipStack.style";
 
 export interface ChipStackProps {
     chips: ChipItem[];
     maxChips?: number;
     onChipClick?: (items: SelectedChipsType) => void;
+    userChips?: SelectedChipsType;
 }
 
 type ChipItem = {
@@ -34,8 +35,12 @@ const Chip = (props: ChipProps) => {
 };
 
 const ChipStack = (props: ChipStackProps): ReactElement => {
+    const { chips, maxChips = 5, onChipClick, userChips } = props;
     const [selectedChips, setSelectedChips] = useState<SelectedChipsType>({});
-    const { chips, maxChips = 5, onChipClick } = props;
+
+    useEffect(() => {
+        setSelectedChips(userChips || {});
+    }, [userChips]);
 
     const handleClick = (label: string, value: string) => {
         const newSelection: SelectedChipsType = { ...selectedChips };

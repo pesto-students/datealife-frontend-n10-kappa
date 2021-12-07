@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
 import routes from "./routes";
-import { getIsLoggedIn, getIsExistingUser, getLoggedInUserIdFromLS, updateCurrentPage } from "./store/reducers/login";
+import { getIsLoggedIn, getIsExistingUser, getLoggedInUserIdFromLS, updatePage } from "./store/reducers/login";
 import { fetchUserRequest } from "./store/sagas/user/actions";
 
 import "./App.css";
@@ -24,11 +24,16 @@ const App = (): JSX.Element => {
 
         if (!loggedInUserId && !isExistingUser && !isLoggedIn && isNotNumberPage && isNotOTPPage && isNotLoginPage) {
             navigate("/login");
-        } else if (loggedInUserId && !isLoggedIn) {
+        } else if (loggedInUserId && !isLoggedIn && isNotLoginPage) {
             dispatch(fetchUserRequest({ userId: loggedInUserId }));
         }
-        dispatch(updateCurrentPage(location.pathname));
+        return () => {};
     }, [navigate, isExistingUser, isLoggedIn, location]);
+
+    useEffect(() => {
+        dispatch(updatePage(location.pathname));
+        return () => {};
+    }, [location.pathname]);
 
     return (
         <Routes>

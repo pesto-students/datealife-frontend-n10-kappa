@@ -21,7 +21,7 @@ function* fetchUserSaga({ payload }: FetchUserRequest) {
         yield put(
             loginSuccessful({
                 isLoggedIn: true,
-                user: userData,
+                user: userData || {},
                 isExitingUser: !!response.data,
             })
         );

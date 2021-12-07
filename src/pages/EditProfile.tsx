@@ -1,108 +1,112 @@
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+
 import { Fab, Typography, Grid, Box, Container, ImageList, ImageListItem, Stack } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { Layout, Button, Header } from "../components";
-import { PhotoDiv } from "../assets/styles/Common.styles";
-import Img from "../assets/images/ben-parker.jpg";
+import { v1 as uuidv1 } from "uuid";
 
-const itemData = [
-    {
-      img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-      title: "Breakfast",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-      title: "Burger",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-      title: "Camera",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-      title: "Coffee",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-      title: "Hats",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
-      title: "Honey",
-    }
-];
+import { Layout, Button, ImageUploader } from "../components";
+import { PhotoDiv } from "../assets/styles/Common.styles";
+import { getLoggedInUser } from "../store/reducers/login";
 
 const EditProfile = (): JSX.Element => {
+    const navigate = useNavigate();
+    const user = useSelector(getLoggedInUser);
     const BoxStyles = {
-                      backgroundColor: "secondary.main",
-                      padding: "30px",
-                      borderBottomLeftRadius: "20px",
-                      borderBottomRightRadius: "20px",
-                    };
+        backgroundColor: "secondary.main",
+        padding: "30px",
+        borderBottomLeftRadius: "20px",
+        borderBottomRightRadius: "20px",
+    };
+
+    const handleClick = (type: string) => {
+        navigate(`/user/profile/editProfile/${type}`);
+    };
+
+    const getImageItems = (pictures: string[] = []) => {
+        return [0, 1, 2, 3, 4, 5].map((index) => {
+            const ImageUploaderProps: any = {
+                maxHeight: 164,
+                maxWidth: 164,
+                height: 164,
+                width: 164,
+            };
+            if (pictures[index]) {
+                ImageUploaderProps["src"] = `${pictures[index]}?w=164&h=164&fit=crop&auto=format`;
+            }
+            return (
+                <ImageListItem key={uuidv1()}>
+                    <ImageUploader {...ImageUploaderProps} alt={`profile img ${index}`} />
+                </ImageListItem>
+            );
+        });
+    };
+
     return (
         <>
             <Layout
                 hasDrawer
                 headerProps={{
-                    text: "Edit about",
+                    text: "Edit About",
                     color: "secondary",
-                    backFunction: () => {}
                 }}
             >
-                 <Header
-                text="Edit profile"
-                backFunction={() => {
-                    alert("Moving back");
-                }}
-                color="secondary"
-            />
-
-                <Container sx={{margin: "55px auto"}} maxWidth={false} disableGutters>
+                <Container sx={{ margin: "55px auto" }} maxWidth={false} disableGutters>
                     <Box sx={BoxStyles}>
-                        <PhotoDiv style={{backgroundImage: `url(${Img})`}}>
-                            <Fab color="default" aria-label="add" sx={{position: "relative", top: "100px", left: "100px"}}>
+                        <PhotoDiv style={{ backgroundImage: `url(${user.profilePicture})` }}>
+                            <Fab
+                                color="default"
+                                aria-label="add"
+                                sx={{ position: "relative", top: "100px", left: "100px" }}
+                                onClick={() => handleClick("editPicture")}
+                            >
                                 <EditIcon />
                             </Fab>
                         </PhotoDiv>
 
                         <Typography variant="subtitle1" align="center" color="white">
-                            John Doe
+                            {user.fullName}
                         </Typography>
                         <Typography variant="body2" align="center" color="white">
-                            Engineer, 21
+                            {user.profession && `${user.profession} ,`}
+                            {user.age}
                         </Typography>
                     </Box>
 
                     <Container maxWidth={"md"}>
                         <Grid container alignItems="center" justifyContent="space-between" mt={5} mb={5}>
                             <Grid item xs={10}>
-                                <Typography variant="h6" color="secondary">GALLERY</Typography>
+                                <Typography variant="h6" color="secondary">
+                                    GALLERY
+                                </Typography>
                             </Grid>
                             <Grid item xs={2}>
-                                <Fab color="secondary" aria-label="edit" sx={{float: "right"}}>
+                                <Fab
+                                    color="secondary"
+                                    aria-label="edit"
+                                    sx={{ float: "right" }}
+                                    onClick={() => handleClick("editPictures")}
+                                >
                                     <EditIcon color="info" />
                                 </Fab>
                             </Grid>
                         </Grid>
-                        <ImageList cols={3} >
-                            {itemData.map((item) => (
-                                <ImageListItem key={item.img}>
-                                    <img
-                                        src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                                        srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                        alt={item.title}
-                                        loading="lazy"
-                                    />
-                                </ImageListItem>
-                            ))}
-                        </ImageList>
+                        {<ImageList cols={3}>{getImageItems(user.pictures)}</ImageList>}
                         <Stack spacing={3} mt={5} mb={5}>
                             <Box mb={2}>
                                 <Grid container alignItems="center" justifyContent="space-between">
                                     <Grid item xs={10}>
-                                        <Typography variant="h6" color="secondary">ABOUT ME</Typography>
+                                        <Typography variant="h6" color="secondary">
+                                            ABOUT ME
+                                        </Typography>
                                     </Grid>
                                     <Grid item xs={2}>
-                                        <Fab color="secondary" aria-label="edit" sx={{float: "right"}}>
+                                        <Fab
+                                            color="secondary"
+                                            aria-label="edit"
+                                            sx={{ float: "right" }}
+                                            onClick={() => handleClick("editAbout")}
+                                        >
                                             <EditIcon color="info" />
                                         </Fab>
                                     </Grid>
@@ -111,15 +115,27 @@ const EditProfile = (): JSX.Element => {
                                 <Stack spacing={3} mt={2}>
                                     <Box>
                                         <Typography variant="h6">Bio</Typography>
-                                        <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
+                                        <Typography variant="body2">
+                                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor
+                                            odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id
+                                            deserunt sed temporibus facere.
+                                        </Typography>
                                     </Box>
-                                    <Box >
+                                    <Box>
                                         <Typography variant="h6">Job Title</Typography>
-                                        <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
+                                        <Typography variant="body2">
+                                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor
+                                            odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id
+                                            deserunt sed temporibus facere.
+                                        </Typography>
                                     </Box>
                                     <Box>
                                         <Typography variant="h6">Company Name</Typography>
-                                        <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
+                                        <Typography variant="body2">
+                                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor
+                                            odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id
+                                            deserunt sed temporibus facere.
+                                        </Typography>
                                     </Box>
                                 </Stack>
                             </Box>
@@ -127,29 +143,45 @@ const EditProfile = (): JSX.Element => {
                             <Box mb={6}>
                                 <Grid container alignItems="center" justifyContent="space-between" mb={2}>
                                     <Grid item xs={10}>
-                                        <Typography variant="h6" color="secondary">INTERESTS</Typography>
+                                        <Typography variant="h6" color="secondary">
+                                            INTERESTS
+                                        </Typography>
                                     </Grid>
                                     <Grid item xs={2}>
-                                        <Fab color="secondary" aria-label="edit" sx={{float: "right"}}>
+                                        <Fab
+                                            color="secondary"
+                                            aria-label="edit"
+                                            sx={{ float: "right" }}
+                                            onClick={() => handleClick("editInterests")}
+                                        >
                                             <EditIcon color="info" />
                                         </Fab>
                                     </Grid>
                                 </Grid>
-                                <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
+                                <Typography variant="body2">{user.interests?.join(", ")}.</Typography>
                             </Box>
 
                             <Box mb={4}>
                                 <Grid container alignItems="center" justifyContent="space-between" mb={2}>
                                     <Grid item xs={10}>
-                                        <Typography variant="h6" color="secondary">INDENTIFY AS</Typography>
+                                        <Typography variant="h6" color="secondary">
+                                            INDENTIFY AS
+                                        </Typography>
                                     </Grid>
                                     <Grid item xs={2}>
-                                        <Fab color="secondary" aria-label="edit" sx={{float: "right"}}>
+                                        <Fab
+                                            color="secondary"
+                                            aria-label="edit"
+                                            sx={{ float: "right" }}
+                                            onClick={() => handleClick("editIdentify")}
+                                        >
                                             <EditIcon color="info" />
                                         </Fab>
                                     </Grid>
                                 </Grid>
-                                <Typography variant="body2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id deserunt sed temporibus facere.</Typography>
+                                <Typography variant="body2">
+                                    {user.gender}, {user.orientation}
+                                </Typography>
                             </Box>
 
                             <Button variant="contained" color="primary" size="large" whiteText>
@@ -161,7 +193,6 @@ const EditProfile = (): JSX.Element => {
                         </Stack>
                     </Container>
                 </Container>
-
             </Layout>
         </>
     );

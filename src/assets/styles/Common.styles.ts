@@ -15,6 +15,8 @@ const PhotoDiv = styled.div`
     margin: auto;
     border-radius: 75px;
     margin-bottom: 20px;
+    background-size: cover;
+    background-repeat: no-repeat;
 `;
 
 const OdourlessWrapper = styled((props) => React.createElement(props.component, props))`

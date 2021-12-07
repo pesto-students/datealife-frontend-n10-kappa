@@ -71,11 +71,11 @@ const routes: RoutesType[] = [
         component: EditProfile,
     },
     {
-        pathname: "/user/profile/:id/editProfile/editPicture",
-        component: EditPictures,
+        pathname: "/user/profile/editProfile/editPicture",
+        component: EditPicture,
     },
     {
-        pathname: "/user/profile/editProfile/editPicture",
+        pathname: "/user/profile/editProfile/editPictures",
         component: EditPictures,
     },
     {

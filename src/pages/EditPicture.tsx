@@ -1,6 +1,6 @@
 import { Stack, Container } from "@mui/material";
 import { Boxed, Button, ImageUploader, Layout } from "../components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getLoggedInUser, updateUser } from "../store/reducers/login";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
@@ -12,13 +12,17 @@ const EditPicture = (): JSX.Element => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector(getLoggedInUser);
-    const [profilePicture, setProfilePicture] = useState(user?.profilePicture);
+    const [profilePicture, setProfilePicture] = useState("");
     const ImageUploaderProps = {
         maxHeight: 500,
         maxWidth: 500,
         height: 500,
         width: 500,
     };
+
+    useEffect(() => {
+        setProfilePicture(user.profilePicture || "");
+    }, [user.profilePicture]);
 
     const handleClick = () => {
         dispatch(updateUser({ profilePicture }));
@@ -43,7 +47,12 @@ const EditPicture = (): JSX.Element => {
                 <Container maxWidth="sm">
                     <Stack spacing={5}>
                         <Container maxWidth="md">
-                            <ImageUploader canUpload {...ImageUploaderProps} onUpload={(file) => onUplaod(file)} />
+                            <ImageUploader
+                                canUpload
+                                {...ImageUploaderProps}
+                                onUpload={(file) => onUplaod(file)}
+                                src={profilePicture}
+                            />
                         </Container>
                         <Button color="primary" disabled={disabled} variant="contained" fullWidth whiteText onClick={handleClick}>
                             Done

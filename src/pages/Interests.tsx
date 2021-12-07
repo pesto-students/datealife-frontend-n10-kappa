@@ -1,16 +1,30 @@
 import { Stack, Container } from "@mui/material";
 import { Boxed, Button, Layout, ChipStack } from "../components";
-import { useState } from "react";
-import { updateUser } from "../store/reducers/login";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
+import { useCallback, useState } from "react";
+import { updateUser, getLoggedInUser } from "../store/reducers/login";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router";
 import { INTERESTS_VALUES } from "../const";
 import { SelectedChipsType } from "../components/chip-stack/ChipStack";
 
 const Interests = (): JSX.Element => {
+    const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const user = useSelector(getLoggedInUser);
     const [chips, setChips] = useState({});
+    const isEditProfile = location.pathname.includes("editProfile");
+    const buttonText = isEditProfile ? "Save" : "Continue";
+
+    const getUserInterests = (interests: string[] = []) => {
+        const obj: SelectedChipsType = {};
+        interests?.forEach((item) => {
+            obj[item] = item;
+        });
+        return obj;
+    };
+
+    getUserInterests();
 
     const handleChipClick = (selectedChips: SelectedChipsType) => {
         setChips(selectedChips);
@@ -18,14 +32,13 @@ const Interests = (): JSX.Element => {
     const handleClick = () => {
         const interests = Object.keys(chips);
         dispatch(updateUser({ interests }));
-        navigate("/user/picture");
+        !isEditProfile && navigate("/user/picture");
     };
     return (
         <Layout
             hasDrawer
             headerProps={{
                 text: "Interests",
-                backFunction: () => {},
             }}
         >
             <Boxed type="full">
@@ -34,9 +47,10 @@ const Interests = (): JSX.Element => {
                         <ChipStack
                             chips={INTERESTS_VALUES}
                             onChipClick={handleChipClick}
+                            userChips={getUserInterests(user.interests)}
                         />
                         <Button color="primary" variant="contained" fullWidth whiteText onClick={handleClick}>
-                            Continue
+                            {buttonText}
                         </Button>
                     </Stack>
                 </Container>

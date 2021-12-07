@@ -1,10 +1,17 @@
-import {AppBar, Box} from "@mui/material";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+
+import { AppBar, Box, Toolbar, Typography, IconButton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
+import { getPreviousPage } from "../../store/reducers/login";
+
 export default function Header(props: HeaderProps): JSX.Element {
+    const navigate = useNavigate();
+    const previousPage = useSelector(getPreviousPage);
+    const handleClick = () => {
+        navigate(previousPage);
+    };
     const { headerWidth = "100%" } = props;
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -24,7 +31,7 @@ export default function Header(props: HeaderProps): JSX.Element {
                 color={props.color || "inherit"}
             >
                 <Toolbar>
-                    <IconButton size="large" edge="start" aria-label="back button" onClick={props.backFunction} color={"default"}>
+                    <IconButton size="large" edge="start" aria-label="back button" onClick={handleClick} color={"default"}>
                         <ArrowBackIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} color={props.color ? "white" : "default"}>
@@ -38,7 +45,7 @@ export default function Header(props: HeaderProps): JSX.Element {
 
 export type HeaderProps = {
     text: string;
-    backFunction: () => void;
+    backFunction?: () => void;
     color?: "inherit" | "transparent" | "default" | "primary" | "secondary" | undefined;
     headerWidth?: string;
 };

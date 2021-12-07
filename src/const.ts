@@ -20,7 +20,6 @@ export const INTERESTS_VALUES = [
     { label: "Martial arts", value: "martial arts" },
     { label: "Piano", value: "piano" },
     { label: "Guitar", value: "guitar" },
-    { label: "Singing", value: "singing" },
     { label: "Table tennis", value: "table tennis" },
     { label: "Carrom", value: "carrom" },
     { label: "Card games", value: "card games" },
@@ -30,7 +29,7 @@ export const INTERESTS_VALUES = [
     { label: "Knitting", value: "knitting" },
     { label: "Cooking", value: "cooking" },
     { label: "Designing", value: "designing" },
-    { label: "Walking", value: "walking" }
+    { label: "Walking", value: "walking" },
 ];
 export const LISTING_TABS = [
     {
