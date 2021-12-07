@@ -8,6 +8,6 @@ export interface ButtonProps extends MUIButtonProps {
     whiteBackground?: boolean;
 }
 
-const Button = (props: ButtonProps): ReactElement => <StyledButton {...props} />;
+const Button = (props: ButtonProps): ReactElement => <StyledButton {...props} data-testid="button" />;
 
 export default Button;

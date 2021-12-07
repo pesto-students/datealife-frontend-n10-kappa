@@ -25,9 +25,9 @@ export default function Header(props: HeaderProps): JSX.Element {
             >
                 <Toolbar>
                     <IconButton size="large" edge="start" aria-label="back button" onClick={props.backFunction} color={"default"}>
-                        <ArrowBackIcon />
+                        <ArrowBackIcon data-testid="header-back-button"/>
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} color={props.color ? "white" : "default"}>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} color={props.color ? "white" : "default"} data-testid="header-text">
                         {props.text}
                     </Typography>
                 </Toolbar>
