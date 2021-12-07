@@ -11,10 +11,10 @@ export default function Error(props: ErrorProps): JSX.Element {
         <Boxed>
             <Stack alignItems="center" mt={4}>
                 {!props.matchError ? <ErrorIcon sx={iconStyles}/> : <NotAccessibleIcon  sx={iconStyles} />}
-                <Typography variant="h4" component="div" color="secondary" mb={2} fontStyle="bold" textAlign="center">
+                <Typography variant="h4" component="div" color="secondary" mb={2} fontStyle="bold" textAlign="center" data-testid="error-heading">
                     {props.errorHeading}
                 </Typography>
-                <Typography variant="body1" component="div" color="gray" fontStyle="italic" textAlign="center">
+                <Typography variant="body1" component="div" color="gray" fontStyle="italic" textAlign="center" data-testid="error-description">
                     {props.errorsubText}
                 </Typography>
             </Stack>
