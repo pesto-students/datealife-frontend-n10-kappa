@@ -1,6 +1,5 @@
 import { render, cleanup, fireEvent } from "@testing-library/react";
 import LearningFilterModal, {LearningFilterModalProps} from "./LearningFilterModal";
-import { ThemeProvider as MUIThemeProvider } from "@mui/material/styles";
 import { ThemeProvider } from "styled-components";
 import theme from "../../theme";
 
