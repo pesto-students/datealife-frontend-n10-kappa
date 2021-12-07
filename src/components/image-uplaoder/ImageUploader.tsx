@@ -41,8 +41,8 @@ const ImageUploader = ({ canUpload, onUpload, removeFile, src, ...restProps }: I
     const id: string = Date.now().toString();
 
     return (
-        <ImageUploaderContainer {...restProps}>
-            <ImageUploaderContent {...restProps}>
+        <ImageUploaderContainer {...restProps} >
+            <ImageUploaderContent {...restProps} data-testid="image-section">
                 {file ? (
                     <ImageUplaoderImage src={file} alt="Uploaded image" width={restProps?.width} />
                 ) : (
@@ -59,7 +59,7 @@ const ImageUploader = ({ canUpload, onUpload, removeFile, src, ...restProps }: I
                 )}
             </ImageUploaderContent>
             {canUpload && (
-                <AddButtonContainer>
+                <AddButtonContainer data-testid="image-upload-button">
                     <label htmlFor={id}>
                         <Input id={id} type="file" sx={{ display: "none" }} onChange={handleChange} onClick={handleClick} />
                         <AddButtonContent component="span" color="secondary" size="small">
