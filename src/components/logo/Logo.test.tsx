@@ -1,4 +1,4 @@
-import { render, cleanup, fireEvent } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 import Logo from "./Logo";
 
 describe("Logo component", () => {
