@@ -1,20 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import {
-    Tab as MUITab,
-    Box,
-    Grid,
-    Typography,
-    Container
-} from "@mui/material";
+import { Tab as MUITab, Box, Grid, Typography, Container } from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import InvitesModal from "../components/invites-modal/InvitesModal";
 import { LISTING_TABS } from "../const";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
-import { Boxed, CardInfo, Card, CardMedia, CardActions, Layout, Modal } from "../components";
+import { Boxed, CardInfo, Card, CardMedia, CardActions, Layout, Error } from "../components";
 import { getLoggedInUser } from "../store/reducers/login";
 import { getListingData } from "../store/reducers/matchMaking";
 import { OdourlessWrapper } from "../assets/styles/Common.styles";
@@ -60,7 +54,42 @@ const Listing = (): JSX.Element => {
         };
     }, [inviteModalOpen]);
 
-    // should ne replaced with actual data
+    const getTabPanelData = (type: string, item: any) => {
+        const isLikesPanel = type === LISTING_TABS[0].value;
+        const isMatchesPanel = type === LISTING_TABS[1].value;
+        return (
+            <Card>
+                <CardMedia
+                    src={item.profilePicture}
+                    alt={`${item.fullName} image`}
+                    onError={(event: any) => {
+                        if (event.target)
+                            event.target.src =
+                                "https://thednetworks.com/wp-content/uploads/2012/01/picture_not_available_400-300.png";
+                    }}
+                    width={200}
+                    height={200}
+                />
+                <CardInfo alignment={isLikesPanel ? "bottom" : "top"} imgHeight={200} imgWidth={200}>
+                    <OdourlessWrapper variant="subtitle1" component={Typography}>
+                        {item.fullName}
+                    </OdourlessWrapper>
+                    <OdourlessWrapper variant="subtitle2" component={Typography}>
+                        {item.profession}
+                    </OdourlessWrapper>
+                </CardInfo>
+                {!isLikesPanel && (
+                    <CardInfo alignment="bottom" imgHeight={200} imgWidth={200} hasIcon>
+                        <CardActions width={200}>
+                            <OdourlessWrapper component={isMatchesPanel ? ConnectWithoutContactIcon : CloseIcon} />
+                            <OdourlessWrapper component={isMatchesPanel ? ChatIcon : DoneIcon} />
+                        </CardActions>
+                    </CardInfo>
+                )}
+            </Card>
+        );
+    };
+
     const tabPanelData: any = {
         likes: (item: any) => (
             <Card>
@@ -163,17 +192,22 @@ const Listing = (): JSX.Element => {
                                 ))}
                             </TabList>
                         </Box>
-                        {LISTING_TABS.map(({ value }: Item) => (
-                            <TabPanel value={value} sx={{ p: "20px 0" }}>
+                        {LISTING_TABS.map(({ value, label }: Item) => (
+                            <TabPanel value={value} sx={{ p: "20px 0" }} key={value}>
                                 <Grid container justifyContent="space-between" alignItems="center" wrap="wrap" spacing={2}>
-                                    {listings[value] &&
+                                    {listings[value] ? (
                                         Object.values(listings[value]).map((item): any => {
                                             return (
                                                 <Grid item xs={6} key={item.uid}>
-                                                    {tabPanelData[value](item)}
+                                                    {getTabPanelData(value, item)}
                                                 </Grid>
                                             );
-                                        })}
+                                        })
+                                    ) : (
+                                        <Grid item xs={12}>
+                                            <Error errorHeading={label} errorsubText={`No ${label} found`} matchError />
+                                        </Grid>
+                                    )}
                                 </Grid>
                             </TabPanel>
                         ))}

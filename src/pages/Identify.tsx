@@ -8,16 +8,21 @@ import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
 import { updateUser } from "../store/reducers/login";
 
 const Identify = (): JSX.Element => {
+    const [disabled, setDisabled] = useState(true);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [gender, setGender] = useState("");
     const [orientation, setOrientation] = useState("");
 
     const handleGenderChange = (event: SelectChangeEvent) => {
-        setGender(event.target.value as string);
+        const updatedGender = event.target.value as string;
+        setGender(updatedGender);
+        updatedGender && orientation && setDisabled(false);
     };
     const handleOrientationChange = (event: SelectChangeEvent) => {
-        setOrientation(event.target.value as string);
+        const updatedOrientation = event.target.value as string;
+        setOrientation(updatedOrientation);
+        gender && updatedOrientation && setDisabled(false);
     };
     const handleClick = () => {
         dispatch(updateUser({ gender, orientation }));
@@ -56,7 +61,7 @@ const Identify = (): JSX.Element => {
                                 labelId="orientation-label"
                                 id="orientation-select"
                                 value={orientation}
-                                label="orientation"
+                                label="Orientation"
                                 onChange={handleOrientationChange}
                             >
                                 {ORIENTATION_VALUES.map((orientation) => (
@@ -66,7 +71,7 @@ const Identify = (): JSX.Element => {
                                 ))}
                             </Select>
                         </FormControl>
-                        <Button color="primary" variant="contained" whiteText onClick={handleClick}>
+                        <Button color="primary" disabled={disabled} variant="contained" whiteText onClick={handleClick}>
                             Continue
                         </Button>
                     </Stack>

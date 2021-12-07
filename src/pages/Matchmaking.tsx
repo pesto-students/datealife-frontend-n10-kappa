@@ -8,15 +8,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-import {
-    Fab,
-    Card,
-    CardMedia,
-    CardInfo,
-    CardActions,
-    Layout,
-    MatchmakingModal,
-} from "../components";
+import { Fab, Card, CardMedia, CardInfo, CardActions, Layout, MatchmakingModal, Error } from "../components";
 import { GENDER_VALUES } from "../const";
 import { OdourlessWrapper } from "../assets/styles/Common.styles";
 import logo from "../assets/images/logoDateALife40x40.png";
@@ -138,19 +130,17 @@ const Matchmaking = (): JSX.Element => {
                             </CardInfo>
                             <Container maxWidth="md">
                                 <CardActions width={500}>
-                                    <Fab success={false} aria-label="dislike" onClick={() => handleClick("dislike")}>
+                                    <Fab success={false} aria-label="dislike button" onClick={() => handleClick("dislikes")}>
                                         <CloseRoundedIcon />
                                     </Fab>
-                                    <Fab success={true} aria-label="like" onClick={() => handleClick("like")}>
+                                    <Fab success={true} aria-label="like button" onClick={() => handleClick("likes")}>
                                         <FavoriteIcon />
                                     </Fab>
                                 </CardActions>
                             </Container>
                         </Card>
                     ) : (
-                        <Typography variant="h3" sx={{ textAlign: "center" }}>
-                            No Suggestions found
-                        </Typography>
+                        <Error errorHeading="Match Making" errorsubText="No Suggestions found" matchError />
                     )}
                 </Container>
 
@@ -167,16 +157,16 @@ const Matchmaking = (): JSX.Element => {
 
                 {/* Filter modal */}
                 <MatchmakingFilterModal
-                     toggleFilter={toggleFilter}
-                     filterOpen={filterOpen}
-                     applyFilter={toggleFilter}
-                     currentGender={gender}
-                     handleGenderChange={handleGenderChange}
-                     sliderValue={sliderValue}
-                     handleAgeSliderChange={handleAgeSliderChange}
-                     valuetext={valuetext}
-                     currentOrientation={orientation}
-                     handleOrientationChange={handleOrientationChange}
+                    toggleFilter={toggleFilter}
+                    filterOpen={filterOpen}
+                    applyFilter={toggleFilter}
+                    currentGender={gender}
+                    handleGenderChange={handleGenderChange}
+                    sliderValue={sliderValue}
+                    handleAgeSliderChange={handleAgeSliderChange}
+                    valuetext={valuetext}
+                    currentOrientation={orientation}
+                    handleOrientationChange={handleOrientationChange}
                 />
             </div>
         </Layout>

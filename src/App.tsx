@@ -20,8 +20,9 @@ const App = (): JSX.Element => {
         //need to find better way instead of hardcoding
         const isNotNumberPage = location.pathname !== "/signup/number";
         const isNotOTPPage = location.pathname !== "/signup/otp";
+        const isNotLoginPage = location.pathname !== "/login";
 
-        if (!loggedInUserId && !isExistingUser && !isLoggedIn && isNotNumberPage && isNotOTPPage) {
+        if (!loggedInUserId && !isExistingUser && !isLoggedIn && isNotNumberPage && isNotOTPPage && isNotLoginPage) {
             navigate("/login");
         } else if (loggedInUserId && !isLoggedIn) {
             dispatch(fetchUserRequest({ userId: loggedInUserId }));

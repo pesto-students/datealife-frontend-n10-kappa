@@ -8,6 +8,7 @@ import uplaodImageToStorage from "../effects/useStorage";
 import { createUserRequest } from "../store/sagas/user/actions";
 
 const EditPicture = (): JSX.Element => {
+    const [disabled, setDisabled] = useState(true);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector(getLoggedInUser);
@@ -28,6 +29,7 @@ const EditPicture = (): JSX.Element => {
     const onUplaod = async (file: File) => {
         const updatePicture = await uplaodImageToStorage(file, `users/${user?.uid}/profile-picture`);
         setProfilePicture(updatePicture);
+        setDisabled(false);
     };
 
     return (
@@ -43,7 +45,7 @@ const EditPicture = (): JSX.Element => {
                         <Container maxWidth="md">
                             <ImageUploader canUpload {...ImageUploaderProps} onUpload={(file) => onUplaod(file)} />
                         </Container>
-                        <Button color="primary" variant="contained" fullWidth whiteText onClick={handleClick}>
+                        <Button color="primary" disabled={disabled} variant="contained" fullWidth whiteText onClick={handleClick}>
                             Done
                         </Button>
                     </Stack>
