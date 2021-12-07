@@ -17,11 +17,12 @@ const LearningFilterModal = (props: LearningFilterModalProps): ReactElement => {
                                 edge="start"
                                 color="inherit"
                                 aria-label="back icon"
-                                onClick={props.toggleFilter}>
+                                onClick={props.toggleFilter}
+                                data-testid="cross-button">
                                 <ArrowBackRoundedIcon />
                             </IconButton>
                         </Grid>
-                        <Grid item xs={4} textAlign="center">
+                        <Grid item xs={4} textAlign="center" data-testid="filter-text">
                             Filter
                         </Grid>
                         <Grid item xs={4} textAlign="right">
@@ -30,7 +31,8 @@ const LearningFilterModal = (props: LearningFilterModalProps): ReactElement => {
                                 edge="start"
                                 color="inherit"
                                 aria-label="apply icon"
-                                onClick={props.toggleFilter}>
+                                onClick={props.applyFilter}
+                                data-testid="apply-button">
                                 <CheckRoundedIcon color="error" />
                             </IconButton>
                         </Grid>
@@ -42,7 +44,8 @@ const LearningFilterModal = (props: LearningFilterModalProps): ReactElement => {
                             <ToggleButtonGroup
                                 value={props.currentGender}
                                 exclusive
-                                onChange={props.handleGenderChange}>
+                                onChange={props.handleGenderChange}
+                                data-testid="button-group">
                                 {GENDER_VALUES.map((gender, index) => {
                                     return (<ToggleButton value={gender.toLocaleLowerCase()} curved={index === 0 || index === GENDER_VALUES.length -1} key={index}>
                                                 {gender}
@@ -59,7 +62,7 @@ const LearningFilterModal = (props: LearningFilterModalProps): ReactElement => {
 
 export default LearningFilterModal;
 
-interface LearningFilterModalProps {
+export interface LearningFilterModalProps {
     toggleFilter: () => void;
     filterOpen: boolean;
     applyFilter: () => void;
