@@ -17,11 +17,12 @@ const MatchmakingFilterModal = (props: MatchmakingFilterModalProps): ReactElemen
                                 edge="start"
                                 color="inherit"
                                 aria-label="back icon"
-                                onClick={props.toggleFilter}>
+                                onClick={props.toggleFilter}
+                                data-testid="cross-button">
                                 <ArrowBackRoundedIcon />
                             </IconButton>
                         </Grid>
-                        <Grid item xs={4} textAlign="center">
+                        <Grid item xs={4} textAlign="center" data-testid="filter-text">
                             Filter
                         </Grid>
                         <Grid item xs={4} textAlign="right">
@@ -30,7 +31,8 @@ const MatchmakingFilterModal = (props: MatchmakingFilterModalProps): ReactElemen
                                 edge="start"
                                 color="inherit"
                                 aria-label="apply icon"
-                                onClick={props.applyFilter}>
+                                onClick={props.applyFilter}
+                                data-testid="apply-button">
                                 <CheckRoundedIcon color="error" />
                             </IconButton>
                         </Grid>
@@ -46,6 +48,7 @@ const MatchmakingFilterModal = (props: MatchmakingFilterModalProps): ReactElemen
                                 exclusive
                                 onChange={props.handleGenderChange}
                                 aria-label="gender select"
+                                data-testid="gender-group"
                             >
                                 {GENDER_VALUES.map((gender, index) => {
                                     return (
@@ -83,6 +86,7 @@ const MatchmakingFilterModal = (props: MatchmakingFilterModalProps): ReactElemen
                                 getAriaValueText={props.valuetext}
                                 min={18}
                                 max={80}
+                                data-testid="age-slider"
                             />
                         </>
                     </Boxed>
@@ -99,6 +103,7 @@ const MatchmakingFilterModal = (props: MatchmakingFilterModalProps): ReactElemen
                                 label="orientation"
                                 onChange={props.handleOrientationChange}
                                 color="warning"
+                                data-testid="orientation-toggle"
                             >
                                 {ORIENTATION_VALUES.map((orientation) => {
                                     return (
@@ -118,7 +123,7 @@ const MatchmakingFilterModal = (props: MatchmakingFilterModalProps): ReactElemen
 
 export default MatchmakingFilterModal;
 
-interface MatchmakingFilterModalProps {
+export interface MatchmakingFilterModalProps {
     toggleFilter: () => void;
     filterOpen: boolean;
     applyFilter: () => void;
