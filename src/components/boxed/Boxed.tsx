@@ -49,7 +49,7 @@ const  Boxed = (props: BoxedProps): JSX.Element => {
             break;
     }
     return (
-      <Box sx={styleProps}>
+      <Box sx={styleProps} data-testid="boxed">
         {props.children}
       </Box>
     );

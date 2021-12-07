@@ -1,17 +1,9 @@
-import Box from "@mui/material/Box";
+import {StyledBox} from "./Bar.styles";
 
-const styleProps = {
-    width: "200px",
-    height: "1px",
-    background: "white",
-    margin: "30px auto 10px",
-    borderRadius: "15px"
-};
-
-const  Bar = (props: BarProps): JSX.Element => {
+const  Bar = (props: BarProps = DefaultProps): JSX.Element => {
     return (
-      <Box sx={styleProps} width={props.width} color={props.color}>
-      </Box>
+      <StyledBox width={props.width} color={props.color} data-testid="bar">
+      </StyledBox>
     );
 };
 
@@ -19,5 +11,10 @@ interface BarProps {
     width?: string;
     color?: string;
 }
+
+const DefaultProps: BarProps = {
+    width: "200px",
+    color: "white"
+};
 
 export default Bar;
