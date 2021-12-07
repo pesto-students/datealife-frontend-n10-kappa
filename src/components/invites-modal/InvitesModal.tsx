@@ -21,6 +21,7 @@ const InvitesModal = (props: InvitesModalProps): ReactElement => {
                                         color="inherit"
                                         aria-label="back icon"
                                         onClick={props.pageNumber !== 1 ? props.toggleInviteModal : props.resetPage}
+                                        data-testid="cross-button"
                                     >
                                         <ArrowBackRoundedIcon />
                                     </IconButton>
@@ -35,7 +36,8 @@ const InvitesModal = (props: InvitesModalProps): ReactElement => {
                                             edge="start"
                                             color="inherit"
                                             aria-label="apply icon"
-                                            onClick={props.handlePageInc}>
+                                            onClick={props.handlePageInc}
+                                            data-testid="apply-button">
                                             <CheckRoundedIcon color="error" />
                                         </IconButton>
                                     )}
@@ -45,7 +47,7 @@ const InvitesModal = (props: InvitesModalProps): ReactElement => {
                     )}
 
                     {props.pageNumber === 0 && (
-                        <Container sx={{ overflowY: "scroll", maxHeight: "100vh" }}>
+                        <Container sx={{ overflowY: "scroll", maxHeight: "100vh" }} data-testid="food-section">
                             <ImageList>
                                 {props.itemData.map((item: any) => (
                                     <ImageListItem key={item.img} onClick={props.handlePageInc} rows={2}>
@@ -72,7 +74,7 @@ const InvitesModal = (props: InvitesModalProps): ReactElement => {
                     )}
 
                     {props.pageNumber === 1 && (
-                        <Container>
+                        <Container data-testid="calendar-section">
                             <>
                                 <StaticDatePicker
                                     displayStaticWrapperAs="desktop"
@@ -102,7 +104,7 @@ const InvitesModal = (props: InvitesModalProps): ReactElement => {
                     )}
 
                     {props.pageNumber === 2 && (
-                        <Boxed type="invites" >
+                        <Boxed type="invites" data-testid="invites-section">
                                 <Stack>
                                     <Typography
                                         align="center"
@@ -142,7 +144,7 @@ const InvitesModal = (props: InvitesModalProps): ReactElement => {
 
 export default InvitesModal;
 
-interface InvitesModalProps {
+export interface InvitesModalProps {
     inviteModalOpen: boolean;
     toggleInviteModal: () => void;
     pageNumber: number;

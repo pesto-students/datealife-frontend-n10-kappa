@@ -15,7 +15,7 @@ describe("Image uploader component", () => {
     });
 
     test("Displays upload button", () => {
-        const { getByTestId } = render(<ImageUploader />);
+        const { getByTestId } = render(<ImageUploader canUpload={true} />);
         expect(getByTestId("image-upload-button")).not.toBeUndefined();
     });
 });
