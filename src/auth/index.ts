@@ -78,8 +78,14 @@ export const confirmOtp = async (otp: string): Promise<ThirdPartyUser> => {
 };
 
 // after calling this method logout reducer action should be called
-export const onSignOut = async (): Promise<any> => {
+export const onSignOut = async (): Promise<string> => {
     const auth = getAuth(firebaseApp);
     await signOut(auth);
-    return {};
+    return "logout successfull";
+};
+
+export const deleteUser = async (): Promise<string> => {
+    const currentUser = getAuth(firebaseApp).currentUser;
+    await currentUser?.delete();
+    return "user deleted";
 };

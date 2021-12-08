@@ -1,22 +1,43 @@
 import { useState } from "react";
-import { MenuItem, InputLabel, FormControl, Select, Stack } from "@mui/material";
-import { SelectChangeEvent } from "@mui/material/Select";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+
+import { Stack, InputLabel, MenuItem, FormControl, Select, SelectChangeEvent } from "@mui/material";
 import { Button, Boxed, Layout } from "../components";
 import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
+import { getLoggedInUser, getPreviousPage, updateUser } from "../store/reducers/user";
+import { updateUserRequest } from "../store/sagas/user/actions";
 
-const Identify = (): JSX.Element => {
+const EditIdentify = (): JSX.Element => {
+    const location = useLocation();
+    const [disabled, setDisabled] = useState(true);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [gender, setGender] = useState("");
     const [orientation, setOrientation] = useState("");
+    const user = useSelector(getLoggedInUser);
+    const previousPage = useSelector(getPreviousPage);
+    const isEditProfile = location.pathname.includes("editProfile");
+    const buttonText = isEditProfile ? "Save" : "Continue";
 
     const handleGenderChange = (event: SelectChangeEvent) => {
-        setGender(event.target.value as string);
+        const updatedGender = event.target.value as string;
+        setGender(updatedGender);
+        updatedGender && orientation && setDisabled(false);
     };
     const handleOrientationChange = (event: SelectChangeEvent) => {
-        setOrientation(event.target.value as string);
+        const updatedOrientation = event.target.value as string;
+        setOrientation(updatedOrientation);
+        gender && updatedOrientation && setDisabled(false);
+    };
+    const handleClick = () => {
+        const userUpdate = { uid: user.uid, gender, orientation };
+        dispatch(isEditProfile ? updateUserRequest(userUpdate) : updateUser(userUpdate));
+        navigate(isEditProfile ? previousPage : "/user/interests");
     };
     return (
         <Layout
-            hasDrawer
+            hasDrawer={isEditProfile}
             headerProps={{
                 text: "I identify as",
                 backFunction: () => {},
@@ -35,7 +56,7 @@ const Identify = (): JSX.Element => {
                                 onChange={handleGenderChange}
                             >
                                 {GENDER_VALUES.map((gender) => (
-                                    <MenuItem value={gender} key={gender}>
+                                    <MenuItem value={gender.toLowerCase()} key={gender}>
                                         {gender}
                                     </MenuItem>
                                 ))}
@@ -48,7 +69,7 @@ const Identify = (): JSX.Element => {
                                 labelId="orientation-label"
                                 id="orientation-select"
                                 value={orientation}
-                                label="orientation"
+                                label="Orientation"
                                 onChange={handleOrientationChange}
                             >
                                 {ORIENTATION_VALUES.map((orientation) => (
@@ -58,8 +79,8 @@ const Identify = (): JSX.Element => {
                                 ))}
                             </Select>
                         </FormControl>
-                        <Button color="primary" variant="contained" whiteText>
-                            Continue
+                        <Button color="primary" disabled={disabled} variant="contained" whiteText onClick={handleClick}>
+                            {buttonText}
                         </Button>
                     </Stack>
                 </Boxed>
@@ -68,4 +89,4 @@ const Identify = (): JSX.Element => {
     );
 };
 
-export default Identify;
+export default EditIdentify;

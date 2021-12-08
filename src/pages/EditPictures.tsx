@@ -1,15 +1,23 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Layout, ImageUploader, Boxed } from "../components";
-import uplaodImageToStorage from "../effects/useStorage";
-import { getLoggedInUser } from "../store/reducers/login";
-import { updateUserRequest } from "../store/sagas/user/actions";
+import { useLocation, useNavigate } from "react-router-dom";
+
 import { Container, Grid } from "@mui/material";
 
+import { Button, Layout, ImageUploader, Boxed } from "../components";
+import uplaodImageToStorage from "../effects/useStorage";
+import { getLoggedInUser, getPreviousPage } from "../store/reducers/user";
+import { updateUserRequest } from "../store/sagas/user/actions";
+
 const EditPictures = (): JSX.Element => {
+    const location = useLocation();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { uid, pictures } = useSelector(getLoggedInUser);
+    const previousPage = useSelector(getPreviousPage);
     const [localPics, setLocalPics] = useState<string[]>(pictures || []);
+    const isEditProfile = location.pathname.includes("editProfile");
+    const buttonText = isEditProfile ? "Save" : "Done";
     const ImageUploaderProps = {
         maxHeight: 300,
         maxWidth: 300,
@@ -31,6 +39,7 @@ const EditPictures = (): JSX.Element => {
 
     const handleClick = () => {
         dispatch(updateUserRequest({ uid, pictures: localPics }));
+        navigate(isEditProfile ? previousPage : "/user/picture");
     };
 
     return (
@@ -57,7 +66,7 @@ const EditPictures = (): JSX.Element => {
                         ))}
                     </Grid>
                     <Button color="primary" variant="contained" fullWidth whiteText onClick={handleClick}>
-                        Done
+                        {buttonText}
                     </Button>
                 </Container>
             </Boxed>

@@ -33,7 +33,8 @@ export const matchMakingSlice = createSlice({
             let { suggestions } = action.payload;
             const { loading, allListingType } = state;
             suggestions = suggestions.filter(({ uid }: UserInfo) => uid && !allListingType[uid]);
-
+            state.currentSuggestion = suggestions[state.nextSuggestionIndex] || {};
+            state.currentSuggestion.uid && state.nextSuggestionIndex++;
             state.suggestions = suggestions;
             state.loading = loading;
         },
@@ -64,6 +65,14 @@ export const matchMakingSlice = createSlice({
             state.loading = loading;
             state.allListingType[uid] = updatedData;
         },
+        resetMatchMaking: (state) => {
+            state.suggestions = [];
+            state.currentSuggestion = {};
+            state.nextSuggestionIndex = 0;
+            state.listings = {};
+            state.allListingType = {};
+            state.loading = false;
+        },
     },
 });
 
@@ -77,6 +86,7 @@ export const getListingData = (state: State): ListingData => state.matchMaking.l
 export const isLoading = (state: State): boolean => state.matchMaking.loading;
 
 // Action creators are generated for each case reducer function
-export const { saveSuggestions, saveCurrentSuggestion, saveListings, saveListingType, updateListing } = matchMakingSlice.actions;
+export const { saveSuggestions, saveCurrentSuggestion, saveListings, saveListingType, updateListing, resetMatchMaking } =
+    matchMakingSlice.actions;
 
 export default matchMakingSlice.reducer;

@@ -14,7 +14,7 @@ import { OdourlessWrapper } from "../assets/styles/Common.styles";
 import logo from "../assets/images/logoDateALife40x40.png";
 import Logo from "../assets/images/logoDateALife.png";
 import MatchmakingFilterModal from "../components/matchmaking-filter-modal/MatchmakingFilterModal";
-import { getLoggedInUser } from "../store/reducers/login";
+import { getLoggedInUser } from "../store/reducers/user";
 import { getCurrentSuggestion } from "../store/reducers/matchMaking";
 import {
     fetchUserListingRequest,

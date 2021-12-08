@@ -7,7 +7,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
 
 import { Navigator, Header, HeaderProps } from "../";
-import { getCurrentPage, updatePage } from "../../store/reducers/login";
+import { getCurrentPage, updatePage } from "../../store/reducers/user";
 
 const Layout = (props: LayoutProps): JSX.Element => {
     const { children, hasDrawer, drawerWidth = 3, headerProps } = props;

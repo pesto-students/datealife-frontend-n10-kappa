@@ -57,7 +57,6 @@ function* fetchUserSuggestionsSaga({ payload }: FetchUserSuggestionsRequest) {
                 loading: false,
             })
         );
-        yield put(saveCurrentSuggestion());
     } catch (e: any) {
         yield put(
             fetchUserSuggestionsFailure({

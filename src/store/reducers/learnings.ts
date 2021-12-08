@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {Learning, LearningsState} from "../sagas/learning/types";
+import { Learning, LearningsState } from "../sagas/learning/types";
 
 type learningState = {
-    learnings: Learning[],
-    currentLearning: Learning
-    loading: boolean
+    learnings: Learning[];
+    currentLearning: Learning;
+    loading: boolean;
 };
 
 const initialState: learningState = {
     learnings: [{} as Learning],
     currentLearning: {} as Learning,
-    loading: false
+    loading: false,
 };
 
 export const learningsSlice = createSlice({
@@ -35,6 +35,11 @@ export const learningsSlice = createSlice({
             state.currentLearning = learning;
             state.loading = loading;
         },
+        resetLearning: (state) => {
+            state.learnings = [{} as Learning];
+            state.currentLearning = {} as Learning;
+            state.loading = false;
+        },
     },
 });
 
@@ -43,6 +48,6 @@ export const getCurrentLearning = (state: { learning: learningState }): Learning
 export const isLoading = (state: { learning: learningState }): boolean => state.learning.loading;
 
 // Action creators are generated for each case reducer function
-export const { saveLearnings, saveCurrentLearning } = learningsSlice.actions;
+export const { saveLearnings, saveCurrentLearning, resetLearning } = learningsSlice.actions;
 
 export default learningsSlice.reducer;

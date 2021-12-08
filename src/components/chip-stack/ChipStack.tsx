@@ -1,5 +1,7 @@
-import { ChipProps as MUIChipProps } from "@mui/material/Chip";
 import { ReactElement, useEffect, useState } from "react";
+
+import { ChipProps as MUIChipProps } from "@mui/material/Chip";
+
 import { StyledChip, StyledStack } from "./ChipStack.style";
 
 export interface ChipStackProps {

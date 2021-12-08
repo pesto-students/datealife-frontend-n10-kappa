@@ -1,11 +1,11 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
-import login from "./reducers/login";
+import user from "./reducers/user";
 import learning from "./reducers/learnings";
 import matchMaking from "./reducers/matchMaking";
 
 const rootReducer = combineReducers({
-    login,
+    user,
     learning,
     matchMaking,
 });

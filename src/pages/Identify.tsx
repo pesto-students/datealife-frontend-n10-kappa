@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Stack, InputLabel, MenuItem, FormControl, Select, SelectChangeEvent } from "@mui/material";
 import { Button, Boxed, Layout } from "../components";
 import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
-import { updateUser } from "../store/reducers/login";
+import { updateUser } from "../store/reducers/user";
 
 const Identify = (): JSX.Element => {
     const [disabled, setDisabled] = useState(true);

@@ -9,7 +9,7 @@ import InvitesModal from "../components/invites-modal/InvitesModal";
 import { LISTING_TABS } from "../const";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
 import { Boxed, CardInfo, Card, CardMedia, CardActions, Layout, Error } from "../components";
-import { getLoggedInUser } from "../store/reducers/login";
+import { getLoggedInUser } from "../store/reducers/user";
 import { getListingData } from "../store/reducers/matchMaking";
 import { OdourlessWrapper } from "../assets/styles/Common.styles";
 import { fetchUserListingRequest } from "../store/sagas/match-making/actions";

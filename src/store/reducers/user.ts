@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { deleteUser } from "../../auth";
 import { getAge } from "../../utils";
 
 import { FetchUserFailurePayload, UserInfo } from "../sagas/user/types";
 
 type LoginState = {
     isLoggedIn: boolean;
-    user: UserInfo;
+    userInfo: UserInfo;
     isExistingUser: boolean;
     error?: string;
     currentPage: string;
@@ -13,12 +14,12 @@ type LoginState = {
 };
 
 type State = {
-    login: LoginState;
+    user: LoginState;
 };
 
 const initialState: LoginState = {
     isLoggedIn: false,
-    user: {
+    userInfo: {
         uid: "",
         fullName: "",
         gender: "",
@@ -28,6 +29,8 @@ const initialState: LoginState = {
         interests: [],
         pictures: [],
         age: "",
+        bioData: "",
+        companyName: "",
     },
     isExistingUser: false,
     currentPage: "",
@@ -35,7 +38,7 @@ const initialState: LoginState = {
 };
 
 export const loginSlice = createSlice({
-    name: "login",
+    name: "user",
     initialState,
     reducers: {
         loginSuccessful: (state, action) => {
@@ -45,9 +48,10 @@ export const loginSlice = createSlice({
             // immutable state based off those changes
             const { isLoggedIn, isExitingUser, user } = action.payload;
             if (user.uid) {
-                const { dob } = user;
-                user["age"] = getAge(dob);
-                state.user = { ...state.user, ...user };
+                const updatedUser = { ...state.userInfo, ...user };
+                const { dob } = updatedUser;
+                updatedUser["age"] = getAge(dob);
+                state.userInfo = updatedUser;
                 localStorage.setItem("loggedInUserId", user.uid);
             }
             state.isExistingUser = isExitingUser;
@@ -55,16 +59,18 @@ export const loginSlice = createSlice({
         },
         logout: (state) => {
             state.isLoggedIn = false;
-            state.user = {};
+            state.userInfo = { ...initialState.userInfo };
             state.isExistingUser = false;
+            state.currentPage = "";
+            state.previousPage = "";
             localStorage.removeItem("loggedInUserId");
         },
         updateUser: (state, { payload }: { payload: UserInfo }) => {
-            const { user } = state;
-            if (user.dob) {
-                user["age"] = getAge(user.dob);
+            const { userInfo } = state;
+            if (userInfo.dob) {
+                userInfo["age"] = getAge(userInfo.dob);
             }
-            state.user = { ...user, ...payload };
+            state.userInfo = { ...userInfo, ...payload };
         },
         updateError: (state, { payload }: { payload: FetchUserFailurePayload }) => {
             state.error = payload.error;
@@ -73,18 +79,21 @@ export const loginSlice = createSlice({
             state.previousPage = state.currentPage;
             state.currentPage = payload;
         },
+        deleteUserSuccessful: (state) => {
+            deleteUser();
+        },
     },
 });
 
-export const getIsLoggedIn = (state: State): boolean => state.login.isLoggedIn;
-export const getIsExistingUser = (state: State): boolean => state.login.isExistingUser;
-export const getLoggedInUser = (state: State): UserInfo => state.login.user;
-export const getError = (state: State): string | undefined => state.login.error;
-export const getCurrentPage = (state: State): string => state.login.currentPage;
-export const getPreviousPage = (state: State): string => state.login.previousPage;
+export const getIsLoggedIn = (state: State): boolean => state.user.isLoggedIn;
+export const getIsExistingUser = (state: State): boolean => state.user.isExistingUser;
+export const getLoggedInUser = (state: State): UserInfo => state.user.userInfo;
+export const getError = (state: State): string | undefined => state.user.error;
+export const getCurrentPage = (state: State): string => state.user.currentPage;
+export const getPreviousPage = (state: State): string => state.user.previousPage;
 export const getLoggedInUserIdFromLS = (): string | null => localStorage.getItem("loggedInUserId");
 
 // Action creators are generated for each case reducer function
-export const { loginSuccessful, logout, updateUser, updateError, updatePage } = loginSlice.actions;
+export const { loginSuccessful, logout, updateUser, updateError, updatePage, deleteUserSuccessful } = loginSlice.actions;
 
 export default loginSlice.reducer;

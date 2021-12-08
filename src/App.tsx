@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
 import routes from "./routes";
-import { getIsLoggedIn, getIsExistingUser, getLoggedInUserIdFromLS, updatePage } from "./store/reducers/login";
+import { getIsLoggedIn, getIsExistingUser, getLoggedInUserIdFromLS, updatePage } from "./store/reducers/user";
 import { fetchUserRequest } from "./store/sagas/user/actions";
 
 import "./App.css";

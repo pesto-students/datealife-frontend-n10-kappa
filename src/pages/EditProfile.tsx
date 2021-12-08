@@ -1,15 +1,20 @@
-import { useSelector } from "react-redux";
+import { batch, useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { v1 as uuidv1 } from "uuid";
 
 import { Fab, Typography, Grid, Box, Container, ImageList, ImageListItem, Stack } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { v1 as uuidv1 } from "uuid";
 
 import { Layout, Button, ImageUploader } from "../components";
 import { PhotoDiv } from "../assets/styles/Common.styles";
-import { getLoggedInUser } from "../store/reducers/login";
+import { getLoggedInUser, logout } from "../store/reducers/user";
+import { deleteUser, onSignOut } from "../auth";
+import { deleteUserRequest } from "../store/sagas/user/actions";
+import { resetLearning } from "../store/reducers/learnings";
+import { resetMatchMaking } from "../store/reducers/matchMaking";
 
 const EditProfile = (): JSX.Element => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector(getLoggedInUser);
     const BoxStyles = {
@@ -21,6 +26,22 @@ const EditProfile = (): JSX.Element => {
 
     const handleClick = (type: string) => {
         navigate(`/user/profile/editProfile/${type}`);
+    };
+
+    const handleLogout = async () => {
+        const logoutString: string = await onSignOut();
+        logoutString &&
+            batch(() => {
+                dispatch(resetLearning());
+                dispatch(resetMatchMaking());
+                dispatch(logout());
+            });
+    };
+
+    const handleDeleteAccount = async () => {
+        const logoutString: string = await onSignOut();
+
+        logoutString && dispatch(deleteUserRequest({ userId: user.uid as string }));
     };
 
     const getImageItems = (pictures: string[] = []) => {
@@ -115,27 +136,15 @@ const EditProfile = (): JSX.Element => {
                                 <Stack spacing={3} mt={2}>
                                     <Box>
                                         <Typography variant="h6">Bio</Typography>
-                                        <Typography variant="body2">
-                                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor
-                                            odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id
-                                            deserunt sed temporibus facere.
-                                        </Typography>
+                                        <Typography variant="body2">{user.bioData}</Typography>
                                     </Box>
                                     <Box>
                                         <Typography variant="h6">Job Title</Typography>
-                                        <Typography variant="body2">
-                                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor
-                                            odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id
-                                            deserunt sed temporibus facere.
-                                        </Typography>
+                                        <Typography variant="body2">{user.profession}</Typography>
                                     </Box>
                                     <Box>
                                         <Typography variant="h6">Company Name</Typography>
-                                        <Typography variant="body2">
-                                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero, vitae facere. Dolor
-                                            odio cum enim ut rem quia eum nostrum! Harum eligendi pariatur aliquid culpa id
-                                            deserunt sed temporibus facere.
-                                        </Typography>
+                                        <Typography variant="body2">{user.companyName}</Typography>
                                     </Box>
                                 </Stack>
                             </Box>
@@ -184,10 +193,10 @@ const EditProfile = (): JSX.Element => {
                                 </Typography>
                             </Box>
 
-                            <Button variant="contained" color="primary" size="large" whiteText>
+                            <Button variant="contained" color="primary" size="large" whiteText onClick={handleLogout}>
                                 Logout
                             </Button>
-                            <Button variant="contained" color="error" whiteText>
+                            <Button variant="contained" color="error" whiteText onClick={handleDeleteAccount}>
                                 Delete account
                             </Button>
                         </Stack>

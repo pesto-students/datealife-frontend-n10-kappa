@@ -1,4 +1,10 @@
-import { FETCH_USER_REQUEST, FETCH_USER_FAILURE, CREATE_USER_REQUEST, UPDATE_USER_REQUEST } from "./actionTypes";
+import {
+    FETCH_USER_REQUEST,
+    FETCH_USER_FAILURE,
+    CREATE_USER_REQUEST,
+    UPDATE_USER_REQUEST,
+    DELETE_USER_REQUEST,
+} from "./actionTypes";
 
 export type UserInfo = {
     uid?: string;
@@ -11,9 +17,15 @@ export type UserInfo = {
     interests?: string[];
     pictures?: string[];
     age?: string;
+    bioData?: string;
+    companyName?: string;
 };
 
 export interface FetchUserRequestPayload {
+    userId: string;
+}
+
+export interface DeleteUserRequestPayload {
     userId: string;
 }
 
@@ -39,6 +51,11 @@ export type CreateUserRequest = {
 export type UpdateUserRequest = {
     type: typeof UPDATE_USER_REQUEST;
     payload: UserInfo;
+};
+
+export type DeleteUserRequest = {
+    type: typeof DELETE_USER_REQUEST;
+    payload: DeleteUserRequestPayload;
 };
 
 export type UserActions = FetchUserRequest | FetchUserFailure | CreateUserRequest | UpdateUserRequest;

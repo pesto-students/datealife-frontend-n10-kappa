@@ -36,7 +36,7 @@ const routes: RoutesType[] = [
     },
     {
         pathname: "/user/identify",
-        component: IdentifyAs,
+        component: EditIdentifyAs,
     },
     {
         pathname: "/signup/number",
@@ -52,7 +52,7 @@ const routes: RoutesType[] = [
     },
     {
         pathname: "/user/interests",
-        component: Interests,
+        component: EditInterests,
     },
     {
         pathname: "/matchmaking",

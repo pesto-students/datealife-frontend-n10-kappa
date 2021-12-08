@@ -1,11 +1,13 @@
-import { Stack, Container } from "@mui/material";
-import { Boxed, Button, Layout, ChipStack } from "../components";
 import { useEffect, useState } from "react";
-import { updateUser, getLoggedInUser, getPreviousPage } from "../store/reducers/login";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
+
+import { Stack, Container } from "@mui/material";
+
 import { INTERESTS_VALUES } from "../const";
-import { SelectedChipsType } from "../components/chip-stack/ChipStack";
+import { Boxed, Button, Layout, ChipStack, SelectedChipsType } from "../components";
+import { getLoggedInUser, getPreviousPage, updateUser } from "../store/reducers/user";
+import { updateUserRequest } from "../store/sagas/user/actions";
 
 const Interests = (): JSX.Element => {
     const location = useLocation();
@@ -30,12 +32,13 @@ const Interests = (): JSX.Element => {
     };
     const handleClick = () => {
         const interests = Object.keys(chips);
-        dispatch(updateUser({ interests }));
+        const userUpdate = { uid: user.uid, interests };
+        dispatch(isEditProfile ? updateUserRequest(userUpdate) : updateUser(userUpdate));
         navigate(isEditProfile ? previousPage : "/user/picture");
     };
     return (
         <Layout
-            hasDrawer
+            hasDrawer={isEditProfile}
             headerProps={{
                 text: "Interests",
             }}

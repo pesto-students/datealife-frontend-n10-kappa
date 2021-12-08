@@ -7,7 +7,7 @@ import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import { thirdPartySignin, ThirdPartyUser } from "../auth";
 import { Boxed, Button, Logo } from "../components";
-import { getIsLoggedIn, getIsExistingUser, updateUser } from "../store/reducers/login";
+import { getIsLoggedIn, getIsExistingUser, updateUser } from "../store/reducers/user";
 import { fetchUserRequest } from "../store/sagas/user/actions";
 import DateALifeLogo from "../assets/images/logoDateALife.png";
 import { Navigate } from "react-router";

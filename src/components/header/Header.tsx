@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { AppBar, Box, Toolbar, Typography, IconButton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-import { getPreviousPage } from "../../store/reducers/login";
+import { getPreviousPage } from "../../store/reducers/user";
 
 export default function Header(props: HeaderProps): JSX.Element {
     const navigate = useNavigate();
@@ -32,9 +32,15 @@ export default function Header(props: HeaderProps): JSX.Element {
             >
                 <Toolbar>
                     <IconButton size="large" edge="start" aria-label="back button" onClick={handleClick} color={"default"}>
-                        <ArrowBackIcon data-testid="header-back-button"/>
+                        <ArrowBackIcon data-testid="header-back-button" />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} color={props.color ? "white" : "default"} data-testid="header-text">
+                    <Typography
+                        variant="h6"
+                        component="div"
+                        sx={{ flexGrow: 1 }}
+                        color={props.color ? "white" : "default"}
+                        data-testid="header-text"
+                    >
                         {props.text}
                     </Typography>
                 </Toolbar>

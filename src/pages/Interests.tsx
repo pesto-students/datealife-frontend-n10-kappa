@@ -1,7 +1,7 @@
 import { Stack, Container } from "@mui/material";
 import { Boxed, Button, Layout, ChipStack } from "../components";
 import { useCallback, useState } from "react";
-import { updateUser, getLoggedInUser } from "../store/reducers/login";
+import { updateUser, getLoggedInUser } from "../store/reducers/user";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
 import { INTERESTS_VALUES } from "../const";
