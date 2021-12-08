@@ -104,7 +104,7 @@ const InvitesModal = (props: InvitesModalProps): ReactElement => {
                     )}
 
                     {props.pageNumber === 2 && (
-                        <Boxed type="invites" data-testid="invites-section">
+                        <Boxed type="invites">
                                 <Stack>
                                     <Typography
                                         align="center"
