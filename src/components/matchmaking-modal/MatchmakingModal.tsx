@@ -9,7 +9,7 @@ const MatchmakingModal = (props: MatchmakingModalProps): ReactElement => {
             <Modal modalOpen={props.matchMakingOpen} toggleModal={props.toggleMatchMaking} ariaLabel={"new match modal"}>
                 <Boxed type="backgroundShine">
                     <>
-                        <CrossButton onClick={props.toggleMatchMaking}>
+                        <CrossButton onClick={props.toggleMatchMaking} data-testid="cross-button">
                             <ClearRoundedIcon style={{ color: "white" }} />
                         </CrossButton>
                         <Boxed type="full">
@@ -29,7 +29,7 @@ const MatchmakingModal = (props: MatchmakingModalProps): ReactElement => {
                                     {props.matchUserName} likes you too
                                 </Typography>
                                 <MatchedPitctures imgUrl1={props.pictureUrl1} imgUrl2={props.pictureUrl2} styles={{ margin: "40px auto 30px" }} />
-                                <Typography align="center" variant="subtitle1" fontStyle="italic" color="white">
+                                <Typography align="center" variant="subtitle1" fontStyle="italic" color="white" data-testid="interest-percentage">
                                     You and {props.matchUserName} have {props.matchUserPercentage}% match ratio
                                 </Typography>
                                 <Bar />
@@ -58,7 +58,7 @@ const MatchmakingModal = (props: MatchmakingModalProps): ReactElement => {
 
 export default MatchmakingModal;
 
-interface MatchmakingModalProps {
+export interface MatchmakingModalProps {
     toggleMatchMaking: () => void;
     matchMakingOpen: boolean;
     pictureUrl1: string;
