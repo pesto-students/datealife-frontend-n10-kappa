@@ -4,7 +4,7 @@ import { ReactElement } from "react";
 import { NavigatorItem, NavigatorProps } from "./Navigator";
 import { BottomNavigationContainer } from "./Navigator.style";
 
-interface BottomNavigationProps extends NavigatorProps {
+export interface BottomNavigationProps extends NavigatorProps {
     currentPage: string;
     onNavigation: (string: string) => void;
 }

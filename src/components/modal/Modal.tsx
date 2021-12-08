@@ -31,7 +31,7 @@ const  Modal = (props: ModalProps): JSX.Element => {
     );
 };
 
-interface ModalProps {
+export interface ModalProps {
     toggleModal: () => void;
     modalOpen: boolean;
     ariaLabel: string;

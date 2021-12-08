@@ -6,6 +6,9 @@ import DateAdapter from "@mui/lab/AdapterMoment";
 describe("Invites modal component", () => {
     afterEach(cleanup);
     const inviteProps = {inviteModalOpen: true} as InvitesModalProps;
+    inviteProps.currentDateHandler = () => {};
+    inviteProps.nextDateHandler = () => {};
+
     test("Renders invites modal component", () => {
         const result = render(<InvitesModal {...inviteProps}/>);
         expect(result).not.toBeUndefined();
@@ -44,11 +47,4 @@ describe("Invites modal component", () => {
         fireEvent.click(getByTestId("cross-button"));
         expect(backFunction).toHaveBeenCalledTimes(1);
     });
-
-    test("Displays invites success screen", () => {
-        inviteProps.pageNumber = 2;
-        const {getByTestId} = render(<InvitesModal {...inviteProps}/>);
-        expect(getByTestId("invites-section")).not.toBeUndefined();
-    });
-
 });
