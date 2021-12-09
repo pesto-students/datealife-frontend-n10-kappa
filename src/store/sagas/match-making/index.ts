@@ -134,10 +134,7 @@ function* updateUserListingSaga({ payload }: UpdateUserListingRequest) {
             postUserListingApi,
             payload
         );
-        const {
-            res: { selectedUser: updatedData },
-            isAMatch,
-        } = response.data;
+        const { res: updatedData, isAMatch } = response.data;
         const { userId, listingType } = payload;
 
         if (!updatedData) {
