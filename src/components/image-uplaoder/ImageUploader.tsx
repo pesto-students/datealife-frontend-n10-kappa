@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BoxProps as MUIBoxProps } from "@mui/system";
 import Input from "@mui/material/Input";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
@@ -9,6 +9,7 @@ import {
     AddButtonContainer,
     AddButtonContent,
     ImageUplaoderImage,
+    ImageUplaoderSvg,
 } from "./ImageUploader.style";
 
 export interface ImageUploaderProps extends MUIBoxProps<"div", unknown> {
@@ -20,10 +21,16 @@ export interface ImageUploaderProps extends MUIBoxProps<"div", unknown> {
     height?: number;
     maxHeight?: number;
     maxWidth?: number;
+    alt?: string;
 }
 
-const ImageUploader = ({ canUpload, onUpload, removeFile, src, ...restProps }: ImageUploaderProps): JSX.Element => {
+const ImageUploader = ({ canUpload, onUpload, removeFile, src, alt, ...restProps }: ImageUploaderProps): JSX.Element => {
     const [file, setFile] = useState<string | undefined>(src);
+
+    useEffect(() => {
+        setFile(src || "");
+    }, [src]);
+
     const handleChange = (e: any) => {
         const latestFile = e.target.files[0];
         setFile(URL.createObjectURL(latestFile).toString());
@@ -41,21 +48,20 @@ const ImageUploader = ({ canUpload, onUpload, removeFile, src, ...restProps }: I
     const id: string = Date.now().toString();
 
     return (
-        <ImageUploaderContainer {...restProps} >
+        <ImageUploaderContainer {...restProps}>
             <ImageUploaderContent {...restProps} data-testid="image-section">
                 {file ? (
-                    <ImageUplaoderImage src={file} alt="Uploaded image" width={restProps?.width} />
+                    <ImageUplaoderImage src={file} alt={alt || "Uploaded image"} width={restProps?.width} loading="lazy" />
                 ) : (
-                    <svg
-                        width="100%"
-                        height="100%"
+                    <ImageUplaoderSvg
                         xmlns="http://www.w3.org/2000/svg"
                         preserveAspectRatio="none"
+                        title="no image"
                         focusable="false"
                         role="img"
                     >
                         <rect width="100%" height="100%" fill="#959595"></rect>
-                    </svg>
+                    </ImageUplaoderSvg>
                 )}
             </ImageUploaderContent>
             {canUpload && (

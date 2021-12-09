@@ -5,7 +5,7 @@ import moment from "moment";
 import { Container, TextField, TextFieldProps } from "@mui/material";
 import DatePicker from "@mui/lab/DatePicker";
 import { Button, Layout, Boxed } from "../components";
-import { updateUser } from "../store/reducers/login";
+import { updateUser } from "../store/reducers/user";
 
 const DOB = (): JSX.Element => {
     const dispatch = useDispatch();

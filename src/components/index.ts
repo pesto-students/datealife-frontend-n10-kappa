@@ -1,6 +1,8 @@
 export { Button, ButtonGroup } from "./button";
 export { Card, CardActions, CardInfo, CardMedia } from "./card";
 export { default as ChipStack } from "./chip-stack/ChipStack";
+import type { SelectedChipsType } from "./chip-stack/ChipStack";
+export type { SelectedChipsType };
 export { default as Error } from "./error/Error";
 export { default as Header } from "./header/Header";
 import type { HeaderProps } from "./header/Header";

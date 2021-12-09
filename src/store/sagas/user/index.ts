@@ -1,14 +1,23 @@
 import axios, { AxiosResponse } from "axios";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
-import { CREATE_USER_REQUEST, FETCH_USER_REQUEST, UPDATE_USER_REQUEST } from "./actionTypes";
-import { CreateUserRequest, FetchUserRequest, FetchUserRequestPayload, UpdateUserRequest, UserInfo } from "./types";
-import { loginSuccessful, updateError } from "../../reducers/login";
+import { CREATE_USER_REQUEST, DELETE_USER_REQUEST, FETCH_USER_REQUEST, UPDATE_USER_REQUEST } from "./actionTypes";
+import {
+    CreateUserRequest,
+    DeleteUserRequest,
+    DeleteUserRequestPayload,
+    FetchUserRequest,
+    FetchUserRequestPayload,
+    UpdateUserRequest,
+    UserInfo,
+} from "./types";
+import { deleteUserSuccessful, loginSuccessful, logout, updateError } from "../../reducers/user";
 import { API_BASE_URL } from "../../../const";
 
 const getUserApi = ({ userId }: FetchUserRequestPayload) => axios.get<UserInfo>(`${API_BASE_URL}/user/${userId}`);
 
 const postUserApi = (user: UserInfo) => axios.post<UserInfo>(`${API_BASE_URL}/user`, user);
+const deleteUserApi = ({ userId }: DeleteUserRequestPayload) => axios.delete<UserInfo>(`${API_BASE_URL}/user/${userId}`);
 
 /*
   Worker Saga: Fired on FETCH_USER_REQUEST action
@@ -21,7 +30,7 @@ function* fetchUserSaga({ payload }: FetchUserRequest) {
         yield put(
             loginSuccessful({
                 isLoggedIn: true,
-                user: userData,
+                user: userData || {},
                 isExitingUser: !!response.data,
             })
         );
@@ -60,11 +69,33 @@ function* createUserSaga({ payload }: CreateUserRequest | UpdateUserRequest) {
     }
 }
 
+/*
+  Worker Saga: Fired on DELETE_USER_REQUEST action
+*/
+function* deleteUserSaga({ payload }: DeleteUserRequest) {
+    try {
+        const response: AxiosResponse<any> = yield call(deleteUserApi, payload);
+        const userData = response.data;
+        if (!userData) {
+            throw new Error("Not able to delete user");
+        }
+        yield put(deleteUserSuccessful());
+        yield put(logout());
+    } catch (e: any) {
+        yield put(
+            updateError({
+                error: e.message,
+            })
+        );
+    }
+}
+
 function* userSaga(): any {
     yield all([
         takeLatest(FETCH_USER_REQUEST, fetchUserSaga),
         takeLatest(CREATE_USER_REQUEST, createUserSaga),
         takeLatest(UPDATE_USER_REQUEST, createUserSaga),
+        takeLatest(DELETE_USER_REQUEST, deleteUserSaga),
     ]);
 }
 

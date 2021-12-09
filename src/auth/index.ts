@@ -29,18 +29,22 @@ export interface ThirdPartyUser extends UserInfo {
 }
 
 export const thirdPartySignin = async (type: string, isExistingUser: boolean): Promise<ThirdPartyUser> => {
-    const auth = getAuth(firebaseApp);
-    const provider = type === "google" ? new GoogleAuthProvider() : new FacebookAuthProvider();
-    let { currentUser } = auth;
-    if (!currentUser || !isExistingUser) {
-        const { user } = await signInWithPopup(auth, provider);
-        currentUser = user;
+    try {
+        const auth = getAuth(firebaseApp);
+        const provider = type === "google" ? new GoogleAuthProvider() : new FacebookAuthProvider();
+        let { currentUser } = auth;
+        if (!currentUser || !isExistingUser) {
+            const { user } = await signInWithPopup(auth, provider);
+            currentUser = user;
+        }
+        return {
+            fullName: currentUser?.displayName as string,
+            uid: currentUser?.uid as string,
+            profilePicture: currentUser?.photoURL as string,
+        };
+    } catch (e: any) {
+        return {};
     }
-    return {
-        fullName: currentUser?.displayName as string,
-        uid: currentUser?.uid as string,
-        profilePicture: currentUser?.photoURL as string,
-    };
 };
 
 export const loginWithPhoneNumber = async (phoneNumber: string): Promise<any> => {
@@ -74,8 +78,14 @@ export const confirmOtp = async (otp: string): Promise<ThirdPartyUser> => {
 };
 
 // after calling this method logout reducer action should be called
-export const onSignOut = async (): Promise<any> => {
+export const onSignOut = async (): Promise<string> => {
     const auth = getAuth(firebaseApp);
     await signOut(auth);
-    return {};
+    return "logout successfull";
+};
+
+export const deleteUser = async (): Promise<string> => {
+    const currentUser = getAuth(firebaseApp).currentUser;
+    await currentUser?.delete();
+    return "user deleted";
 };

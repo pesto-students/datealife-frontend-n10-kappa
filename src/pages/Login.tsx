@@ -7,7 +7,7 @@ import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import { thirdPartySignin, ThirdPartyUser } from "../auth";
 import { Boxed, Button, Logo } from "../components";
-import { getIsLoggedIn, getIsExistingUser, updateUser } from "../store/reducers/login";
+import { getIsLoggedIn, getIsExistingUser, updateUser } from "../store/reducers/user";
 import { fetchUserRequest } from "../store/sagas/user/actions";
 import DateALifeLogo from "../assets/images/logoDateALife.png";
 import { Navigate } from "react-router";
@@ -25,12 +25,12 @@ const Login = (): JSX.Element => {
         }
         const user: ThirdPartyUser = await thirdPartySignin(type, isExistingUser);
         if (!isExistingUser) dispatch(updateUser(user));
-        dispatch(fetchUserRequest({ userId: user.uid as string }));
+        user.uid && dispatch(fetchUserRequest({ userId: user.uid }));
     };
 
     useEffect(() => {
         if (isLoggedIn) {
-            const url = isExistingUser ? "/home" : "/user/name";
+            const url = isExistingUser ? "/matchmaking" : "/user/name";
             navigate(url);
         }
     }, [navigate, isExistingUser, isLoggedIn]);
@@ -56,34 +56,34 @@ const Login = (): JSX.Element => {
                         By clicking Log In, you agree with our Terms. Learn how we process your data in our{" "}
                         <a href="/">Privacy Policy</a> and Cookies Policy.
                     </Typography>
-                        <Boxed type="main">
-                            <Stack spacing={3}>
-                                <Button
-                                    variant="contained"
-                                    startIcon={<GoogleIcon color="warning" />}
-                                    whiteBackground={true}
-                                    onClick={() => handleClick("google")}
-                                >
-                                    {authType} with google
-                                </Button>
+                    <Boxed type="main">
+                        <Stack spacing={3}>
+                            <Button
+                                variant="contained"
+                                startIcon={<GoogleIcon color="warning" />}
+                                whiteBackground={true}
+                                onClick={() => handleClick("google")}
+                            >
+                                {authType} with google
+                            </Button>
 
-                                <Button
-                                    variant="contained"
-                                    startIcon={<FacebookOutlinedIcon sx={{ color: "#00B1CD" }} fontSize="large" />}
-                                    whiteBackground={true}
-                                    onClick={() => handleClick("fb")}
-                                >
-                                    {authType} with facebook
-                                </Button>
+                            <Button
+                                variant="contained"
+                                startIcon={<FacebookOutlinedIcon sx={{ color: "#00B1CD" }} fontSize="large" />}
+                                whiteBackground={true}
+                                onClick={() => handleClick("fb")}
+                            >
+                                {authType} with facebook
+                            </Button>
 
-                                <Button
-                                    variant="contained"
-                                    startIcon={<LocalPhoneIcon color="secondary" />}
-                                    whiteBackground={true}
-                                    onClick={() => handleClick("number")}
-                                >
-                                    {authType} with number
-                                </Button>
+                            <Button
+                                variant="contained"
+                                startIcon={<LocalPhoneIcon color="secondary" />}
+                                whiteBackground={true}
+                                onClick={() => handleClick("number")}
+                            >
+                                {authType} with number
+                            </Button>
 
                             <Typography variant="subtitle2" color="white" textAlign="center">
                                 Don’t have account?{" "}

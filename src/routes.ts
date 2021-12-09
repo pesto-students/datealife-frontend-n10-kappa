@@ -8,8 +8,6 @@ import {
     EditPictures,
     EditProfile,
     ErrorPage,
-    IdentifyAs,
-    Interests,
     Learning,
     Listings,
     Login,
@@ -17,7 +15,6 @@ import {
     Name,
     Number,
     OTP,
-    SignUp,
     CurrentLearning,
 } from "./pages";
 
@@ -36,7 +33,7 @@ const routes: RoutesType[] = [
     },
     {
         pathname: "/user/identify",
-        component: IdentifyAs,
+        component: EditIdentifyAs,
     },
     {
         pathname: "/signup/number",
@@ -52,7 +49,7 @@ const routes: RoutesType[] = [
     },
     {
         pathname: "/user/interests",
-        component: Interests,
+        component: EditInterests,
     },
     {
         pathname: "/matchmaking",
@@ -71,11 +68,11 @@ const routes: RoutesType[] = [
         component: EditProfile,
     },
     {
-        pathname: "/user/profile/:id/editProfile/editPicture",
-        component: EditPictures,
+        pathname: "/user/profile/editProfile/editPicture",
+        component: EditPicture,
     },
     {
-        pathname: "/user/profile/editProfile/editPicture",
+        pathname: "/user/profile/editProfile/editPictures",
         component: EditPictures,
     },
     {

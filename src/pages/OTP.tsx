@@ -1,16 +1,15 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 
 import { Container } from "@mui/material";
 import OtpInput from "react-otp-input-rc-17";
 
 import { ThirdPartyUser, confirmOtp } from "../auth";
 import { Button, Boxed, Layout } from "../components";
-import { fetchUserRequest } from "../store/sagas/user/actions";
 
 const OTP = (): JSX.Element => {
     const numInputs = 6;
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [otp, setOtp] = useState("");
     const handleChange = (value: any) => {
         setOtp(value);
@@ -19,7 +18,7 @@ const OTP = (): JSX.Element => {
     const handleClick = async () => {
         if (otp.length === numInputs) {
             const user: ThirdPartyUser = await confirmOtp(otp);
-            user?.uid && dispatch(fetchUserRequest({ userId: user?.uid }));
+            user?.uid && navigate("/home");
         }
     };
     return (
@@ -71,7 +70,6 @@ const OTP = (): JSX.Element => {
                         whiteText
                         onClick={handleClick}
                     >
-                        {" "}
                         Continue
                     </Button>
                 </Container>

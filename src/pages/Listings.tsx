@@ -1,24 +1,24 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { v1 as uuidv1 } from "uuid";
+
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import {
-    Tab as MUITab,
-    Box,
-    Grid,
-    Typography,
-    Container
-} from "@mui/material";
+import { Tab as MUITab, Box, Grid, Typography, Container, Skeleton } from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
-import InvitesModal from "../components/invites-modal/InvitesModal";
-import { LISTING_TABS } from "../const";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
-import { Boxed, CardInfo, Card, CardMedia, CardActions, Layout, Modal } from "../components";
-import { getLoggedInUser } from "../store/reducers/login";
+
+import InvitesModal, { ImgObj } from "../components/invites-modal/InvitesModal";
+import { LISTING_TABS } from "../const";
+import { useCreateChatUser } from "../utils";
+import { Boxed, CardInfo, Card, CardMedia, CardActions, Layout, Error } from "../components";
+import { getIsLoading, getLoggedInUser, updateLoading } from "../store/reducers/user";
 import { getListingData } from "../store/reducers/matchMaking";
 import { OdourlessWrapper } from "../assets/styles/Common.styles";
-import { fetchUserListingRequest } from "../store/sagas/match-making/actions";
+import { fetchUserListingRequest, updateUserListingRequest } from "../store/sagas/match-making/actions";
+import { UserInfo } from "../store/sagas/user/types";
 
 type Item = {
     label: string;
@@ -27,8 +27,10 @@ type Item = {
 
 const Listing = (): JSX.Element => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const user = useSelector(getLoggedInUser);
     const listings = useSelector(getListingData);
+    const isLoading = useSelector(getIsLoading);
     const [inviteModalOpen, setInviteModalOpen] = useState(false);
     const toggleInviteModal = () => {
         setInviteModalOpen(!inviteModalOpen);
@@ -36,7 +38,9 @@ const Listing = (): JSX.Element => {
     const [date, setDate] = useState<Date | null>(new Date());
     const [newDate, setNewDate] = useState<Date | null>(new Date());
     const [pageNumber, setPageNumber] = useState(0);
+    const [bookingType, setBookingType] = useState<ImgObj | null>(null);
     const [value, setValue] = useState("likes");
+    const [selectedUser, setSelectedUser] = useState<UserInfo>({} as UserInfo);
     const handlePageInc = () => setPageNumber(pageNumber + 1);
     const resetPage = () => setPageNumber(0);
 
@@ -44,11 +48,42 @@ const Listing = (): JSX.Element => {
         const { uid: userId } = user;
         if (userId) {
             dispatch(fetchUserListingRequest({ userId }));
+        } else {
+            dispatch(updateLoading(true));
         }
     }, [user]);
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
         setValue(newValue);
+    };
+
+    const handleChatClick = async (item: UserInfo, isMatchesPanel: boolean) => {
+        if (isMatchesPanel) {
+            await useCreateChatUser(item);
+            navigate(`/chatting/${item.uid}`);
+        }
+    };
+
+    const handleInviteClick = (item: UserInfo, isMatchesPanel: boolean) => {
+        if (isMatchesPanel) {
+            setSelectedUser(item);
+            setInviteModalOpen(true);
+        }
+    };
+
+    const onSubmit = () => {
+        dispatch(
+            updateUserListingRequest({
+                userId: user.uid || "",
+                listingType: "invites",
+                selectedUser,
+                invitationInfo: {
+                    bookingType: bookingType?.title as string,
+                    proposedDate: newDate as Date,
+                    requestAccepted: false,
+                },
+            })
+        );
     };
 
     useEffect(() => {
@@ -60,9 +95,10 @@ const Listing = (): JSX.Element => {
         };
     }, [inviteModalOpen]);
 
-    // should ne replaced with actual data
-    const tabPanelData: any = {
-        likes: (item: any) => (
+    const getTabPanelData = (type: string, item: UserInfo) => {
+        const isLikesPanel = type === LISTING_TABS[0].value;
+        const isMatchesPanel = type === LISTING_TABS[1].value;
+        return (
             <Card>
                 <CardMedia
                     src={item.profilePicture}
@@ -75,7 +111,7 @@ const Listing = (): JSX.Element => {
                     width={200}
                     height={200}
                 />
-                <CardInfo alignment="bottom" imgHeight={200} imgWidth={200}>
+                <CardInfo alignment={isLikesPanel ? "bottom" : "top"} imgHeight={200} imgWidth={200}>
                     <OdourlessWrapper variant="subtitle1" component={Typography}>
                         {item.fullName}
                     </OdourlessWrapper>
@@ -83,67 +119,49 @@ const Listing = (): JSX.Element => {
                         {item.profession}
                     </OdourlessWrapper>
                 </CardInfo>
+                {!isLikesPanel && (
+                    <CardInfo alignment="bottom" imgHeight={200} imgWidth={200} hasIcon>
+                        <CardActions width={200}>
+                            <OdourlessWrapper
+                                component={isMatchesPanel ? ConnectWithoutContactIcon : CloseIcon}
+                                onClick={() => handleInviteClick(item, isMatchesPanel)}
+                                sx={{ cursor: "pointer" }}
+                            />
+                            <OdourlessWrapper
+                                component={isMatchesPanel ? ChatIcon : DoneIcon}
+                                onClick={() => handleChatClick(item, isMatchesPanel)}
+                                sx={{ cursor: "pointer" }}
+                            />
+                        </CardActions>
+                    </CardInfo>
+                )}
             </Card>
-        ),
-        matches: (item: any) => (
-            <Card>
-                <CardMedia
-                    src={item.profilePicture}
-                    alt={`${item.fullName} image`}
-                    onError={(event: any) => {
-                        if (event.target)
-                            event.target.src =
-                                "https://thednetworks.com/wp-content/uploads/2012/01/picture_not_available_400-300.png";
-                    }}
-                    width={200}
-                    height={200}
-                />
-                <CardInfo alignment="top" imgHeight={200} imgWidth={200}>
-                    <OdourlessWrapper variant="subtitle1" component={Typography}>
-                        {item.fullName}
-                    </OdourlessWrapper>
-                    <OdourlessWrapper variant="subtitle2" component={Typography}>
-                        {item.profession}
-                    </OdourlessWrapper>
-                </CardInfo>
-                <CardInfo alignment="bottom" imgHeight={200} imgWidth={200} hasIcon>
-                    <CardActions width={200}>
-                        <OdourlessWrapper component={ConnectWithoutContactIcon} />
-                        <OdourlessWrapper component={ChatIcon} />
-                    </CardActions>
-                </CardInfo>
-            </Card>
-        ),
-        invites: (item: any) => (
-            <Card>
-                <CardMedia
-                    src={item.profilePicture}
-                    alt={`${item.fullName} image`}
-                    onError={(event: any) => {
-                        if (event.target)
-                            event.target.src =
-                                "https://thednetworks.com/wp-content/uploads/2012/01/picture_not_available_400-300.png";
-                    }}
-                    width={200}
-                    height={200}
-                />
-                <CardInfo alignment="top" imgHeight={200} imgWidth={200}>
-                    <OdourlessWrapper variant="subtitle1" component={Typography}>
-                        {item.fullName}
-                    </OdourlessWrapper>
-                    <OdourlessWrapper variant="subtitle2" component={Typography}>
-                        {item.profession}
-                    </OdourlessWrapper>
-                </CardInfo>
-                <CardInfo alignment="bottom" imgHeight={200} imgWidth={200} hasIcon>
-                    <CardActions width={200}>
-                        <OdourlessWrapper component={CloseIcon} onClick={toggleInviteModal} />
-                        <OdourlessWrapper component={DoneIcon} />
-                    </CardActions>
-                </CardInfo>
-            </Card>
-        ),
+        );
     };
+
+    const displayTabItems = (label: string) => {
+        const listingValues = Object.values(listings[value] || {});
+        return listingValues.length > 0 ? (
+            listingValues.map((item): any => {
+                return (
+                    <Grid item xs={6} key={item.uid}>
+                        {getTabPanelData(value, item)}
+                    </Grid>
+                );
+            })
+        ) : (
+            <Grid item xs={12}>
+                <Error errorHeading={label} errorsubText={`No ${label} found`} matchError />
+            </Grid>
+        );
+    };
+
+    const displaySkeleton = () =>
+        [1, 2, 3, 4].map(() => (
+            <Skeleton key={uuidv1()} variant="rectangular" width={200} height={200} sx={{ m: 1 }}>
+                <div style={{ paddingTop: "100%" }} />
+            </Skeleton>
+        ));
 
     return (
         <Layout
@@ -163,17 +181,10 @@ const Listing = (): JSX.Element => {
                                 ))}
                             </TabList>
                         </Box>
-                        {LISTING_TABS.map(({ value }: Item) => (
-                            <TabPanel value={value} sx={{ p: "20px 0" }}>
+                        {LISTING_TABS.map(({ value, label }: Item) => (
+                            <TabPanel value={value} sx={{ p: "20px 0" }} key={value}>
                                 <Grid container justifyContent="space-between" alignItems="center" wrap="wrap" spacing={2}>
-                                    {listings[value] &&
-                                        Object.values(listings[value]).map((item): any => {
-                                            return (
-                                                <Grid item xs={6} key={item.uid}>
-                                                    {tabPanelData[value](item)}
-                                                </Grid>
-                                            );
-                                        })}
+                                    {isLoading ? displaySkeleton() : displayTabItems(label)}
                                 </Grid>
                             </TabPanel>
                         ))}
@@ -192,6 +203,8 @@ const Listing = (): JSX.Element => {
                 currentDateHandler={setDate}
                 nextDate={newDate}
                 nextDateHandler={setNewDate}
+                onSubmit={onSubmit}
+                setBookingType={setBookingType}
             />
         </Layout>
     );

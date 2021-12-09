@@ -1,29 +1,19 @@
-import { Container, Toolbar, MenuItem, AppBar, Typography, FormControl } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { SelectChangeEvent } from "@mui/material/Select";
+import { useDispatch, useSelector } from "react-redux";
+import { Container, Toolbar, AppBar, Typography, Skeleton, Box, SelectChangeEvent, IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-import {
-    Fab,
-    Card,
-    CardMedia,
-    CardInfo,
-    CardActions,
-    Layout,
-    MatchmakingModal,
-} from "../components";
 import { GENDER_VALUES } from "../const";
+import { Fab, Card, CardMedia, CardInfo, CardActions, Layout, MatchmakingModal, Error } from "../components";
+import { getCurrentSuggestion } from "../store/reducers/matchMaking";
+import { getIsLoading, getLoggedInUser, updateLoading } from "../store/reducers/user";
+import MatchmakingFilterModal from "../components/matchmaking-filter-modal/MatchmakingFilterModal";
 import { OdourlessWrapper } from "../assets/styles/Common.styles";
 import logo from "../assets/images/logoDateALife40x40.png";
 import Logo from "../assets/images/logoDateALife.png";
-import MatchmakingFilterModal from "../components/matchmaking-filter-modal/MatchmakingFilterModal";
-import { getLoggedInUser } from "../store/reducers/login";
-import { getCurrentSuggestion } from "../store/reducers/matchMaking";
 import {
     fetchUserListingRequest,
     fetchUserSuggestionsRequest,
@@ -34,6 +24,7 @@ const Matchmaking = (): JSX.Element => {
     const dispatch = useDispatch();
     const user = useSelector(getLoggedInUser);
     const currentSuggestion = useSelector(getCurrentSuggestion);
+    const isLoading = useSelector(getIsLoading);
     const [matchMakingOpen, setMatchmakingOpen] = useState(false);
     const [filterOpen, setFilterOpen] = useState(false);
     const [orientation, setOrientation] = useState("");
@@ -47,6 +38,8 @@ const Matchmaking = (): JSX.Element => {
         if (userId) {
             dispatch(fetchUserListingRequest({ userId }));
             dispatch(fetchUserSuggestionsRequest({ user }));
+        } else {
+            dispatch(updateLoading(true));
         }
     }, [user]);
 
@@ -91,6 +84,10 @@ const Matchmaking = (): JSX.Element => {
         return `${value}`;
     }
 
+    const handleEditProfile = () => {
+        navigate("/user/profile/editProfile");
+    };
+
     return (
         <Layout
             hasDrawer
@@ -102,7 +99,7 @@ const Matchmaking = (): JSX.Element => {
         >
             <AppBar position="static" sx={{ backgroundColor: "white" }}>
                 <Toolbar>
-                    <IconButton size="large" edge="start" color="inherit" aria-label="user icon">
+                    <IconButton size="large" edge="start" color="inherit" aria-label="user icon" onClick={handleEditProfile}>
                         <PersonOutlineIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: "center" }}>
@@ -115,7 +112,19 @@ const Matchmaking = (): JSX.Element => {
             </AppBar>
             <div style={{ marginTop: "20px" }}>
                 <Container maxWidth="md">
-                    {currentSuggestion.uid ? (
+                    {isLoading ? (
+                        <Box sx={{ textAlign: "center" }}>
+                            <Skeleton variant="rectangular" width="100%">
+                                <div style={{ paddingTop: "80%" }} />
+                            </Skeleton>
+                            <Skeleton variant="rectangular" width="40%" sx={{ m: 1, display: "inline-block" }}>
+                                <button />
+                            </Skeleton>
+                            <Skeleton variant="rectangular" width="40%" sx={{ m: 1, display: "inline-block" }}>
+                                <button />
+                            </Skeleton>
+                        </Box>
+                    ) : currentSuggestion.uid ? (
                         <Card>
                             <CardMedia
                                 src={currentSuggestion?.profilePicture}
@@ -138,19 +147,17 @@ const Matchmaking = (): JSX.Element => {
                             </CardInfo>
                             <Container maxWidth="md">
                                 <CardActions width={500}>
-                                    <Fab success={false} aria-label="dislike" onClick={() => handleClick("dislike")}>
+                                    <Fab success={false} aria-label="dislike button" onClick={() => handleClick("dislikes")}>
                                         <CloseRoundedIcon />
                                     </Fab>
-                                    <Fab success={true} aria-label="like" onClick={() => handleClick("like")}>
+                                    <Fab success={true} aria-label="like button" onClick={() => handleClick("likes")}>
                                         <FavoriteIcon />
                                     </Fab>
                                 </CardActions>
                             </Container>
                         </Card>
                     ) : (
-                        <Typography variant="h3" sx={{ textAlign: "center" }}>
-                            No Suggestions found
-                        </Typography>
+                        <Error errorHeading="Match Making" errorsubText="No Suggestions found" matchError />
                     )}
                 </Container>
 
@@ -167,16 +174,16 @@ const Matchmaking = (): JSX.Element => {
 
                 {/* Filter modal */}
                 <MatchmakingFilterModal
-                     toggleFilter={toggleFilter}
-                     filterOpen={filterOpen}
-                     applyFilter={toggleFilter}
-                     currentGender={gender}
-                     handleGenderChange={handleGenderChange}
-                     sliderValue={sliderValue}
-                     handleAgeSliderChange={handleAgeSliderChange}
-                     valuetext={valuetext}
-                     currentOrientation={orientation}
-                     handleOrientationChange={handleOrientationChange}
+                    toggleFilter={toggleFilter}
+                    filterOpen={filterOpen}
+                    applyFilter={toggleFilter}
+                    currentGender={gender}
+                    handleGenderChange={handleGenderChange}
+                    sliderValue={sliderValue}
+                    handleAgeSliderChange={handleAgeSliderChange}
+                    valuetext={valuetext}
+                    currentOrientation={orientation}
+                    handleOrientationChange={handleOrientationChange}
                 />
             </div>
         </Layout>

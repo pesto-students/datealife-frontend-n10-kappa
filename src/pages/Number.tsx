@@ -13,7 +13,7 @@ const Number = (): JSX.Element => {
     };
     const handleClick = async () => {
         await loginWithPhoneNumber(number);
-        navigate("/signup/otp");
+        number && navigate("/signup/otp");
     };
     return (
         <Layout
@@ -26,7 +26,12 @@ const Number = (): JSX.Element => {
                 <Container maxWidth="md">
                     <>
                         <Boxed type="textField">
-                            <MuiPhoneNumber defaultCountry={"in"} onChange={handleChange} fullWidth />
+                            <MuiPhoneNumber
+                                defaultCountry={"in"}
+                                onChange={handleChange}
+                                fullWidth
+                                inputProps={{ inputMode: "numeric", pattern: "d{5}([- ]*)d{5}" }}
+                            />
                         </Boxed>
                         <Button
                             color="primary"
@@ -34,9 +39,9 @@ const Number = (): JSX.Element => {
                             fullWidth
                             whiteText
                             onClick={handleClick}
+                            // this id is important for recaptcha
                             id="login-with-number"
                         >
-                            {" "}
                             Continue
                         </Button>
                     </>

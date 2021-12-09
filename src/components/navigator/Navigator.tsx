@@ -22,7 +22,7 @@ export default function Navigation(props: NavigatorProps): JSX.Element {
 
     return (
         <>
-            {width <= 600 ? (
+            {width < 600 ? (
                 <BottomNavigation items={items} currentPage={currentPage} onNavigation={onNavigation} />
             ) : (
                 <Drawer {...props} currentPage={currentPage} onNavigation={onNavigation} />

@@ -1,6 +1,6 @@
 import { Button, Layout, Boxed } from "../components";
 import { Container, TextField } from "@mui/material";
-import { getLoggedInUser, updateUser } from "../store/reducers/login";
+import { getLoggedInUser, updateUser } from "../store/reducers/user";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
