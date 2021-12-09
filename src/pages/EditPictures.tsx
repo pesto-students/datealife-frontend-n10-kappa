@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Container, Grid } from "@mui/material";
 
 import { Button, Layout, ImageUploader, Boxed } from "../components";
-import uplaodImageToStorage from "../effects/useStorage";
+import { uplaodImageToStorage } from "../utils";
 import { getLoggedInUser, getPreviousPage } from "../store/reducers/user";
 import { updateUserRequest } from "../store/sagas/user/actions";
 

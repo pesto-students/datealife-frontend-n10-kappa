@@ -1,21 +1,19 @@
-import { Container, Toolbar, MenuItem, AppBar, Typography, FormControl } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { SelectChangeEvent } from "@mui/material/Select";
+import { useDispatch, useSelector } from "react-redux";
+import { Container, Toolbar, AppBar, Typography, Skeleton, Box, SelectChangeEvent, IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-import { Fab, Card, CardMedia, CardInfo, CardActions, Layout, MatchmakingModal, Error } from "../components";
 import { GENDER_VALUES } from "../const";
+import { Fab, Card, CardMedia, CardInfo, CardActions, Layout, MatchmakingModal, Error } from "../components";
+import { getCurrentSuggestion } from "../store/reducers/matchMaking";
+import { getIsLoading, getLoggedInUser, updateLoading } from "../store/reducers/user";
+import MatchmakingFilterModal from "../components/matchmaking-filter-modal/MatchmakingFilterModal";
 import { OdourlessWrapper } from "../assets/styles/Common.styles";
 import logo from "../assets/images/logoDateALife40x40.png";
 import Logo from "../assets/images/logoDateALife.png";
-import MatchmakingFilterModal from "../components/matchmaking-filter-modal/MatchmakingFilterModal";
-import { getLoggedInUser } from "../store/reducers/user";
-import { getCurrentSuggestion } from "../store/reducers/matchMaking";
 import {
     fetchUserListingRequest,
     fetchUserSuggestionsRequest,
@@ -26,6 +24,7 @@ const Matchmaking = (): JSX.Element => {
     const dispatch = useDispatch();
     const user = useSelector(getLoggedInUser);
     const currentSuggestion = useSelector(getCurrentSuggestion);
+    const isLoading = useSelector(getIsLoading);
     const [matchMakingOpen, setMatchmakingOpen] = useState(false);
     const [filterOpen, setFilterOpen] = useState(false);
     const [orientation, setOrientation] = useState("");
@@ -39,6 +38,8 @@ const Matchmaking = (): JSX.Element => {
         if (userId) {
             dispatch(fetchUserListingRequest({ userId }));
             dispatch(fetchUserSuggestionsRequest({ user }));
+        } else {
+            dispatch(updateLoading(true));
         }
     }, [user]);
 
@@ -111,7 +112,19 @@ const Matchmaking = (): JSX.Element => {
             </AppBar>
             <div style={{ marginTop: "20px" }}>
                 <Container maxWidth="md">
-                    {currentSuggestion.uid ? (
+                    {isLoading ? (
+                        <Box sx={{ textAlign: "center" }}>
+                            <Skeleton variant="rectangular" width="100%">
+                                <div style={{ paddingTop: "80%" }} />
+                            </Skeleton>
+                            <Skeleton variant="rectangular" width="40%" sx={{ m: 1, display: "inline-block" }}>
+                                <button />
+                            </Skeleton>
+                            <Skeleton variant="rectangular" width="40%" sx={{ m: 1, display: "inline-block" }}>
+                                <button />
+                            </Skeleton>
+                        </Box>
+                    ) : currentSuggestion.uid ? (
                         <Card>
                             <CardMedia
                                 src={currentSuggestion?.profilePicture}

@@ -48,10 +48,10 @@ const ImageUploader = ({ canUpload, onUpload, removeFile, src, alt, ...restProps
     const id: string = Date.now().toString();
 
     return (
-        <ImageUploaderContainer {...restProps} >
+        <ImageUploaderContainer {...restProps}>
             <ImageUploaderContent {...restProps} data-testid="image-section">
                 {file ? (
-                    <ImageUplaoderImage src={file} alt={alt || "Uploaded image"} width={restProps?.width} />
+                    <ImageUplaoderImage src={file} alt={alt || "Uploaded image"} width={restProps?.width} loading="lazy" />
                 ) : (
                     <ImageUplaoderSvg
                         xmlns="http://www.w3.org/2000/svg"

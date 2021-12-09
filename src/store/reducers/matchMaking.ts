@@ -33,8 +33,8 @@ export const matchMakingSlice = createSlice({
             let { suggestions } = action.payload;
             const { loading, allListingType } = state;
             suggestions = suggestions.filter(({ uid }: UserInfo) => uid && !allListingType[uid]);
-            state.currentSuggestion = suggestions[state.nextSuggestionIndex] || {};
-            state.currentSuggestion.uid && state.nextSuggestionIndex++;
+            state.currentSuggestion = suggestions[0] || {};
+            state.nextSuggestionIndex = 1;
             state.suggestions = suggestions;
             state.loading = loading;
         },

@@ -16,7 +16,7 @@ import { UserInfo } from "../user/types";
 
 export type InvitationInfo = {
     bookingType: string;
-    proposedDate: string;
+    proposedDate: Date;
     requestAccepted: boolean;
 };
 
@@ -74,6 +74,7 @@ export interface UpdateUserListingRequestPayload {
     userId: string;
     selectedUser: UserInfo;
     listingType: string;
+    invitationInfo?: InvitationInfo;
 }
 
 export interface UpdateUserListingSuccessPayload {

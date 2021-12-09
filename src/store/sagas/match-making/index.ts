@@ -26,6 +26,7 @@ import {
 } from "./actionTypes";
 import { API_BASE_URL } from "../../../const";
 import { saveCurrentSuggestion, saveListings, saveListingType, saveSuggestions, updateListing } from "../../reducers/matchMaking";
+import { updateLoading } from "../../reducers/user";
 
 const getUserListingApi = ({ userId }: FetchUserListingRequestPayload) =>
     axios.get<UserInfo>(`${API_BASE_URL}/user/${userId}/listing`);
@@ -33,8 +34,8 @@ const getUserListingApi = ({ userId }: FetchUserListingRequestPayload) =>
 const getUserListingTypeApi = ({ userId, listingType }: FetchUserListingTypeRequestPayload) =>
     axios.get<UserInfo>(`${API_BASE_URL}/user/${userId}/${listingType}`);
 
-const postUserListingApi = ({ userId, selectedUser, listingType }: UpdateUserListingRequestPayload) =>
-    axios.post<UserInfo>(`${API_BASE_URL}/user/${userId}/${listingType}`, selectedUser);
+const postUserListingApi = ({ userId, selectedUser, listingType, invitationInfo }: UpdateUserListingRequestPayload) =>
+    axios.post<UserInfo>(`${API_BASE_URL}/user/${userId}/${listingType}`, { selectedUser, invitationInfo });
 
 const getUserSuggestionsApi = ({ user }: FetchUserSuggestionsRequestPayload) =>
     axios.post<string, UserInfo>(`${API_BASE_URL}/match-making`, user);
@@ -64,6 +65,7 @@ function* fetchUserSuggestionsSaga({ payload }: FetchUserSuggestionsRequest) {
             })
         );
     }
+    yield put(updateLoading(false));
 }
 
 /*
@@ -91,6 +93,7 @@ function* fetchUserListingSaga({ payload }: FetchUserListingRequest) {
             })
         );
     }
+    yield put(updateLoading(false));
 }
 
 /*
@@ -119,6 +122,7 @@ function* fetchUserListingTypeSaga({ payload }: FetchUserListingTypeRequest) {
             })
         );
     }
+    yield put(updateLoading(false));
 }
 
 /*
@@ -126,21 +130,28 @@ function* fetchUserListingTypeSaga({ payload }: FetchUserListingTypeRequest) {
 */
 function* updateUserListingSaga({ payload }: UpdateUserListingRequest) {
     try {
-        const response: AxiosResponse<UserInfo> = yield call(postUserListingApi, payload);
-        const updatedData = response.data;
+        const response: AxiosResponse<{ res: UpdateUserListingRequestPayload; isAMatch: boolean }> = yield call(
+            postUserListingApi,
+            payload
+        );
+        const {
+            res: { selectedUser: updatedData },
+            isAMatch,
+        } = response.data;
+        const { userId, listingType } = payload;
 
         if (!updatedData) {
-            throw new Error(`Not able to update user listings for ${payload.userId} user`);
+            throw new Error(`Not able to update user listings for ${userId} user`);
         }
 
         yield put(
             updateListing({
-                listingType: payload.listingType,
+                listingType: isAMatch ? "matches" : listingType,
                 updatedData,
                 loading: false,
             })
         );
-        yield put(saveCurrentSuggestion());
+        if (listingType === "likes" || listingType === "dislikes") yield put(saveCurrentSuggestion());
     } catch (e: any) {
         yield put(
             updateUserListingFailure({
@@ -148,6 +159,7 @@ function* updateUserListingSaga({ payload }: UpdateUserListingRequest) {
             })
         );
     }
+    yield put(updateLoading(false));
 }
 
 export default function* matchMakingSaga(): any {

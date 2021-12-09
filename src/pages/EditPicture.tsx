@@ -7,7 +7,7 @@ import { Stack, Container } from "@mui/material";
 
 import { Boxed, Button, ImageUploader, Layout } from "../components";
 import { getLoggedInUser, getPreviousPage, updateUser } from "../store/reducers/user";
-import uplaodImageToStorage from "../effects/useStorage";
+import { uplaodImageToStorage } from "../utils";
 import { createUserRequest } from "../store/sagas/user/actions";
 
 const EditPicture = (): JSX.Element => {
@@ -33,7 +33,7 @@ const EditPicture = (): JSX.Element => {
 
     const handleClick = () => {
         const userUpdate = { uid: user.uid, profilePicture };
-        dispatch(isEditProfile ? createUserRequest({ ...user, ...userUpdate }) : updateUser(userUpdate));
+        dispatch(createUserRequest({ ...user, ...userUpdate }));
         navigate(isEditProfile ? previousPage : "/matchmaking");
     };
 

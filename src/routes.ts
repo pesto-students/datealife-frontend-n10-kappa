@@ -8,8 +8,6 @@ import {
     EditPictures,
     EditProfile,
     ErrorPage,
-    IdentifyAs,
-    Interests,
     Learning,
     Listings,
     Login,
@@ -17,7 +15,6 @@ import {
     Name,
     Number,
     OTP,
-    SignUp,
     CurrentLearning,
 } from "./pages";
 

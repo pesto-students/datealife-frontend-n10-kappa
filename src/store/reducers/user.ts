@@ -11,6 +11,7 @@ type LoginState = {
     error?: string;
     currentPage: string;
     previousPage: string;
+    isLoading: boolean;
 };
 
 type State = {
@@ -35,6 +36,7 @@ const initialState: LoginState = {
     isExistingUser: false,
     currentPage: "",
     previousPage: "",
+    isLoading: false,
 };
 
 export const loginSlice = createSlice({
@@ -82,6 +84,9 @@ export const loginSlice = createSlice({
         deleteUserSuccessful: (state) => {
             deleteUser();
         },
+        updateLoading: (state, action: { payload: boolean }) => {
+            state.isLoading = action.payload;
+        },
     },
 });
 
@@ -92,8 +97,10 @@ export const getError = (state: State): string | undefined => state.user.error;
 export const getCurrentPage = (state: State): string => state.user.currentPage;
 export const getPreviousPage = (state: State): string => state.user.previousPage;
 export const getLoggedInUserIdFromLS = (): string | null => localStorage.getItem("loggedInUserId");
+export const getIsLoading = (state: State): boolean => state.user.isLoading;
 
 // Action creators are generated for each case reducer function
-export const { loginSuccessful, logout, updateUser, updateError, updatePage, deleteUserSuccessful } = loginSlice.actions;
+export const { loginSuccessful, logout, updateUser, updateError, updatePage, deleteUserSuccessful, updateLoading } =
+    loginSlice.actions;
 
 export default loginSlice.reducer;
