@@ -99,19 +99,19 @@ const Matchmaking = (): JSX.Element => {
         >
             <AppBar position="static" sx={{ backgroundColor: "white" }}>
                 <Toolbar>
-                    <IconButton size="large" edge="start" color="inherit" aria-label="user icon" onClick={handleEditProfile}>
+                    {/* <IconButton size="large" edge="start" color="inherit" aria-label="user icon" onClick={handleEditProfile}>
                         <PersonOutlineIcon />
-                    </IconButton>
+                    </IconButton> */}
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: "center" }}>
                         <img src={logo} alt="Date a life logo" />
                     </Typography>
-                    <IconButton size="large" edge="start" color="inherit" aria-label="filter icon" onClick={toggleFilter}>
+                    {/* <IconButton size="large" edge="start" color="inherit" aria-label="filter icon" onClick={toggleFilter}>
                         <FilterAltOutlinedIcon />
-                    </IconButton>
+                    </IconButton> */}
                 </Toolbar>
             </AppBar>
             <div style={{ marginTop: "20px" }}>
-                <Container maxWidth="md">
+                <Container maxWidth="sm">
                     {isLoading ? (
                         <Box sx={{ textAlign: "center" }}>
                             <Skeleton variant="rectangular" width="100%">

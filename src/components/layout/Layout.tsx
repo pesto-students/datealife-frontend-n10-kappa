@@ -1,18 +1,20 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
-import ChatIcon from "@mui/icons-material/Chat";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LibraryBooksOutlinedIcon from "@mui/icons-material/LibraryBooksOutlined";
-
 import { Navigator, Header, HeaderProps } from "../";
 import { getCurrentPage, updatePage } from "../../store/reducers/user";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import { getIsLoggedIn } from "../../store/reducers/user";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
 
 const Layout = (props: LayoutProps): JSX.Element => {
     const { children, hasDrawer, drawerWidth = 3, headerProps } = props;
     const navigate = useNavigate();
     const currentPage = useSelector(getCurrentPage);
+    const isLoggedIn = useSelector(getIsLoggedIn);
     const NavigatorItems = [
         {
             label: "Home",
@@ -27,19 +29,27 @@ const Layout = (props: LayoutProps): JSX.Element => {
         {
             label: "Matches",
             value: "/likes",
-            icon: <FavoriteIcon />,
+            icon: <FavoriteBorderIcon />,
         },
         {
             label: "Chat",
             value: "/chatting",
-            icon: <ChatIcon />,
-        },
+            icon: <ForumOutlinedIcon />,
+        }
     ];
+    const ProfileObj = {
+        label: "Profile",
+        value: "/user/profile/editProfile",
+        icon: <PersonOutlineIcon />,
+    };
     const handleNavigation = (selectedNavigation = "/") => {
         navigate(selectedNavigation);
     };
     const calcDrawerWidth = (drawerWidth / 12) * 100;
     const headerWidth = hasDrawer ? 100 - calcDrawerWidth : 100;
+    if(isLoggedIn){
+        NavigatorItems.push(ProfileObj);
+    }
     return (
         <Grid container>
             {hasDrawer && (

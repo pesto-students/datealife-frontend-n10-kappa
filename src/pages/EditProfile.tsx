@@ -94,7 +94,7 @@ const EditProfile = (): JSX.Element => {
                         </Typography>
                     </Box>
 
-                    <Container maxWidth={"md"}>
+                    <Container maxWidth={"sm"}>
                         <Grid container alignItems="center" justifyContent="space-between" mt={5} mb={5}>
                             <Grid item xs={10}>
                                 <Typography variant="h6" color="secondary">

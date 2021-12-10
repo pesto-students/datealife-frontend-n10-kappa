@@ -25,6 +25,7 @@ const DOB = (): JSX.Element => {
             headerProps={{
                 text: "My DOB is",
                 backFunction: () => {},
+                backArrow: true,
             }}
         >
             <Boxed type="full">

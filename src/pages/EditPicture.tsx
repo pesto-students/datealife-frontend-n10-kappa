@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-
 import { Stack, Container } from "@mui/material";
-
 import { Boxed, Button, ImageUploader, Layout } from "../components";
 import { getLoggedInUser, getPreviousPage, updateUser } from "../store/reducers/user";
 import { uplaodImageToStorage } from "../utils";
@@ -48,6 +46,7 @@ const EditPicture = (): JSX.Element => {
             headerProps={{
                 text: "Interests",
                 backFunction: () => {},
+                backArrow: true
             }}
         >
             <Boxed type="error">

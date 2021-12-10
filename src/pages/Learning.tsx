@@ -45,19 +45,18 @@ const Learning = (): JSX.Element => {
         <Layout
             hasDrawer
             headerProps={{
-                text: "Learning",
-                backFunction: () => navigate("/home")
+                text: "Learnings",
             }}
         >
             <Container maxWidth="md">
-                <IconButton sx={{
+                {/* <IconButton sx={{
                             position: "fixed",
                             right: "20px",
                             top: "8px",
                             zIndex: "1100",
                     }} onClick={toggleFilter}>
                     <FilterAltOutlinedIcon />
-                </IconButton>
+                </IconButton> */}
                 <>
                     {learningList.map((learning: LearningType, index: number): any => {
                         return (

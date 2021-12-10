@@ -48,6 +48,7 @@ const EditPictures = (): JSX.Element => {
             headerProps={{
                 text: "Edit Pictures",
                 backFunction: () => {},
+                backArrow: true
             }}
         >
             <Boxed type="full">
