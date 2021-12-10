@@ -9,8 +9,8 @@ export interface CardMediaProps extends MUICardMediaProps<"img", unknown> {
 }
 
 const CardMedia = (props: CardMediaProps): ReactElement => (
-    <CardMediaContainer>
-        <CardMediaContent {...props} component="img" />
+    <CardMediaContainer {...props}>
+        <CardMediaContent {...props} component="img" loading="lazy" />
     </CardMediaContainer>
 );
 

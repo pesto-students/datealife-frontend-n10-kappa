@@ -1,11 +1,17 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+
+import { AppBar, Box, Toolbar, Typography, IconButton } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-export default function Header(props: HeaderProps): JSX.Element {
+import { getPreviousPage } from "../../store/reducers/user";
+
+export default function Header(props: HeaderProps = defaultProps): JSX.Element {
+    const navigate = useNavigate();
+    const previousPage = useSelector(getPreviousPage);
+    const handleClick = () => {
+        navigate(previousPage);
+    };
     const { headerWidth = "100%" } = props;
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -13,7 +19,6 @@ export default function Header(props: HeaderProps): JSX.Element {
                 position="fixed"
                 sx={[
                     {
-                        backgroundColor: "white",
                         boxShadow: "none",
                         width: headerWidth,
                     },
@@ -23,12 +28,21 @@ export default function Header(props: HeaderProps): JSX.Element {
                         },
                     }),
                 ]}
+                color={props.color || "inherit"}
             >
                 <Toolbar>
-                    <IconButton size="large" edge="start" aria-label="menu" onClick={props.backFunction} color="error">
-                        <ArrowBackIcon />
-                    </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    {props.backArrow && (
+                        <IconButton size="large" edge="start" aria-label="back button" onClick={handleClick} color={"default"} sx={{position: "absolute"}}>
+                            <ArrowBackIcon data-testid="header-back-button" />
+                        </IconButton>
+                    )}
+                    <Typography
+                        variant="h6"
+                        component="div"
+                        sx={{ flexGrow: 1 }}
+                        color={props.color ? "white" : "default"}
+                        data-testid="header-text"
+                        textAlign="center">
                         {props.text}
                     </Typography>
                 </Toolbar>
@@ -37,8 +51,18 @@ export default function Header(props: HeaderProps): JSX.Element {
     );
 }
 
-interface HeaderProps {
+export type HeaderProps = {
     text: string;
-    backFunction: () => void;
+    backFunction?: () => void;
+    color?: "inherit" | "transparent" | "default" | "primary" | "secondary" | undefined;
     headerWidth?: string;
-}
+    backArrow?: boolean;
+};
+
+const defaultProps: HeaderProps = {
+    text: "Date a life",
+    backFunction: () => {},
+    color: "inherit",
+    headerWidth: "100%",
+    backArrow: false
+};

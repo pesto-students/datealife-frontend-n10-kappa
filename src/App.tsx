@@ -1,35 +1,45 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+
+import routes from "./routes";
+import { getIsLoggedIn, getIsExistingUser, getLoggedInUserIdFromLS, updatePage } from "./store/reducers/user";
+import { fetchUserRequest } from "./store/sagas/user/actions";
+
 import "./App.css";
-import Home from "./pages/Home";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
-import { Routes, Route } from "react-router-dom";
-import Interests from "./pages/Interests";
-import EditProfile from "./pages/EditProfile";
-import Name from "./pages/Name";
-import DOB from "./pages/DOB";
-import IdentifyAs from "./pages/Identify";
-import Number from "./pages/Number";
-import OTP from "./pages/OTP";
 
 const App = (): JSX.Element => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const loggedInUserId = useSelector(getLoggedInUserIdFromLS);
+    const isLoggedIn = useSelector(getIsLoggedIn);
+    const isExistingUser = useSelector(getIsExistingUser);
+
+    useEffect(() => {
+        //need to find better way instead of hardcoding
+        const isNotNumberPage = location.pathname !== "/signup/number";
+        const isNotOTPPage = location.pathname !== "/signup/otp";
+        const isNotLoginPage = location.pathname !== "/login";
+
+        if (!loggedInUserId && !isExistingUser && !isLoggedIn && isNotNumberPage && isNotOTPPage && isNotLoginPage) {
+            navigate("/login");
+        } else if (loggedInUserId && !isLoggedIn && isNotLoginPage) {
+            dispatch(fetchUserRequest({ userId: loggedInUserId }));
+        }
+        return () => {};
+    }, [navigate, isExistingUser, isLoggedIn, location]);
+
+    useEffect(() => {
+        dispatch(updatePage(location.pathname));
+        return () => {};
+    }, [location.pathname]);
+
     return (
         <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/user/name" element={<Name />} />
-            <Route path="/user/identify" element={<IdentifyAs />} />
-            <Route path="/signup/number" element={<Number />} />
-            <Route path="/signup/otp" element={<OTP />} />
-            <Route path="/user/dob" element={<DOB />} />
-            <Route path="/user/interests" element={<Interests />} />
-            <Route path="/user/picture" element={<Home />} />
-            <Route path="/user/profile/:id/editProfile" element={<EditProfile />} />
-            <Route path="/user/profile/:id" element={<Home />} />
-            <Route path="/matchmaking" element={<Home />} />
-            <Route path="/learning" element={<Home />} />
-            <Route path="/chatting" element={<Home />} />
-            <Route path="/likes" element={<Home />} />
+            {routes.map((route, routeIndex) => {
+                return <Route path={route.pathname} element={<route.component key={routeIndex} />} key={route.pathname} />;
+            })}
         </Routes>
     );
 };

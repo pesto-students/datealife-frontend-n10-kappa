@@ -13,7 +13,7 @@ const CardContainer = styled(Box)`
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        margin: 8px;
+
     }
 `;
 
@@ -22,23 +22,34 @@ const CardMediaContainer = styled(Box)`
         display: flex;
         justify-content: center;
         align-items: center;
+        max-height: ${({ width = 500 }: CardMediaProps) => width}px;
+        min-height: 50px;
+        max-width: ${({ width = 500 }: CardMediaProps) => width}px;
+        width: 100%;
+        min-width: 50px;
     }
 `;
 
-const CardMediaContent = styled(({ height, ...props }: CardMediaProps) => <MUICardMedia {...props} />)<CardMediaProps>`
+const CardMediaContent = styled(({ height, width, ...props }: CardMediaProps) => <MUICardMedia {...props} />)<CardMediaProps>`
      {
-        min-width: 200px;
-        max-width: ${({ height = 200 }: CardMediaProps) => height}px;
+        height: ${({ height = 500 }: CardMediaProps) => height}px;
+        max-height: ${({ height = 500 }: CardMediaProps) => height}px;
+        max-width: ${({ width = 500 }: CardMediaProps) => width}px;
+        width: 100%;
+        border-radius: ${({ width = 200 }: CardMediaProps) => width / 15}px;
         object-fit: cover;
+        border-radius: 10px;
     }
 `;
+// width: ${({ width = 200 }: CardMediaProps) => width}px;
+
 
 const CardActionsContainer = styled(Box)`
      {
         display: flex;
         justify-content: center;
         width: 100%;
-        padding: 8px 0;
+        padding: 20px 0;
     }
 `;
 
@@ -46,6 +57,9 @@ const CardActionsContent = styled(({ width, ...props }: BoxProps) => <Box {...pr
      {
         "& > :not(style)": {
             margin: 8px;
+        }
+        "& > hover": {
+            border: 2px solid black;
         }
         display: flex;
         justify-content: space-between;
@@ -63,6 +77,7 @@ const CardInfoContainer = styled(Box)`
         height: 0;
         justify-content: center;
         align-items: center;
+
     }
 `;
 

@@ -1,32 +1,53 @@
-import Header from "../components/header/Header";
-import { Button } from "../components/button/index";
-import { ContainerDiv, TextFieldDiv } from "../assets/styles/Common.styles";
+import { Button, Layout, Boxed } from "../components";
 import MuiPhoneNumber from "material-ui-phone-number";
 import { useState } from "react";
-import PageWrapper from "../components/page-wrapper/PageWrapper";
+import { Container } from "@mui/material";
+import { loginWithPhoneNumber } from "../auth";
+import { useNavigate } from "react-router";
 
 const Number = (): JSX.Element => {
     const [number, setNumber] = useState("");
+    const navigate = useNavigate();
     const handleChange = (value: any) => {
         setNumber(value);
     };
+    const handleClick = async () => {
+        await loginWithPhoneNumber(number);
+        number && navigate("/signup/otp");
+    };
     return (
-        <PageWrapper
+        <Layout
             headerProps={{
                 text: "My number is",
+                backFunction: () => {},
             }}
         >
-            <ContainerDiv>
-                <TextFieldDiv>
-                    <MuiPhoneNumber defaultCountry={"in"} onChange={handleChange} fullWidth />
-                </TextFieldDiv>
-
-                <Button color="primary" variant="contained">
-                    {" "}
-                    Continue
-                </Button>
-            </ContainerDiv>
-        </PageWrapper>
+            <Boxed type="full">
+                <Container maxWidth="md">
+                    <>
+                        <Boxed type="textField">
+                            <MuiPhoneNumber
+                                defaultCountry={"in"}
+                                onChange={handleChange}
+                                fullWidth
+                                inputProps={{ inputMode: "numeric", pattern: "d{5}([- ]*)d{5}" }}
+                            />
+                        </Boxed>
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            fullWidth
+                            whiteText
+                            onClick={handleClick}
+                            // this id is important for recaptcha
+                            id="login-with-number"
+                        >
+                            Continue
+                        </Button>
+                    </>
+                </Container>
+            </Boxed>
+        </Layout>
     );
 };
 

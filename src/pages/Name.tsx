@@ -1,34 +1,47 @@
-import Header from "../components/header/Header";
-import TextField from "@mui/material/TextField";
-import { Button } from "../components/button/index";
-import { ContainerDiv, TextFieldDiv } from "../assets/styles/Common.styles";
-import PageWrapper from "../components/page-wrapper/PageWrapper";
+import { Button, Layout, Boxed } from "../components";
+import { Container, TextField } from "@mui/material";
+import { getLoggedInUser, updateUser } from "../store/reducers/user";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Name = (): JSX.Element => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const user = useSelector(getLoggedInUser);
+    const [fullName, setFullName] = useState(user?.fullName);
+    const handleClick = () => {
+        dispatch(updateUser({ fullName }));
+        navigate("/user/dob");
+    };
     return (
-        <PageWrapper
+        <Layout
             headerProps={{
                 text: "My name is",
+                backFunction: () => {},
             }}
         >
-            <ContainerDiv>
-                <TextFieldDiv>
-                    <TextField
-                        required
-                        id="standard-required"
-                        label="Enter your full name"
-                        defaultValue="Max Plank"
-                        variant="standard"
-                        fullWidth
-                    />
-                </TextFieldDiv>
+            <Boxed type="full">
+                <Container maxWidth="md">
+                    <Boxed type="textField">
+                        <TextField
+                            required
+                            id="standard-required"
+                            label="Enter your full name"
+                            defaultValue={fullName}
+                            variant="standard"
+                            fullWidth
+                            onChange={(e) => setFullName(e.target.value)}
+                        />
+                    </Boxed>
 
-                <Button color="primary" variant="contained">
-                    {" "}
-                    Continue
-                </Button>
-            </ContainerDiv>
-        </PageWrapper>
+                    <Button color="primary" variant="contained" fullWidth whiteText onClick={handleClick}>
+                        {" "}
+                        Continue
+                    </Button>
+                </Container>
+            </Boxed>
+        </Layout>
     );
 };
 
