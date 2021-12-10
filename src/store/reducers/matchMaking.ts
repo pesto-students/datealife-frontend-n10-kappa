@@ -23,7 +23,7 @@ const initialState: matchMakingState = {
     isAMatch: false,
 };
 
-const listingTypes = ["likes", "invites", "matches"];
+const listingTypes = ["likes", "dislikes", "invites", "matches"];
 
 type State = { matchMaking: matchMakingState };
 
