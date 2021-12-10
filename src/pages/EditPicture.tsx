@@ -26,7 +26,10 @@ const EditPicture = (): JSX.Element => {
     };
 
     useEffect(() => {
-        setProfilePicture(user.profilePicture || "");
+        if (user.profilePicture) {
+            setProfilePicture(user.profilePicture);
+            setDisabled(false);
+        }
     }, [user.profilePicture]);
 
     const handleClick = () => {
@@ -46,7 +49,7 @@ const EditPicture = (): JSX.Element => {
             headerProps={{
                 text: "Interests",
                 backFunction: () => {},
-                backArrow: true
+                backArrow: true,
             }}
         >
             <Boxed type="error">
