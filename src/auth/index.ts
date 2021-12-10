@@ -41,6 +41,7 @@ export const thirdPartySignin = async (type: string, isExistingUser: boolean): P
             fullName: currentUser?.displayName as string,
             uid: currentUser?.uid as string,
             profilePicture: currentUser?.photoURL as string,
+            emailId: currentUser?.email as string,
         };
     } catch (e: any) {
         return {};

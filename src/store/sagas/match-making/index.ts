@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { all, call, put, takeLatest } from "redux-saga/effects";
+import { all, call, put, takeLatest, select } from "redux-saga/effects";
 
 import {
     FetchUserListingRequestPayload,
@@ -14,6 +14,7 @@ import {
 import { UserInfo } from "../user/types";
 import {
     fetchUserListingFailure,
+    fetchUserListingRequest,
     fetchUserListingTypeFailure,
     fetchUserSuggestionsFailure,
     updateUserListingFailure,
@@ -25,8 +26,16 @@ import {
     UPDATE_USER_LISTING_REQUEST,
 } from "./actionTypes";
 import { API_BASE_URL } from "../../../const";
-import { saveCurrentSuggestion, saveListings, saveListingType, saveSuggestions, updateListing } from "../../reducers/matchMaking";
-import { updateLoading } from "../../reducers/user";
+import {
+    saveCurrentSuggestion,
+    saveListings,
+    saveListingType,
+    saveSuggestions,
+    updateIsAMatch,
+    updateListing,
+} from "../../reducers/matchMaking";
+import { getLoggedInUser, updateLoading } from "../../reducers/user";
+import { sendEmail } from "../user/actions";
 
 const getUserListingApi = ({ userId }: FetchUserListingRequestPayload) =>
     axios.get<UserInfo>(`${API_BASE_URL}/user/${userId}/listing`);
@@ -45,6 +54,7 @@ const getUserSuggestionsApi = ({ user }: FetchUserSuggestionsRequestPayload) =>
 */
 function* fetchUserSuggestionsSaga({ payload }: FetchUserSuggestionsRequest) {
     try {
+        yield put(fetchUserListingRequest({ userId: payload.user.uid as string }));
         const response: AxiosResponse<UserInfo[]> = yield call(getUserSuggestionsApi, payload);
         const suggestions = response.data;
 
@@ -130,6 +140,8 @@ function* fetchUserListingTypeSaga({ payload }: FetchUserListingTypeRequest) {
 */
 function* updateUserListingSaga({ payload }: UpdateUserListingRequest) {
     try {
+        yield put(updateIsAMatch(false));
+        const response: AxiosResponse<{ res: any; isAMatch: boolean }> = yield call(postUserListingApi, payload);
         const response: AxiosResponse<{ res: UpdateUserListingRequestPayload; isAMatch: boolean }> = yield call(
             postUserListingApi,
             payload
@@ -140,6 +152,21 @@ function* updateUserListingSaga({ payload }: UpdateUserListingRequest) {
         if (!updatedData) {
             throw new Error(`Not able to update user listings for ${userId} user`);
         }
+
+        if (isAMatch) {
+            const loggedInUser: UserInfo = yield select(getLoggedInUser);
+            yield put(
+                sendEmail({
+                    toUser: updatedData.emailId,
+                    message: {
+                        html: `You have a match with ${loggedInUser.fullName}`,
+                        subject: "Match Notification",
+                    },
+                })
+            );
+        }
+
+        yield put(updateIsAMatch(isAMatch));
 
         yield put(
             updateListing({

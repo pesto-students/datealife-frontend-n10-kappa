@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { v1 as uuidv1 } from "uuid";
 
@@ -19,6 +19,7 @@ import { getListingData } from "../store/reducers/matchMaking";
 import { OdourlessWrapper } from "../assets/styles/Common.styles";
 import { fetchUserListingRequest, updateUserListingRequest } from "../store/sagas/match-making/actions";
 import { UserInfo } from "../store/sagas/user/types";
+import { sendEmail } from "../store/sagas/user/actions";
 
 type Item = {
     label: string;
@@ -31,6 +32,7 @@ const Listing = (): JSX.Element => {
     const user = useSelector(getLoggedInUser);
     const listings = useSelector(getListingData);
     const isLoading = useSelector(getIsLoading);
+    const { listingType } = useParams();
     const [inviteModalOpen, setInviteModalOpen] = useState(false);
     const toggleInviteModal = () => {
         setInviteModalOpen(!inviteModalOpen);
@@ -39,7 +41,7 @@ const Listing = (): JSX.Element => {
     const [newDate, setNewDate] = useState<Date | null>(new Date());
     const [pageNumber, setPageNumber] = useState(0);
     const [bookingType, setBookingType] = useState<ImgObj | null>(null);
-    const [value, setValue] = useState("likes");
+    const [value, setValue] = useState(listingType || "likes");
     const [selectedUser, setSelectedUser] = useState<UserInfo>({} as UserInfo);
     const handlePageInc = () => setPageNumber(pageNumber + 1);
     const resetPage = () => setPageNumber(0);
@@ -55,6 +57,7 @@ const Listing = (): JSX.Element => {
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
         setValue(newValue);
+        navigate(`/listing/${newValue}`);
     };
 
     const handleChatClick = async (item: UserInfo, isMatchesPanel: boolean) => {
@@ -84,6 +87,17 @@ const Listing = (): JSX.Element => {
                 },
             })
         );
+
+        user.emailId &&
+            dispatch(
+                sendEmail({
+                    toUser: user.emailId,
+                    message: {
+                        html: `you have an invitaion for ${bookingType?.title} on ${newDate}`,
+                        subject: "Meetup Invitation",
+                    },
+                })
+            );
     };
 
     useEffect(() => {
