@@ -1,7 +1,7 @@
 import { CometChat } from "@cometchat-pro/chat";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { fbStorage } from "../firebase.config";
-import { COMETCHAT_CONSTANTS } from "../third-party/comet-chat/consts";
+import { COMETCHAT_CONSTANTS } from "../const";
 import { UserInfo } from "../store/sagas/user/types";
 
 export const getAge = (timeStamp: number): number => {

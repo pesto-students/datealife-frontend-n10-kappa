@@ -16,10 +16,11 @@ function* fetchInterestsSaga() {
     try {
         const response: AxiosResponse<Interests[]> = yield call(getInterests);
         const interestsData = response.data;
+
         yield put(
             saveInterests({
                 interests: interestsData,
-                loading: false
+                loading: false,
             })
         );
     } catch (e: any) {
@@ -41,4 +42,3 @@ function* interestsSaga(): any {
 }
 
 export default interestsSaga;
-
