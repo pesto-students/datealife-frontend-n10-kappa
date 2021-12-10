@@ -1,6 +1,5 @@
 import { Card, CardMedia, Layout, Boxed } from "../components";
 import { CircularProgress, Container, Typography } from "@mui/material";
-import { CURRENT_LEARNING_KEY } from "../const";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLearningRequest } from "../store/sagas/learning/actions";
 import { useEffect } from "react";
@@ -15,25 +14,10 @@ const Learning = (): JSX.Element => {
     const navigate = useNavigate();
     const { learningId } = useParams();
     useEffect(() => {
-        // const currentLearningContent = window.localStorage.getItem(CURRENT_LEARNING_KEY);
         if(typeof learningId === "string"){
-            // if(currentLearningContent){
-            //     alert("Yo");
-            //     const parsedLearningContent = JSON.parse(currentLearningContent);
-            //     if(parsedLearningContent && parsedLearningContent.id === learningId){
-            //         currentLearning = parsedLearningContent;
-            //         alert(currentLearning);
-            //     }
-            //     else{
-            //         alert("Blow");
-
-            //         dispatch(fetchLearningRequest({learningId: learningId}));
-            //     }
-            // } else {
-            //     dispatch(fetchLearningRequest({learningId: learningId}));
-            // }
-            dispatch(fetchLearningRequest({learningId: learningId}));
-
+            if(currentLearning.id !== learningId){
+                dispatch(fetchLearningRequest({learningId: learningId}));
+            }
         }
     }, []);
     return (
