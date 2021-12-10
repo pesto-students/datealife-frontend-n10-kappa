@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"@cometchat-pro/chat": "^3.0.3",
 		"@date-io/moment": "^2.11.0",
 		"@emotion/react": "^11.6.0",
 		"@emotion/styled": "^11.6.0",
