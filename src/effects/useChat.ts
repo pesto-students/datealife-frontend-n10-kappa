@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { CometChat } from "@cometchat-pro/chat";
 import { getLoggedInUser, updateError } from "../store/reducers/user";
-import { COMETCHAT_CONSTANTS } from "../third-party/comet-chat/consts";
+import { COMETCHAT_CONSTANTS } from "../const";
 
 export const useChat = (): CometChat.User | undefined => {
     const user = useSelector(getLoggedInUser);

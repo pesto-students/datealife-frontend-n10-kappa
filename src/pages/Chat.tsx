@@ -1,7 +1,9 @@
 import { useParams } from "react-router";
 import { Boxed, Layout } from "../components";
 import { useChat } from "../effects/useChat";
-import { CometChatConversationListWithMessages } from "../third-party/comet-chat";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { CometChatConversationListWithMessages } from "react-ui-comet-chat-pro/dist";
 import { Box, Container, CircularProgress } from "@mui/material";
 
 const Chat = (): JSX.Element => {
@@ -13,7 +15,7 @@ const Chat = (): JSX.Element => {
             headerProps={{
                 text: "Chat",
                 backFunction: () => {},
-                backArrow: false
+                backArrow: false,
             }}
         >
             <Boxed type="error">

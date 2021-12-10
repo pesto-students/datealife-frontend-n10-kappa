@@ -16,7 +16,7 @@ import theme from "./theme";
 import store from "./store";
 import { ErrorBoundary } from "./components";
 import * as serviceWorker from "./serviceWorker";
-import { COMETCHAT_CONSTANTS } from "./third-party/comet-chat/consts";
+import { COMETCHAT_CONSTANTS } from "./const";
 import "./index.css";
 
 const appID = COMETCHAT_CONSTANTS.APP_ID;
