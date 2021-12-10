@@ -26,6 +26,7 @@ const OTP = (): JSX.Element => {
             headerProps={{
                 text: "My OTP is",
                 backFunction: () => {},
+                backArrow: true
             }}
         >
             <Boxed type="full">
@@ -37,9 +38,9 @@ const OTP = (): JSX.Element => {
                                 onChange={handleChange}
                                 numInputs={numInputs}
                                 inputStyle={{
-                                    width: "1.8em",
+                                    width: "1.2em",
                                     textAlign: "center",
-                                    fontSize: "32px",
+                                    fontSize: "22px",
                                     fontFamily: "Roboto",
                                     padding: "5px",
                                     border: "none",
