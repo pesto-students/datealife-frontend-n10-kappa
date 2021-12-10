@@ -10,6 +10,7 @@ type matchMakingState = {
     listings: ListingData;
     allListingType: ListingTypeData;
     loading: boolean;
+    isAMatch: boolean;
 };
 
 const initialState: matchMakingState = {
@@ -19,6 +20,7 @@ const initialState: matchMakingState = {
     listings: {},
     allListingType: {},
     loading: false,
+    isAMatch: false,
 };
 
 const listingTypes = ["likes", "invites", "matches"];
@@ -72,6 +74,10 @@ export const matchMakingSlice = createSlice({
             state.listings = {};
             state.allListingType = {};
             state.loading = false;
+            state.isAMatch = false;
+        },
+        updateIsAMatch: (state, action) => {
+            state.isAMatch = action.payload;
         },
     },
 });
@@ -84,9 +90,17 @@ export const getCurrentSuggestion = (state: State): UserInfo => {
 };
 export const getListingData = (state: State): ListingData => state.matchMaking.listings;
 export const isLoading = (state: State): boolean => state.matchMaking.loading;
+export const getIsAMatch = (state: State): boolean => state.matchMaking.isAMatch;
 
 // Action creators are generated for each case reducer function
-export const { saveSuggestions, saveCurrentSuggestion, saveListings, saveListingType, updateListing, resetMatchMaking } =
-    matchMakingSlice.actions;
+export const {
+    saveSuggestions,
+    saveCurrentSuggestion,
+    saveListings,
+    saveListingType,
+    updateListing,
+    resetMatchMaking,
+    updateIsAMatch,
+} = matchMakingSlice.actions;
 
 export default matchMakingSlice.reducer;

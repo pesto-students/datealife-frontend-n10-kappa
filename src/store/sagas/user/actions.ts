@@ -4,6 +4,7 @@ import {
     CREATE_USER_REQUEST,
     UPDATE_USER_REQUEST,
     DELETE_USER_REQUEST,
+    SEND_EMAIL_REQUEST,
 } from "./actionTypes";
 import {
     FetchUserRequest,
@@ -15,6 +16,8 @@ import {
     UserInfo,
     DeleteUserRequestPayload,
     DeleteUserRequest,
+    SendEmailPayload,
+    SendEmailRequest,
 } from "./types";
 
 export const fetchUserRequest = (payload: FetchUserRequestPayload): FetchUserRequest => ({
@@ -39,5 +42,10 @@ export const updateUserRequest = (payload: UserInfo): UpdateUserRequest => ({
 
 export const deleteUserRequest = (payload: DeleteUserRequestPayload): DeleteUserRequest => ({
     type: DELETE_USER_REQUEST,
+    payload,
+});
+
+export const sendEmail = (payload: SendEmailPayload): SendEmailRequest => ({
+    type: SEND_EMAIL_REQUEST,
     payload,
 });

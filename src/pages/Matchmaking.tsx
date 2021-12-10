@@ -8,7 +8,7 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import { GENDER_VALUES } from "../const";
 import { Fab, Card, CardMedia, CardInfo, CardActions, Layout, MatchmakingModal, Error } from "../components";
-import { getCurrentSuggestion } from "../store/reducers/matchMaking";
+import { getCurrentSuggestion, getIsAMatch } from "../store/reducers/matchMaking";
 import { getIsLoading, getLoggedInUser, updateLoading } from "../store/reducers/user";
 import MatchmakingFilterModal from "../components/matchmaking-filter-modal/MatchmakingFilterModal";
 import { OdourlessWrapper } from "../assets/styles/Common.styles";
@@ -25,6 +25,7 @@ const Matchmaking = (): JSX.Element => {
     const user = useSelector(getLoggedInUser);
     const currentSuggestion = useSelector(getCurrentSuggestion);
     const isLoading = useSelector(getIsLoading);
+    const isAMatch = useSelector(getIsAMatch);
     const [matchMakingOpen, setMatchmakingOpen] = useState(false);
     const [filterOpen, setFilterOpen] = useState(false);
     const [orientation, setOrientation] = useState("");
@@ -36,7 +37,6 @@ const Matchmaking = (): JSX.Element => {
     useEffect(() => {
         const { uid: userId } = user;
         if (userId) {
-            dispatch(fetchUserListingRequest({ userId }));
             dispatch(fetchUserSuggestionsRequest({ user }));
         } else {
             dispatch(updateLoading(true));

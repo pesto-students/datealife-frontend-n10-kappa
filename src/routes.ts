@@ -96,7 +96,7 @@ const routes: RoutesType[] = [
         component: Matchmaking,
     },
     {
-        pathname: "/likes",
+        pathname: "/listing/:listingType",
         component: Listings,
     },
     {

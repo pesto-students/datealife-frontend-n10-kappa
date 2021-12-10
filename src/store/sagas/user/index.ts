@@ -1,13 +1,21 @@
 import axios, { AxiosResponse } from "axios";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
-import { CREATE_USER_REQUEST, DELETE_USER_REQUEST, FETCH_USER_REQUEST, UPDATE_USER_REQUEST } from "./actionTypes";
+import {
+    CREATE_USER_REQUEST,
+    DELETE_USER_REQUEST,
+    FETCH_USER_REQUEST,
+    SEND_EMAIL_REQUEST,
+    UPDATE_USER_REQUEST,
+} from "./actionTypes";
 import {
     CreateUserRequest,
     DeleteUserRequest,
     DeleteUserRequestPayload,
     FetchUserRequest,
     FetchUserRequestPayload,
+    SendEmailPayload,
+    SendEmailRequest,
     UpdateUserRequest,
     UserInfo,
 } from "./types";
@@ -18,6 +26,7 @@ const getUserApi = ({ userId }: FetchUserRequestPayload) => axios.get<UserInfo>(
 
 const postUserApi = (user: UserInfo) => axios.post<UserInfo>(`${API_BASE_URL}/user`, user);
 const deleteUserApi = ({ userId }: DeleteUserRequestPayload) => axios.delete<UserInfo>(`${API_BASE_URL}/user/${userId}`);
+const postSendEmailApi = (payload: SendEmailPayload) => axios.post<string, UserInfo>(`${API_BASE_URL}/send-email`, payload);
 
 /*
   Worker Saga: Fired on FETCH_USER_REQUEST action
@@ -90,12 +99,25 @@ function* deleteUserSaga({ payload }: DeleteUserRequest) {
     }
 }
 
+function* sendEmailSaga({ payload }: SendEmailRequest) {
+    try {
+        yield call(postSendEmailApi, payload);
+    } catch (e: any) {
+        yield put(
+            updateError({
+                error: e.message,
+            })
+        );
+    }
+}
+
 function* userSaga(): any {
     yield all([
         takeLatest(FETCH_USER_REQUEST, fetchUserSaga),
         takeLatest(CREATE_USER_REQUEST, createUserSaga),
         takeLatest(UPDATE_USER_REQUEST, createUserSaga),
         takeLatest(DELETE_USER_REQUEST, deleteUserSaga),
+        takeLatest(SEND_EMAIL_REQUEST, sendEmailSaga),
     ]);
 }
 

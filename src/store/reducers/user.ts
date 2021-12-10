@@ -32,6 +32,7 @@ const initialState: LoginState = {
         age: "",
         bioData: "",
         companyName: "",
+        emailId: "",
     },
     isExistingUser: false,
     currentPage: "",
