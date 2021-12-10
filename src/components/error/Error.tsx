@@ -1,6 +1,6 @@
 import Typography from "@mui/material/Typography";
 import ErrorIcon from "@mui/icons-material/Error";
-import NotAccessibleIcon from "@mui/icons-material/NotAccessible";
+import DoNotTouchOutlinedIcon from "@mui/icons-material/DoNotTouchOutlined";
 import { Boxed } from "..";
 import { Stack } from "@mui/material";
 
@@ -9,8 +9,8 @@ const iconStyles = {fontSize: "100px", marginBottom: "30px"};
 export default function Error(props: ErrorProps): JSX.Element {
     return (
         <Boxed>
-            <Stack alignItems="center" mt={4}>
-                {!props.matchError ? <ErrorIcon sx={iconStyles}/> : <NotAccessibleIcon  sx={iconStyles} />}
+            <Stack alignItems="center" mt={8}>
+                {!props.matchError ? <ErrorIcon sx={iconStyles}/> : <DoNotTouchOutlinedIcon  sx={iconStyles} />}
                 <Typography variant="h4" component="div" color="secondary" mb={2} fontStyle="bold" textAlign="center" data-testid="error-heading">
                     {props.errorHeading}
                 </Typography>

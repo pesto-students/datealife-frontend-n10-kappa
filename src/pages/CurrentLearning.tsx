@@ -11,10 +11,11 @@ import {useParams} from "react-router";
 const Learning = (): JSX.Element => {
     const dispatch = useDispatch();
     const currentLearning = useSelector(getCurrentLearning);
+    const loading = useSelector(getCurrentLearning);
     const navigate = useNavigate();
     const { learningId } = useParams();
     useEffect(() => {
-        const currentLearningContent = window.localStorage.getItem(CURRENT_LEARNING_KEY);
+        // const currentLearningContent = window.localStorage.getItem(CURRENT_LEARNING_KEY);
         if(typeof learningId === "string"){
             // if(currentLearningContent){
             //     alert("Yo");
@@ -39,7 +40,8 @@ const Learning = (): JSX.Element => {
         <Layout
             hasDrawer
             headerProps={{
-                text: "Learning",
+                text: "Current Learning",
+                backArrow: true,
                 backFunction: () => navigate("/learning")
             }}>
                 {currentLearning ?

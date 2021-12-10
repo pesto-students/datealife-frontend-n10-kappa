@@ -13,6 +13,7 @@ const Chat = (): JSX.Element => {
             headerProps={{
                 text: "Chat",
                 backFunction: () => {},
+                backArrow: false
             }}
         >
             <Boxed type="error">

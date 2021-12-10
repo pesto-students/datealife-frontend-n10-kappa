@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { Stack, InputLabel, MenuItem, FormControl, Select, SelectChangeEvent } from "@mui/material";
+import { Stack, InputLabel, MenuItem, FormControl, Select, SelectChangeEvent, Container } from "@mui/material";
 import { Button, Boxed, Layout } from "../components";
 import { GENDER_VALUES, ORIENTATION_VALUES } from "../const";
 import { getLoggedInUser, getPreviousPage, updateUser } from "../store/reducers/user";
@@ -41,50 +41,53 @@ const EditIdentify = (): JSX.Element => {
             headerProps={{
                 text: "I identify as",
                 backFunction: () => {},
+                backArrow: true
             }}
         >
-            <Boxed type="full">
-                <Boxed type="textField2">
-                    <Stack spacing={5}>
-                        <FormControl fullWidth>
-                            <InputLabel id="gender-label">Gender</InputLabel>
-                            <Select
-                                labelId="gender-label"
-                                id="gender-select"
-                                value={gender}
-                                label="Gender"
-                                onChange={handleGenderChange}
-                            >
-                                {GENDER_VALUES.map((gender) => (
-                                    <MenuItem value={gender.toLowerCase()} key={gender}>
-                                        {gender}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+            <Container maxWidth="sm">
+                <Boxed type="full">
+                    <Boxed type="textField2">
+                        <Stack spacing={5}>
+                            <FormControl fullWidth>
+                                <InputLabel id="gender-label">Gender</InputLabel>
+                                <Select
+                                    labelId="gender-label"
+                                    id="gender-select"
+                                    value={gender}
+                                    label="Gender"
+                                    onChange={handleGenderChange}
+                                >
+                                    {GENDER_VALUES.map((gender) => (
+                                        <MenuItem value={gender.toLowerCase()} key={gender}>
+                                            {gender}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
 
-                        <FormControl fullWidth>
-                            <InputLabel id="orientation-label">Orientation</InputLabel>
-                            <Select
-                                labelId="orientation-label"
-                                id="orientation-select"
-                                value={orientation}
-                                label="Orientation"
-                                onChange={handleOrientationChange}
-                            >
-                                {ORIENTATION_VALUES.map((orientation) => (
-                                    <MenuItem value={orientation.toLowerCase()} key={orientation}>
-                                        {orientation}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                        <Button color="primary" disabled={disabled} variant="contained" whiteText onClick={handleClick}>
-                            {buttonText}
-                        </Button>
-                    </Stack>
+                            <FormControl fullWidth>
+                                <InputLabel id="orientation-label">Orientation</InputLabel>
+                                <Select
+                                    labelId="orientation-label"
+                                    id="orientation-select"
+                                    value={orientation}
+                                    label="Orientation"
+                                    onChange={handleOrientationChange}
+                                >
+                                    {ORIENTATION_VALUES.map((orientation) => (
+                                        <MenuItem value={orientation.toLowerCase()} key={orientation}>
+                                            {orientation}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                            <Button color="primary" disabled={disabled} variant="contained" whiteText onClick={handleClick}>
+                                {buttonText}
+                            </Button>
+                        </Stack>
+                    </Boxed>
                 </Boxed>
-            </Boxed>
+            </Container>
         </Layout>
     );
 };

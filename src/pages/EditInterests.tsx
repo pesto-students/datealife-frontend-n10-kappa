@@ -41,10 +41,11 @@ const Interests = (): JSX.Element => {
             hasDrawer={isEditProfile}
             headerProps={{
                 text: "Interests",
+                backArrow: true
             }}
         >
             <Boxed type="full">
-                <Container maxWidth="sm">
+                <Container maxWidth="xs">
                     <Stack spacing={5} mt={4}>
                         <ChipStack chips={INTERESTS_VALUES} onChipClick={handleChipClick} userChips={chips} />
                         <Button color="primary" variant="contained" fullWidth whiteText onClick={handleClick}>

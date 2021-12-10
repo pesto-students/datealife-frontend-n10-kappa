@@ -53,10 +53,11 @@ const Interests = (): JSX.Element => {
             headerProps={{
                 text: "Edit about",
                 backFunction: () => {},
+                backArrow: true,
             }}
         >
             <Boxed type="full">
-                <Container maxWidth="sm" style={{ marginTop: "10", marginBottom: "10" }}>
+                <Container maxWidth="sm" style={{ marginTop: "50px", marginBottom: "10" }}>
                     <Stack spacing={5}>
                         <TextField
                             id=""

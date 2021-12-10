@@ -6,7 +6,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import { getPreviousPage } from "../../store/reducers/user";
 
-export default function Header(props: HeaderProps): JSX.Element {
+export default function Header(props: HeaderProps = defaultProps): JSX.Element {
     const navigate = useNavigate();
     const previousPage = useSelector(getPreviousPage);
     const handleClick = () => {
@@ -31,16 +31,18 @@ export default function Header(props: HeaderProps): JSX.Element {
                 color={props.color || "inherit"}
             >
                 <Toolbar>
-                    <IconButton size="large" edge="start" aria-label="back button" onClick={handleClick} color={"default"}>
-                        <ArrowBackIcon data-testid="header-back-button" />
-                    </IconButton>
+                    {props.backArrow && (
+                        <IconButton size="large" edge="start" aria-label="back button" onClick={handleClick} color={"default"} sx={{position: "absolute"}}>
+                            <ArrowBackIcon data-testid="header-back-button" />
+                        </IconButton>
+                    )}
                     <Typography
                         variant="h6"
                         component="div"
                         sx={{ flexGrow: 1 }}
                         color={props.color ? "white" : "default"}
                         data-testid="header-text"
-                    >
+                        textAlign="center">
                         {props.text}
                     </Typography>
                 </Toolbar>
@@ -54,4 +56,13 @@ export type HeaderProps = {
     backFunction?: () => void;
     color?: "inherit" | "transparent" | "default" | "primary" | "secondary" | undefined;
     headerWidth?: string;
+    backArrow?: boolean;
+};
+
+const defaultProps: HeaderProps = {
+    text: "Date a life",
+    backFunction: () => {},
+    color: "inherit",
+    headerWidth: "100%",
+    backArrow: false
 };
