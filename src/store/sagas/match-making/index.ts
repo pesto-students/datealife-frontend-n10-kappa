@@ -142,10 +142,7 @@ function* updateUserListingSaga({ payload }: UpdateUserListingRequest) {
     try {
         yield put(updateIsAMatch(false));
         const response: AxiosResponse<{ res: any; isAMatch: boolean }> = yield call(postUserListingApi, payload);
-        const response: AxiosResponse<{ res: UpdateUserListingRequestPayload; isAMatch: boolean }> = yield call(
-            postUserListingApi,
-            payload
-        );
+
         const { res: updatedData, isAMatch } = response.data;
         const { userId, listingType } = payload;
 
