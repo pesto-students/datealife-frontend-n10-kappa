@@ -30,7 +30,7 @@ const Interests = (): JSX.Element => {
     }, [user.interests]);
 
     useEffect(() => {
-        if(!interests || interests.length === 0){
+        if (!interests || interests.length === 0) {
             dispatch(fetchInterestListRequest());
         }
     }, []);
@@ -45,7 +45,7 @@ const Interests = (): JSX.Element => {
         navigate(isEditProfile ? previousPage : "/user/picture");
     };
     const interestList: ChipItem[] = [];
-    if(interests){
+    if (interests) {
         interests.forEach((interest) => {
             const chipItem = {} as ChipItem;
             chipItem.value = interest.value;
@@ -58,18 +58,18 @@ const Interests = (): JSX.Element => {
             hasDrawer={isEditProfile}
             headerProps={{
                 text: "Interests",
-                backArrow: true
+                backArrow: true,
             }}
         >
             <Boxed type="full">
                 <Container maxWidth="xs">
                     {interestList && (
                         <Stack spacing={5} mt={4}>
-                        <ChipStack chips={interestList} onChipClick={handleChipClick} userChips={chips} />
-                        <Button color="primary" variant="contained" fullWidth whiteText onClick={handleClick}>
-                            {buttonText}
-                        </Button>
-                    </Stack>
+                            <ChipStack chips={interestList} onChipClick={handleChipClick} userChips={chips} />
+                            <Button color="primary" variant="contained" fullWidth whiteText onClick={handleClick}>
+                                {buttonText}
+                            </Button>
+                        </Stack>
                     )}
                 </Container>
             </Boxed>

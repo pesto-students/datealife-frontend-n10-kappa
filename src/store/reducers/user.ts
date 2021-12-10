@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { deleteUser } from "../../auth";
-import { getAge } from "../../utils";
 
 import { FetchUserFailurePayload, UserInfo } from "../sagas/user/types";
 
@@ -53,7 +52,6 @@ export const loginSlice = createSlice({
             if (user.uid) {
                 const updatedUser = { ...state.userInfo, ...user };
                 const { dob } = updatedUser;
-                updatedUser["age"] = getAge(dob);
                 state.userInfo = updatedUser;
                 localStorage.setItem("loggedInUserId", user.uid);
             }
@@ -70,9 +68,6 @@ export const loginSlice = createSlice({
         },
         updateUser: (state, { payload }: { payload: UserInfo }) => {
             const { userInfo } = state;
-            if (userInfo.dob) {
-                userInfo["age"] = getAge(userInfo.dob);
-            }
             state.userInfo = { ...userInfo, ...payload };
         },
         updateError: (state, { payload }: { payload: FetchUserFailurePayload }) => {

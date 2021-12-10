@@ -4,7 +4,7 @@ import { fbStorage } from "../firebase.config";
 import { COMETCHAT_CONSTANTS } from "../third-party/comet-chat/consts";
 import { UserInfo } from "../store/sagas/user/types";
 
-export const getAge = (timeStamp: number): string => {
+export const getAge = (timeStamp: number): number => {
     const today = new Date();
     const birthDate = new Date(timeStamp);
     let age = today.getFullYear() - birthDate.getFullYear();
@@ -12,7 +12,7 @@ export const getAge = (timeStamp: number): string => {
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
         age--;
     }
-    return age.toString();
+    return age;
 };
 
 export const uplaodImageToStorage = async (file: File, path: string): Promise<string> => {
