@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 import { Container } from "@mui/material";
@@ -6,19 +6,33 @@ import OtpInput from "react-otp-input-rc-17";
 
 import { ThirdPartyUser, confirmOtp } from "../auth";
 import { Button, Boxed, Layout } from "../components";
+import { useDispatch, useSelector } from "react-redux";
+import { getIsExistingUser, getIsLoggedIn, updateUser } from "../store/reducers/user";
+import { fetchUserRequest } from "../store/sagas/user/actions";
 
 const OTP = (): JSX.Element => {
     const numInputs = 6;
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const isLoggedIn = useSelector(getIsLoggedIn);
+    const isExistingUser = useSelector(getIsExistingUser);
     const [otp, setOtp] = useState("");
     const handleChange = (value: any) => {
         setOtp(value);
     };
 
+    useEffect(() => {
+        if (isLoggedIn) {
+            const url = isExistingUser ? "/matchmaking" : "/user/name";
+            navigate(url);
+        }
+    }, [navigate, isExistingUser, isLoggedIn]);
+
     const handleClick = async () => {
         if (otp.length === numInputs) {
             const user: ThirdPartyUser = await confirmOtp(otp);
-            user?.uid && navigate("/home");
+            if (!isExistingUser) dispatch(updateUser(user));
+            user.uid && dispatch(fetchUserRequest({ userId: user.uid }));
         }
     };
     return (
@@ -26,7 +40,7 @@ const OTP = (): JSX.Element => {
             headerProps={{
                 text: "My OTP is",
                 backFunction: () => {},
-                backArrow: true
+                backArrow: true,
             }}
         >
             <Boxed type="full">
