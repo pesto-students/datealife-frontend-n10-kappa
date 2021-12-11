@@ -5,16 +5,13 @@ Date-A-Life is not merely a dating application it's more than that, it's experie
 ## UI Mockups
 [Figma link](https://www.figma.com/file/TNjSUOIFUX3vyhpXnAZzrP/Date-a-life?node-id=0%3A1)
 
-##Link to the App
-* [Date A Life](https://date-a-life.web.app/login)
+## Link to the App
+[Date A Life](https://date-a-life.web.app/login)
 
-App Login Page
+## App Login Page
 ![image](https://user-images.githubusercontent.com/12935725/145683593-22021bca-5e8f-4189-829d-42da487c1433.png)
 
-### Built With
-
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
+## Built With
 * [React.js](https://reactjs.org/)
 * [Redux](https://redux.js.org/)
 * [TypeScript](https://www.typescriptlang.org/)
