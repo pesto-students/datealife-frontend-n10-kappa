@@ -42,7 +42,7 @@ const DOB = (): JSX.Element => {
             }}
         >
             <Boxed type="full">
-                <Container maxWidth="md">
+                <Container maxWidth="sm">
                     <Boxed type="textField">
                         <DatePicker
                             label="Enter your Date of birth"

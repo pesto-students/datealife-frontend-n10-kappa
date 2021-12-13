@@ -22,7 +22,7 @@ const Name = (): JSX.Element => {
             }}
         >
             <Boxed type="full">
-                <Container maxWidth="md">
+                <Container maxWidth="sm">
                     <Boxed type="textField">
                         <TextField
                             required
