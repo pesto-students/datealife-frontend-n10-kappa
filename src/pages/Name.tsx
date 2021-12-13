@@ -1,18 +1,26 @@
 import { Button, Layout, Boxed } from "../components";
-import { Container, TextField } from "@mui/material";
+import { Alert, Container, Snackbar, TextField } from "@mui/material";
 import { getLoggedInUser, updateUser } from "../store/reducers/user";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Name = (): JSX.Element => {
+    const [displayError, setDisplayError] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector(getLoggedInUser);
     const [fullName, setFullName] = useState(user?.fullName);
     const handleClick = () => {
-        dispatch(updateUser({ fullName }));
-        navigate("/user/dob");
+        if(fullName && fullName !== ""){
+            dispatch(updateUser({ fullName }));
+            navigate("/user/dob");
+            return;
+        }
+        setDisplayError(true);
+    };
+    const handleError = (open: any) => {
+        setDisplayError(false);
     };
     return (
         <Layout
@@ -39,6 +47,17 @@ const Name = (): JSX.Element => {
                         {" "}
                         Continue
                     </Button>
+
+                    <Snackbar
+                        open={displayError}
+                        autoHideDuration={2000}
+                        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                        onClose={handleError}
+                    >
+                        <Alert severity="error" sx={{ width: "100%" }}>
+                            Name is required for display
+                        </Alert>
+                    </Snackbar>
                 </Container>
             </Boxed>
         </Layout>
