@@ -85,6 +85,14 @@ const Login = (): JSX.Element => {
                                 {authType} with number
                             </Button>
 
+                            <Button
+                                variant="text"
+                                startIcon={<LocalPhoneIcon color="secondary" />}
+                                onClick={() => handleClick("anonymous")}
+                            >
+                                {authType} as guest
+                            </Button>
+
                             <Typography variant="subtitle2" color="white" textAlign="center">
                                 Don’t have account?{" "}
                                 <strong>

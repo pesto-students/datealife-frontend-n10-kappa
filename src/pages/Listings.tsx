@@ -77,7 +77,7 @@ const Listing = (): JSX.Element => {
     const onSubmit = () => {
         dispatch(
             updateUserListingRequest({
-                userId: user.uid || "",
+                userId: selectedUser.uid || "",
                 listingType: "invites",
                 selectedUser,
                 invitationInfo: {
@@ -88,12 +88,23 @@ const Listing = (): JSX.Element => {
             })
         );
 
-        user.emailId &&
+        selectedUser.emailId &&
             dispatch(
                 sendEmail({
-                    toUser: user.emailId,
+                    toUser: selectedUser.emailId as string,
                     message: {
-                        html: `you have an invitaion for ${bookingType?.title} on ${newDate}`,
+                        html: `
+                        <div>
+                            <p>Hi <strong>${selectedUser.fullName}</strong>,</p>
+                            <p>
+                                You have an invitaion for
+                                <strong>${bookingType?.title}</strong> on
+                                <strong>${newDate}</strong> from
+                                <strong>${user.fullName}</strong>.
+                            </p>
+                            <div>Thank You</div>
+                            <strong>Team Date A Life</strong>
+                        </div>`,
                         subject: "Meetup Invitation",
                     },
                 })

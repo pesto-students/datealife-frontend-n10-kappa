@@ -144,7 +144,8 @@ function* updateUserListingSaga({ payload }: UpdateUserListingRequest) {
         const response: AxiosResponse<{ res: any; isAMatch: boolean }> = yield call(postUserListingApi, payload);
 
         const { res: updatedData, isAMatch } = response.data;
-        const { userId, listingType } = payload;
+        const { userId, selectedUser } = payload;
+        const { listingType } = payload;
 
         if (!updatedData) {
             throw new Error(`Not able to update user listings for ${userId} user`);
@@ -154,7 +155,7 @@ function* updateUserListingSaga({ payload }: UpdateUserListingRequest) {
             const loggedInUser: UserInfo = yield select(getLoggedInUser);
             yield put(
                 sendEmail({
-                    toUser: updatedData.emailId,
+                    toUser: updatedData.emailId as string,
                     message: {
                         html: `You have a match with ${loggedInUser.fullName}`,
                         subject: "Match Notification",
@@ -165,13 +166,15 @@ function* updateUserListingSaga({ payload }: UpdateUserListingRequest) {
 
         yield put(updateIsAMatch(isAMatch));
 
-        yield put(
-            updateListing({
-                listingType: isAMatch ? "matches" : listingType,
-                updatedData,
-                loading: false,
-            })
-        );
+        if (listingType !== "invites") {
+            yield put(
+                updateListing({
+                    listingType: isAMatch ? "matches" : listingType,
+                    updatedData,
+                    loading: false,
+                })
+            );
+        }
         if (listingType === "likes" || listingType === "dislikes") yield put(saveCurrentSuggestion());
     } catch (e: any) {
         yield put(
