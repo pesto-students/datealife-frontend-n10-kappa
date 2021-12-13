@@ -35,9 +35,11 @@ export const useCreateChatUser = async (user: UserInfo): Promise<string> => {
         const createUser = new CometChat.User(user?.uid);
 
         createUser.setName(user?.fullName || "");
-        await CometChat.createUser(createUser, AUTH_KEY).then(() => {
-            CometChat.login(user?.uid, AUTH_KEY).then((user: CometChat.User) => {});
-        });
+        await CometChat.createUser(createUser, AUTH_KEY)
+            .then(() => {
+                CometChat.login(user?.uid, AUTH_KEY).then((user: CometChat.User) => {});
+            })
+            .catch(() => {});
         return "user creation successfull";
     }
     return "userId is empty";
