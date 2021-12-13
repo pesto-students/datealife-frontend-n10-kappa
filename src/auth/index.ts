@@ -7,6 +7,7 @@ import {
     signInWithPhoneNumber,
     RecaptchaVerifier,
     connectAuthEmulator,
+    signInAnonymously
 } from "firebase/auth";
 
 import { firebaseApp } from "../firebase.config";
@@ -31,11 +32,17 @@ export interface ThirdPartyUser extends UserInfo {
 export const thirdPartySignin = async (type: string, isExistingUser: boolean): Promise<ThirdPartyUser> => {
     try {
         const auth = getAuth(firebaseApp);
-        const provider = type === "google" ? new GoogleAuthProvider() : new FacebookAuthProvider();
+        let provider;
         let { currentUser } = auth;
-        if (!currentUser || !isExistingUser) {
-            const { user } = await signInWithPopup(auth, provider);
-            currentUser = user;
+        if(type !== "anonymous"){
+            provider = type === "google" ? new GoogleAuthProvider() : new FacebookAuthProvider();
+            if (!currentUser || !isExistingUser) {
+                const { user } = await signInWithPopup(auth, provider);
+                currentUser = user;
+            }
+        } else {
+            const user = await signInAnonymously(auth);
+            currentUser = user.user;
         }
         return {
             fullName: currentUser?.displayName as string,
