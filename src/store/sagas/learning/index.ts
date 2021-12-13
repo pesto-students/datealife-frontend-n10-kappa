@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { API_BASE_URL } from "../../../const";
 import { saveLearnings, saveCurrentLearning } from "../../reducers/learnings";
+import { updateLoading } from "../../reducers/user";
 import { fetchLearningFailure, fetchLearningListFailure } from "./actions";
 import { FETCH_LEARNING_LIST_REQUEST, FETCH_LEARNING_REQUEST } from "./actionTypes";
 import { Learning, FetchLearningRequest } from "./types";
@@ -19,6 +20,7 @@ function* fetchLearningListSaga() {
         yield put(
             saveLearnings({
                 learnings: learningData,
+                loading: false
             })
         );
     } catch (e: any) {
@@ -28,15 +30,18 @@ function* fetchLearningListSaga() {
             })
         );
     }
+    yield put(updateLoading(false));
 }
 
 function* fetchLearningSaga({ payload: { learningId } }: FetchLearningRequest) {
     try {
         const response: AxiosResponse<Learning> = yield call(getLearning, learningId);
         const learningData = response.data;
+        learningData.id = learningId;
         yield put(
             saveCurrentLearning({
-                learning: learningData
+                learning: learningData,
+                loading: false
             })
         );
     } catch (e: any) {
@@ -46,6 +51,7 @@ function* fetchLearningSaga({ payload: { learningId } }: FetchLearningRequest) {
             })
         );
     }
+    yield put(updateLoading(false));
 }
 
 /*

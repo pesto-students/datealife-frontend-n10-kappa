@@ -1,20 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import store from "./store";
 import { Provider } from "react-redux";
-import * as serviceWorker from "./serviceWorker";
-import { ThemeProvider as MUIThemeProvider } from "@mui/material/styles";
-import { ThemeProvider } from "styled-components";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import theme from "./theme";
 import { BrowserRouter as Router } from "react-router-dom";
-import DateAdapter from "@mui/lab/AdapterMoment";
 
+import { ThemeProvider } from "styled-components";
+import DateAdapter from "@mui/lab/AdapterMoment";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import { ThemeProvider as MUIThemeProvider } from "@mui/material/styles";
 import { CometChat } from "@cometchat-pro/chat";
-import { COMETCHAT_CONSTANTS } from "./third-party/comet-chat/consts";
+import * as Sentry from "@sentry/react";
+import { Integrations } from "@sentry/tracing";
+
+import App from "./App";
+import theme from "./theme";
+import store from "./store";
 import { ErrorBoundary } from "./components";
+import * as serviceWorker from "./serviceWorker";
+import { COMETCHAT_CONSTANTS } from "./const";
+import "./index.css";
 
 const appID = COMETCHAT_CONSTANTS.APP_ID;
 const region = COMETCHAT_CONSTANTS.REGION;
@@ -25,17 +28,25 @@ CometChat.init(appID, appSetting).then(
         if (CometChat.setSource) {
             CometChat.setSource("ui-kit", "web", "reactjs");
         }
+        Sentry.init({
+            dsn: "https://be578d0d6d184fe9a635ec6957611a3c@o1088109.ingest.sentry.io/6102661",
+            integrations: [new Integrations.BrowserTracing()],
+
+            // We recommend adjusting this value in production, or using tracesSampler
+            // for finer control
+            tracesSampleRate: 1.0,
+        });
         ReactDOM.render(
             <React.StrictMode>
                 <Provider store={store}>
                     <LocalizationProvider dateAdapter={DateAdapter}>
                         <MUIThemeProvider theme={theme}>
                             <ThemeProvider theme={theme}>
-                                    <Router>
-                                        <ErrorBoundary>
-                                            <App />
-                                        </ErrorBoundary>
-                                    </Router>
+                                <Router>
+                                    <ErrorBoundary>
+                                        <App />
+                                    </ErrorBoundary>
+                                </Router>
                             </ThemeProvider>
                         </MUIThemeProvider>
                     </LocalizationProvider>

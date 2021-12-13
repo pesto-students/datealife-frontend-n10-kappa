@@ -28,14 +28,14 @@ const Layout = (props: LayoutProps): JSX.Element => {
         },
         {
             label: "Matches",
-            value: "/likes",
+            value: "/listing/likes",
             icon: <FavoriteBorderIcon />,
         },
         {
             label: "Chat",
             value: "/chatting",
             icon: <ForumOutlinedIcon />,
-        }
+        },
     ];
     const ProfileObj = {
         label: "Profile",
@@ -47,7 +47,7 @@ const Layout = (props: LayoutProps): JSX.Element => {
     };
     const calcDrawerWidth = (drawerWidth / 12) * 100;
     const headerWidth = hasDrawer ? 100 - calcDrawerWidth : 100;
-    if(isLoggedIn){
+    if (isLoggedIn) {
         NavigatorItems.push(ProfileObj);
     }
     return (

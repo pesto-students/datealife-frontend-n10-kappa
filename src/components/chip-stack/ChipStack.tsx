@@ -11,7 +11,7 @@ export interface ChipStackProps {
     userChips?: SelectedChipsType;
 }
 
-type ChipItem = {
+export type ChipItem = {
     label: string;
     value: string;
 };

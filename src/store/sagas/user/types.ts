@@ -4,6 +4,7 @@ import {
     CREATE_USER_REQUEST,
     UPDATE_USER_REQUEST,
     DELETE_USER_REQUEST,
+    SEND_EMAIL_REQUEST,
 } from "./actionTypes";
 
 export type UserInfo = {
@@ -19,7 +20,17 @@ export type UserInfo = {
     age?: string;
     bioData?: string;
     companyName?: string;
+    emailId?: string;
 };
+
+export interface SendEmailPayload {
+    toUser: string;
+    fromUser?: string;
+    message: {
+        html: string;
+        subject: string;
+    };
+}
 
 export interface FetchUserRequestPayload {
     userId: string;
@@ -56,6 +67,11 @@ export type UpdateUserRequest = {
 export type DeleteUserRequest = {
     type: typeof DELETE_USER_REQUEST;
     payload: DeleteUserRequestPayload;
+};
+
+export type SendEmailRequest = {
+    type: typeof SEND_EMAIL_REQUEST;
+    payload: SendEmailPayload;
 };
 
 export type UserActions = FetchUserRequest | FetchUserFailure | CreateUserRequest | UpdateUserRequest;
