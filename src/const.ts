@@ -46,9 +46,9 @@ export const LISTING_TABS = [
     },
 ];
 export const COMETCHAT_CONSTANTS = {
-    APP_ID: "19803798673aa8d2",
+    APP_ID: "199841cdb8ea703b",
     REGION: "us",
-    AUTH_KEY: "16e7f380945f65d33cb184dd2fc82a7b6acd9dda",
+    AUTH_KEY: "edba1aed180ff5fa4f5d76566d37fcabef0966dd",
 };
 export const API_BASE_URL =
     process.env.NODE_ENV !== "development"
