@@ -92,15 +92,6 @@ const Login = (): JSX.Element => {
                             >
                                 {authType} as guest
                             </Button>
-
-                            <Typography variant="subtitle2" color="white" textAlign="center">
-                                Don’t have account?{" "}
-                                <strong>
-                                    <Link to={authType === "login" ? "/signup" : "/login"} style={{ color: "white" }}>
-                                        {authType === "login" ? "Signup" : "Login"}
-                                    </Link>
-                                </strong>
-                            </Typography>
                         </Stack>
                     </Boxed>
                 </Stack>
