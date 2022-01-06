@@ -7,7 +7,7 @@ import {
     signInWithPhoneNumber,
     RecaptchaVerifier,
     connectAuthEmulator,
-    signInAnonymously
+    signInAnonymously,
 } from "firebase/auth";
 
 import { firebaseApp } from "../firebase.config";
@@ -34,7 +34,7 @@ export const thirdPartySignin = async (type: string, isExistingUser: boolean): P
         const auth = getAuth(firebaseApp);
         let provider;
         let { currentUser } = auth;
-        if(type !== "anonymous"){
+        if (type !== "anonymous") {
             provider = type === "google" ? new GoogleAuthProvider() : new FacebookAuthProvider();
             if (!currentUser || !isExistingUser) {
                 const { user } = await signInWithPopup(auth, provider);
