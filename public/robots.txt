@@ -1,0 +1,14 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+Disallow: */version
+Disallow: */node
+
+User-Agent: Googlebot
+Allow: /
+User-Agent: Googlebot-Mobile
+Allow: /
+User-Agent: Googlebot-Image
+Allow: /
+
+Sitemap: xml
