@@ -174,7 +174,7 @@ const EditProfile = (): JSX.Element => {
                                 <Grid container alignItems="center" justifyContent="space-between" mb={2}>
                                     <Grid item xs={10}>
                                         <Typography variant="h6" color="secondary">
-                                            INDENTIFY AS
+                                            IDENTIFY AS
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={2}>
